@@ -1,0 +1,27 @@
+<h1>Willkommen auf der Startseite</h1>
+
+<div>
+  <label>
+    Echo hinzufügen:
+    <input [(ngModel)]="createInput"/>
+    <button (click)="addEcho()">Speichern</button>
+  </label>
+  <label>
+    Echos filtern:
+    <input [ngModel]="filterInput()"
+           (ngModelChange)="filterInput.set($event)"/>
+    <button (click)="error()">error</button>
+  </label>
+</div>
+<div>
+  <h2>Echos:</h2>
+  <ul>
+  @for (echo of filteredEchos(); track echo._id) {
+    <li>
+      {{ echo.message }}
+    </li>
+  } @empty {
+    Keine Echos vorhanden
+  }
+  </ul>
+</div>
