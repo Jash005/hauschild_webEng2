@@ -1,5 +1,5 @@
 # Web-Eng Lecture Boilerplate
-Autor(en): Lukas Paffen
+Autor: Jasmin Hauschild
 
 ## FE builden
 1. `npm i`

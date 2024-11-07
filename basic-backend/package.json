@@ -8,7 +8,7 @@
     "dev": "nodemon"
   },
   "keywords": [],
-  "author": "Lukas Paffen",
+  "author": "Jasmin Hauschild",
   "license": "ISC",
   "dependencies": {
     "@seald-io/nedb": "^4.0.4",
