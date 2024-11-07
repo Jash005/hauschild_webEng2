@@ -1,18 +1,23 @@
 <h2>Registrieren</h2>
 
 <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
-  <label for="username">Username:</label>
-  <input id="username" type="text" formControlName="username" />
+  <mat-form-field appearance="fill">
+    <mat-label>Username</mat-label>
+    <input matInput id="username" type="text" formControlName="username" />
+  </mat-form-field>
   <br />
-  <label for="email">Email:</label>
-  <input id="email" type="text" formControlName="email" />
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input matInput id="email" type="text" formControlName="email" />
+  </mat-form-field>
   <br />
-  <label for="password">Password:</label>
-  <input id="password" type="password" formControlName="password" />
+  <mat-form-field appearance="fill">
+    <mat-label>Password</mat-label>
+    <input matInput id="password" type="password" formControlName="password" />
+  </mat-form-field>
   <br />
-  <label for="acceptTerms">Accept Terms:</label>
-  <input type="checkbox" formControlName="acceptTerms" />
+  <mat-checkbox formControlName="acceptTerms">Accept Terms</mat-checkbox>
   <br />
-  <button type="submit" [disabled]="registerForm.invalid">Submit!</button>
+  <button mat-raised-button type="submit" [disabled]="registerForm.invalid">Submit!</button>
 </form>
 
