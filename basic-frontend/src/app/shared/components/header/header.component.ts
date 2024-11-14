@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Signal } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -12,4 +13,5 @@ import { RouterLink } from '@angular/router';
 })
 export class HeaderComponent {
   username = localStorage.getItem('username');
+
 }

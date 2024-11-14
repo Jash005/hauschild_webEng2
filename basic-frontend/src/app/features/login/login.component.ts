@@ -1,4 +1,5 @@
 import { Component, signal, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
@@ -28,7 +29,7 @@ export class LoginComponent {
   loginForm: FormGroup;
   hide = signal(true);
 
-  constructor(private fb: FormBuilder, private apiService: ApiService) {
+  constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -47,7 +48,7 @@ export class LoginComponent {
         console.log('User erfolgreich eingeloggt', response);
         localStorage.setItem("username", this.loginForm.value.username);
         this._snackBar.open('User erfolgreich eingeloggt', 'x');
-
+        window.location.replace('/');
       } catch (error) {
         console.error('Fehler beim Login', error);
         this._snackBar.open('Fehler im Login', 'x', {duration: 2000});
