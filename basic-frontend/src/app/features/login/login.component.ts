@@ -1,11 +1,13 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from "../../shared/services/api.service";
+
 
 
 @Component({
@@ -16,12 +18,13 @@ import { ApiService } from "../../shared/services/api.service";
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  private _snackBar = inject(MatSnackBar);
   loginForm: FormGroup;
   hide = signal(true);
 
@@ -43,10 +46,11 @@ export class LoginComponent {
         const response = await this.apiService.loginUser(this.loginForm.value);
         console.log('User erfolgreich eingeloggt', response);
         localStorage.setItem("username", this.loginForm.value.username);
+        this._snackBar.open('User erfolgreich eingeloggt', 'x');
 
-        //TODO - status triger message hinzufügen (aus Prüfungsleistung 1)
       } catch (error) {
         console.error('Fehler beim Login', error);
+        this._snackBar.open('Fehler im Login', 'x', {duration: 2000});
       }
     }
   }
