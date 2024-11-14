@@ -6,6 +6,7 @@
   <div class="header-nav right">
     @if (username) {
       Hallo {{ username }}
+      <p>Logout</p> <!-- TODO -->
     } @else {
       <p routerLink="/login">Login</p>
     }

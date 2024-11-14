@@ -1,5 +1,6 @@
 import { Component, signal, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
@@ -20,6 +21,7 @@ import { ApiService } from "../../shared/services/api.service";
     MatButtonModule,
     MatIconModule,
     ReactiveFormsModule,
+    RouterLink
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
@@ -51,7 +53,7 @@ export class LoginComponent {
         window.location.replace('/');
       } catch (error) {
         console.error('Fehler beim Login', error);
-        this._snackBar.open('Fehler im Login', 'x', {duration: 2000});
+        this._snackBar.open('Username oder Passwort falsch', 'x', {duration: 2000});
       }
     }
   }

@@ -48,7 +48,7 @@ export class RegisterComponent {
         window.location.replace('/');
       } catch (error) {
         console.error('Fehler bei der Registrierung', error);
-        this._snackBar.open('Fehler bei der Registrierung', 'x', { duration: 2000 });
+        this._snackBar.open('Fehler bei der Registrierung (Username ist bereits vergeben)', 'x', { duration: 2000 });
       }
     }
   }
