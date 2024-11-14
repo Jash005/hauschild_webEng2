@@ -1,4 +1,5 @@
-import {echoDb} from './databases.js';
+import Datastore from '@seald-io/nedb';
+export const echoDb = new Datastore({ filename: './databases/echos.db', autoload: true });
 
 export function createEcho(message) {
     const currentTimestamp = new Date().toISOString();

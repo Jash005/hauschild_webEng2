@@ -1,13 +1,12 @@
-<p>login works!</p>
 <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
   <mat-form-field>
     <mat-label>Username</mat-label>
-    <input matInput>
+    <input matInput formControlName="username">
   </mat-form-field>
   <br />
   <mat-form-field>
     <mat-label>Enter your password</mat-label>
-    <input matInput [type]="hide() ? 'password' : 'text'" />
+    <input matInput [type]="hide() ? 'password' : 'text'" formControlName="password" />
     <button
       mat-icon-button
       matSuffix

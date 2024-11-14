@@ -10,14 +10,29 @@ export function addUser(user, callback) {
   return userDb.insert(user, callback);
 }
 
+export function findUserByUsername(username, callback) {
+  return userDb.findOne({ username: username }, callback);
+}
+
+export function verifyPassword(user, password) {
+  return callback(null, user.password === password);
+}
+// export function validateLogin(username, password) {
+//   if (username === userDb.findOne({ username: username }) && password === userDb.findOne({ password: password })) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
+
 // Funktion zum Überprüfen, ob ein Benutzer existiert
 export function isUserLogin(email, callback) {
   return userDb.findOne({ email: email }, callback);
 }
 
 // Funktion zum Validieren des Benutzer-Logins
-export function validateLogin(email, password, callback) {
-  return userDb.findOne({ email: email }, (err, user) => {
+export function validateLogin(username, password, callback) {
+  return userDb.findOne({ username: username }, (err, user) => {
     if (err || !user) {
       return callback(err || new Error('User not found'));
     }

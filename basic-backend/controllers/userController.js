@@ -1,52 +1,40 @@
 import express from 'express';
-import { addUser, isUserLogin, validateLogin, showUserProfile } from '../models/databases.js';
+import { addUser, validateLogin, showUserProfile } from '../models/databases.js';
 
 const router = express.Router();
 
-// Middleware für Basic Authentication
-async function basicAuth(req, res, next) {
-    const authHeader = req.headers['authorization'];
-    if (!authHeader) {
-      return res.status(401).send('Authorisierungs Header fehlt');
-    }
-  
-    const base64Credentials = authHeader.split(' ')[1];
-    const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
-    const [email, password] = credentials.split(':');
-  
-    await findUserByEmail(email, async (err, user) => {
-      if (err || !user) {
-        return res.status(401).send('Falsche E-Mail oder Passwort');
-      }
-  
-      await verifyPassword(user, password, (err, isMatch) => {
-        if (err || !isMatch) {
-          return res.status(401).send('Falsche E-Mail oder Passwort');
-        }
-  
-        req.user = user;
-        next();
-      });
-    });
-  }
-
 // Route für die Benutzerregistrierung
 router.post('/register', async (req, res) => {
-    console.log("HIER IN REGISTER");
+  console.log("HIER IN REGISTER");
   const user = req.body;
-  await addUser(user, (err, newUser) => {
+  addUser(user, (err, newUser) => {
     if (err) {
       return res.status(500).send(err);
     }
-    res.status(201).send(newUser);
+    res.status(201).json(newUser);
   });
 });
 
-// Route für den Benutzer-Login (nur zur Demonstration, Basic Auth wird normalerweise in Middleware verwendet)
-router.post('/login', basicAuth, (req, res) => {
-  res.status(200).send('Login erfolgreich');
+// Route für den Benutzer-Login
+router.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+  validateLogin(username, password, (err, user) => {
+    if (err || !user) {
+      return res.status(401).json({ error: 'Invalid username or password' });
+    }
+    res.status(200).json({ message: 'Login erfolgreich', user });
+  });
 });
 
-
+// Route zum Anzeigen des Benutzerprofils
+router.get('/profile', async (req, res) => {
+  const userId = req.query.userId;
+  showUserProfile(userId, (err, user) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.status(200).send(user);
+  });
+});
 
 export { router as userController };

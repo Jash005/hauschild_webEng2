@@ -1,13 +1,11 @@
 import { Component, signal } from '@angular/core';
-import { Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ApiService } from "../../shared/services/api.service";
 
 
 @Component({
@@ -27,9 +25,9 @@ export class LoginComponent {
   loginForm: FormGroup;
   hide = signal(true);
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private apiService: ApiService) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
@@ -39,9 +37,17 @@ export class LoginComponent {
     event.stopPropagation();
   }
 
-  submitForm() {
+  async submitForm(): Promise<void> {
     if (this.loginForm.valid) {
-      console.log('Login Successful', this.loginForm.value);
+      try {
+        const response = await this.apiService.loginUser(this.loginForm.value);
+        console.log('User erfolgreich eingeloggt', response);
+        localStorage.setItem("username", this.loginForm.value.username);
+
+        //TODO - status triger message hinzufügen (aus Prüfungsleistung 1)
+      } catch (error) {
+        console.error('Fehler beim Login', error);
+      }
     }
   }
 }
