@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -21,6 +22,7 @@ import { ApiService } from "../../shared/services/api.service";
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
+  private _snackBar = inject(MatSnackBar);
   registerForm: FormGroup;
 
   constructor(private fb: FormBuilder, private apiService: ApiService) {
@@ -41,8 +43,11 @@ export class RegisterComponent {
       try {
         const response = await this.apiService.registerUser(this.registerForm.value);
         console.log('User erfolgreich registriert', response);
+        this._snackBar.open('User erfolgreich registriert', 'x', { duration: 2000 });
+
       } catch (error) {
         console.error('Fehler bei der Registrierung', error);
+        this._snackBar.open('Fehler bei der Registrierung', 'x', { duration: 2000 });
       }
     }
   }
