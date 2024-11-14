@@ -2,7 +2,12 @@
   <div class="header-nav left">
     Links
   </div>
+
   <div class="header-nav right">
-    Rechts
+    @if (username) {
+      Hallo {{ username }}
+    } @else {
+      <p routerLink="/login">Login</p>
+    }
   </div>
 </div>
