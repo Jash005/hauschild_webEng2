@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ApiService } from "../../shared/services/api.service";
 
 @Component({
   selector: 'app-register',
@@ -22,7 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 export class RegisterComponent {
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private apiService: ApiService) {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -31,9 +32,18 @@ export class RegisterComponent {
     });
   }
 
-  submitForm() {
+  ngOnInit(): void {
+    // Initialisierungslogik, falls erforderlich
+  }
+
+  async submitForm(): Promise<void> {
     if (this.registerForm.valid) {
-      console.log('Form Submitted', this.registerForm.value);
+      try {
+        const response = await this.apiService.registerUser(this.registerForm.value);
+        console.log('User erfolgreich registriert', response);
+      } catch (error) {
+        console.error('Fehler bei der Registrierung', error);
+      }
     }
   }
 }

@@ -42,4 +42,21 @@ export class ApiService {
   async doError(): Promise<Echo> {
     return this.post<Echo>(`${this.BASE_URL}/echo`, {});
   }
+
+  async registerUser(user: any): Promise<any> {
+    const response = await fetch('http://localhost:3000/api/user/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to register user');
+    }
+
+    return response.json();
+  }
+
 }

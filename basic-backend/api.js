@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 
 import { echoController } from './controllers/echo.js';
+import { userController } from './controllers/userController.js';
 import { logRequest } from './util/logger.js';
 
 export const router = express.Router();
@@ -11,6 +12,7 @@ router.use(express.json());
 router.use(logRequest);
 
 router.use('/echo', echoController);
+router.use('/user', userController);
 
 router.use((req, res) => {
     res.status(404);
