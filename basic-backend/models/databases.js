@@ -26,12 +26,12 @@ export function verifyPassword(user, password) {
 // }
 
 // Funktion zum Überprüfen, ob ein Benutzer existiert
-export function isUserLogin(username, callback) {
+export function isUserExist(username, callback) {
   return userDb.findOne({ username: username }, callback);
 }
 
 // Funktion zum Überprüfen, ob ein Benutzername existiert
-export async function isUsernameExists(username) {
+export async function isUsernameExist(username) {
   if(await userDb.findOneAsync({ username: username })) {
     return true;
   } else {

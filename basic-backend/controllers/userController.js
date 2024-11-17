@@ -1,12 +1,12 @@
 import express from 'express';
-import { addUser, validateLogin, isUsernameExists, showUserProfile } from '../models/databases.js';
+import { addUser, validateLogin, isUsernameExist, showUserProfile } from '../models/databases.js';
 
 const router = express.Router();
 
 // Route für die Benutzerregistrierung
 router.post('/register', async (req, res) => {
   const user = req.body;
-  if(await isUsernameExists(user.username)) {
+  if(await isUsernameExist(user.username)) {
     return res.status(400).json({ error: 'Username existiert bereits' });
   }
   addUser(user, (err, newUser) => {
