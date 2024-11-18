@@ -36,19 +36,24 @@ export class RegisterComponent {
   }
 
   ngOnInit(): void {
-    // Initialisierungslogik, falls erforderlich
   }
 
+  //TODO - Passwort Validierung
   async submitForm(): Promise<void> {
     if (this.registerForm.valid) {
       try {
         const response = await this.apiService.registerUser(this.registerForm.value);
         console.log('User erfolgreich registriert', response);
-        this._snackBar.open('User erfolgreich registriert', 'x', { duration: 2000 });
+        localStorage.setItem('snackbarMessage', 'User erfolgreich registriert');
         window.location.replace('/');
       } catch (error) {
         console.error('Fehler bei der Registrierung', error);
         this._snackBar.open('Fehler bei der Registrierung (Username ist bereits vergeben)', 'x', { duration: 2000 });
+
+        const snackBarElement = document.querySelector(".mat-mdc-simple-snack-bar");
+        if (snackBarElement) {
+          (snackBarElement as HTMLElement).style.backgroundColor = '#f00';
+        }
       }
     }
   }

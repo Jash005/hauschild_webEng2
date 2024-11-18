@@ -49,11 +49,18 @@ export class LoginComponent {
         const response = await this.apiService.loginUser(this.loginForm.value);
         console.log('User erfolgreich eingeloggt', response);
         localStorage.setItem("username", this.loginForm.value.username);
-        this._snackBar.open('User erfolgreich eingeloggt', 'x');
+        localStorage.setItem('snackbarMessage', 'User erfolgreich eingeloggt');
         window.location.replace('/');
       } catch (error) {
         console.error('Fehler beim Login', error);
-        this._snackBar.open('Username oder Passwort falsch', 'x', {duration: 2000});
+        this._snackBar.open('Username oder Passwort falsch', 'x', {
+          duration: 151551500
+        });
+
+        const snackBarElement = document.querySelector(".mat-mdc-simple-snack-bar");
+        if (snackBarElement) {
+          (snackBarElement as HTMLElement).style.backgroundColor = '#f00';
+        }
       }
     }
   }
