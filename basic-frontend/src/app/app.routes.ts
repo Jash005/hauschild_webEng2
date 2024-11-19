@@ -4,6 +4,7 @@ import {PageNotFoundComponent} from './features/page-not-found/page-not-found.co
 //NOTE - Hier Import von neuen Routen hinzufügen
 import {RegisterComponent} from './features/register/register.component';
 import {LoginComponent} from './features/login/login.component';
+import {UserprofilComponent} from './features/userprofil/userprofil.component';
 
 export const routes: Routes = [
   {
@@ -18,6 +19,10 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'userprofil',
+    component: UserprofilComponent
   },
   {
     path: '404',
