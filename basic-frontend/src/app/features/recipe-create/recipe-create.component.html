@@ -1,1 +1,24 @@
 <p>recipe-create works!</p>
+<h4>Erstelle ein Rezept</h4>
+
+
+<!-- <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()"> -->
+  <form >
+  <div class="form-group">
+    <label for="title">Titel</label>
+    <input type="text" id="title" formControlName="title" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="description">Beschreibung</label>
+    <textarea id="description" formControlName="description" class="form-control"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="ingredients">Zutaten</label>
+    <textarea id="ingredients" formControlName="ingredients" class="form-control"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="instructions">Anleitung</label>
+    <textarea id="instructions" formControlName="instructions" class="form-control"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Rezept erstellen</button>
+</form>
