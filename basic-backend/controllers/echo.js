@@ -8,7 +8,7 @@ function validateEcho(req, res, next) {
         next();
     } else {
         res.status(400);
-        res.json({message: 'message is missing'});
+        res.json({message: 'Request Inhalt fehlt'});
     }
 }
 
@@ -31,7 +31,7 @@ router.put('/:echoId', validateEcho, async (req, res) => {
     const id = req.params['echoId'];
 
     if (!await getEcho(id)) {
-        return res.status(404).json({message: 'Echo not found'});
+        return res.status(404).json({message: 'Echo nicht gefunden'});
     }
 
     await updateEcho(id, message);
@@ -44,7 +44,7 @@ router.delete('/:echoId', async (req, res) => {
     const id = req.params['echoId'];
 
     if (!await getEcho(id)) {
-        return res.status(404).json({message: 'Echo not found'});
+        return res.status(404).json({message: 'Echo nicht gefunden'});
     }
 
     await deleteEcho(id);

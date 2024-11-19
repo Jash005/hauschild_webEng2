@@ -17,7 +17,7 @@ router.use('/user', userController);
 
 router.use((req, res) => {
     res.status(404);
-    res.json({ message: 'Route does not exist' });
+    res.json({ message: 'Route existeirt nicht' });
 });
 
 export { router as apiRouter };
