@@ -1,7 +1,5 @@
-import { Component, ChangeDetectionStrategy, signal} from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { merge } from 'rxjs';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,54 +19,41 @@ import { Router } from '@angular/router';
     MatCheckboxModule,
     MatFormFieldModule
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
+  private _snackBar = inject(MatSnackBar);
   registerForm: FormGroup;
-  readonly username = new FormControl('', [Validators.required]);
-  readonly email = new FormControl('', [Validators.required, Validators.email]);
-  readonly password = new FormControl('', [Validators.required, Validators.minLength(6)]);
-  readonly acceptTerms = new FormControl('', [Validators.requiredTrue]);
-  errorMessage = signal('');
 
-  constructor(
-    private fb: FormBuilder,
-    private apiService: ApiService,
-    private router: Router,
-    private _snackBar: MatSnackBar,
-  ) {
+  constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       acceptTerms: [false, Validators.requiredTrue]
     });
-    merge(this.email.statusChanges, this.email.valueChanges)
-      .pipe(takeUntilDestroyed())
-      .subscribe(() => this.updateErrorMessage());
   }
 
-
-  updateErrorMessage() {
-    if (this.email.hasError('required')) {
-      this.errorMessage.set('dieses Feld ist erforderlich');
-    } else {
-      this.errorMessage.set('');
-    }
+  ngOnInit(): void {
   }
 
+  //TODO - Passwort Validierung
   async submitForm(): Promise<void> {
     if (this.registerForm.valid) {
       try {
         const response = await this.apiService.registerUser(this.registerForm.value);
         console.log('User erfolgreich registriert', response);
-        this._snackBar.open('User erfolgreich registriert', 'x', { duration: 2000 });
-        this.router.navigate(['/']);
+        localStorage.setItem('snackbarMessage', 'User erfolgreich registriert');
+        window.location.replace('/');
       } catch (error) {
         console.error('Fehler bei der Registrierung', error);
-        this._snackBar.open('Fehler bei der Registrierung', 'x', { duration: 2000 });
+        this._snackBar.open('Fehler bei der Registrierung (Username ist bereits vergeben)', 'x', { duration: 2000 });
+
+        const snackBarElement = document.querySelector(".mat-mdc-snackbar-surface");
+        if (snackBarElement) {
+          (snackBarElement as HTMLElement).style.backgroundColor = '#f00';
+        }
       }
     }
   }
