@@ -3,13 +3,10 @@
     Links
   </div>
 
-  <div class="header-nav center">
-    <p routerLink="/userprofil">Zum Profil</p>
-  </div>
-
   <div class="header-nav right">
     @if (username) {
       Hallo {{ username }}
+      <span routerLink="/userprofil">Zum Profil</span>
       <span (click)="logout()">Logout</span>
     } @else {
       <p routerLink="/login">Login</p>

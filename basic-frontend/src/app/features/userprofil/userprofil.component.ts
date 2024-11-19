@@ -8,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './userprofil.component.css'
 })
 export class UserprofilComponent {
+  username = localStorage.getItem('username');
+
 
 }
