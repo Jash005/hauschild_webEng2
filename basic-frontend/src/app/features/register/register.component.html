@@ -3,20 +3,32 @@
 <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
   <mat-form-field appearance="fill">
     <mat-label>Username</mat-label>
-    <input matInput id="username" type="text" formControlName="username" />
+    <input matInput id="username" type="text" formControlName="username" (blur)="updateErrorMessage()" required />
+    @if (username.invalid) {
+      <mat-error>Username ist erforderlich</mat-error>
+    }
   </mat-form-field>
   <br />
   <mat-form-field appearance="fill">
     <mat-label>Email</mat-label>
-    <input matInput id="email" type="text" formControlName="email" />
+    <input matInput id="email" type="text" formControlName="email" (blur)="updateErrorMessage()" required/>
+    @if (email.invalid) {
+      <mat-error>dies ist keine gültige E-Mail Adresse</mat-error>
+    }
   </mat-form-field>
   <br />
   <mat-form-field appearance="fill">
     <mat-label>Password</mat-label>
-    <input matInput id="password" type="password" formControlName="password" />
+    <input matInput id="password" type="password" formControlName="password" (blur)="updateErrorMessage()" />
+    @if (password.invalid) {
+      <mat-error>Password muss mindestens 6 Zeichen lang sein</mat-error>
+    }
   </mat-form-field>
   <br />
-  <mat-checkbox formControlName="acceptTerms">Accept Terms</mat-checkbox>
+  <mat-checkbox formControlName="acceptTerms" (blur)="updateErrorMessage()">Hiermit bestätige ich ...</mat-checkbox>
+  @if (acceptTerms.invalid) {
+    <mat-error>das muss bestätigt werden</mat-error>
+  }
   <br />
   <button mat-raised-button type="submit" [disabled]="registerForm.invalid">Submit!</button>
 </form>
