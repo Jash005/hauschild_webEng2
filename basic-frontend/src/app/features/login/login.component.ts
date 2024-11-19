@@ -54,10 +54,10 @@ export class LoginComponent {
       } catch (error) {
         console.error('Fehler beim Login', error);
         this._snackBar.open('Username oder Passwort falsch', 'x', {
-          duration: 151551500
+          duration: 2000
         });
 
-        const snackBarElement = document.querySelector(".mat-mdc-simple-snack-bar");
+        const snackBarElement = document.querySelector(".mat-mdc-snackbar-surface");
         if (snackBarElement) {
           (snackBarElement as HTMLElement).style.backgroundColor = '#f00';
         }

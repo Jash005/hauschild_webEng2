@@ -50,7 +50,7 @@ export class RegisterComponent {
         console.error('Fehler bei der Registrierung', error);
         this._snackBar.open('Fehler bei der Registrierung (Username ist bereits vergeben)', 'x', { duration: 2000 });
 
-        const snackBarElement = document.querySelector(".mat-mdc-simple-snack-bar");
+        const snackBarElement = document.querySelector(".mat-mdc-snackbar-surface");
         if (snackBarElement) {
           (snackBarElement as HTMLElement).style.backgroundColor = '#f00';
         }
