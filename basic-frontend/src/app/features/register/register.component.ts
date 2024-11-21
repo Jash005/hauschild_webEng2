@@ -28,9 +28,9 @@ export class RegisterComponent {
 
   constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {
     this.registerForm = this.fb.group({
-      username: ['', Validators.required],
+      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(12)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,20}$')]],
       acceptTerms: [false, Validators.requiredTrue]
     });
   }
@@ -38,7 +38,6 @@ export class RegisterComponent {
   ngOnInit(): void {
   }
 
-  //TODO - Passwort Validierung
   async submitForm(): Promise<void> {
     if (this.registerForm.valid) {
       try {
@@ -48,7 +47,11 @@ export class RegisterComponent {
         window.location.replace('/');
       } catch (error) {
         console.error('Fehler bei der Registrierung', error);
-        this._snackBar.open('Fehler bei der Registrierung (Username ist bereits vergeben)', 'x', { duration: 2000 });
+
+        console.log('error', error);
+        console.log('error.message', (error as any).message);
+        const errorMessage = (error as any).message || 'Fehler bei der Registrierung';
+        this._snackBar.open(errorMessage, 'x', { duration: 2000 });
 
         const snackBarElement = document.querySelector(".mat-mdc-snackbar-surface");
         if (snackBarElement) {

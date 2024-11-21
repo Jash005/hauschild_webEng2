@@ -28,9 +28,10 @@ export class ApiService {
 
     const response = await fetch(apiUrl, fetchOptions);
     if (!response.ok) {
-      const errorText = await response.text();
+      const errorText = await response.json();
+
       console.error('Fehler beim API Aufruf:', response.status, errorText);
-      throw new Error(errorText);
+      throw new Error(errorText.error);
     }
     return response.json();
   }

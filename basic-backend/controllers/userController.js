@@ -15,12 +15,12 @@ router.post("/register", async (req, res) => {
   if (await isUsernameExist(user.username)) {
     return res.status(400).json({ error: "Username existiert bereits" });
   }
-  if (user.username.length <= 3 || user.username.length >= 12) {
+  if (user.username.length < 3 || user.username.length > 12) {
     return res
       .status(400)
       .json({ error: "Username ist nicht zwischen 3 und 12 Zeichen lang" });
   }
-  if (user.password.length <= 6 || user.password.length >= 20) {
+  if (user.password.length < 6 || user.password.length > 20) {
     return res
       .status(400)
       .json({ error: "Passwort ist nicht zwischen 6 und 20 Zeichen lang" });
