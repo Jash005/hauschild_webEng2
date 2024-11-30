@@ -9,6 +9,15 @@ import { Component } from '@angular/core';
 })
 export class UserprofilComponent {
   username = localStorage.getItem('username');
+  recipes = localStorage.getItem('recipes');
+  comments = localStorage.getItem('comments');
 
+  constructor() { }
 
+  viewRecipe() {
+    this.recipes = localStorage.getItem('recipes');
+  }
+  viewRecipeWithComments() {
+    this.comments = localStorage.getItem('comments');
+  }
 }
