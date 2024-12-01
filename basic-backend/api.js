@@ -13,6 +13,8 @@ router.use(logRequest);
 
 router.use('/echo', echoController);
 router.use('/user', userController);
+router.use('/recipe', recipeViewController);
+router.use('/createRecipe', createRecipeController);
 //TODO - Add your routes here
 
 router.use((req, res) => {

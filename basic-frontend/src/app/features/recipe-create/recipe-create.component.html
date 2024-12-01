@@ -1,24 +1,45 @@
-<p>recipe-create works!</p>
-<h4>Erstelle ein Rezept</h4>
+<h2>Erstelle ein Rezept</h2>
 
+<form [formGroup]="recipeForm" (ngSubmit)="submitForm()">
+    <mat-form-field appearance="fill">
+      <mat-label>Titel</mat-label>
+      <input matInput id="recipeTitle" type="text" formControlName="recipeTitle" />
+    </mat-form-field>
+    <br />
 
-<!-- <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()"> -->
-  <form >
-  <div class="form-group">
-    <label for="title">Titel</label>
-    <input type="text" id="title" formControlName="title" class="form-control">
-  </div>
-  <div class="form-group">
-    <label for="description">Beschreibung</label>
-    <textarea id="description" formControlName="description" class="form-control"></textarea>
-  </div>
-  <div class="form-group">
-    <label for="ingredients">Zutaten</label>
-    <textarea id="ingredients" formControlName="ingredients" class="form-control"></textarea>
-  </div>
-  <div class="form-group">
-    <label for="instructions">Anleitung</label>
-    <textarea id="instructions" formControlName="instructions" class="form-control"></textarea>
-  </div>
-  <button type="submit" class="btn btn-primary">Rezept erstellen</button>
+    <mat-form-field appearance="fill">
+      <mat-label>Beschreibung</mat-label>
+      <textarea matInput id="recipeDescription" type="text" formControlName="recipeDescription"> </textarea>
+    </mat-form-field>
+    <br />
+
+    Zutaten:
+    <!-- //TODO inhalt der inputfelder anpassen -->
+    @for (zutat of ingredients; track $index) {
+      @if ($index < 15) {
+        <mat-form-field appearance="fill">
+          <mat-label>Element</mat-label>
+          <span matTextPrefix>{{$index+1}} &nbsp;</span>
+          <input value="Sushi" matInput id="recipeIngredient_{{$index}}" class="recipeIngredients" type="text" formControlName="recipeIngredients" />
+          @if (recipeIngredients.value) {
+            <span matSuffix>
+              <mat-icon (click)="addIngredient()">add_circle</mat-icon>
+            </span>
+          }
+        </mat-form-field>
+      } @else {
+        <p>Maximale Anzahl an Zutaten erreicht</p>
+
+      }
+    }
+
+    <br />
+
+    <mat-form-field appearance="fill">
+      <mat-label>Anleitung</mat-label>
+      <textarea matInput id="recipeInstruction" type="text" formControlName="recipeInstruction"> </textarea>
+    </mat-form-field>
+    <br />
+
+  <button mat-raised-button type="submit" [disabled]="recipeForm.invalid">Rezept erstellen</button>
 </form>
