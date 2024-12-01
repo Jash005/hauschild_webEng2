@@ -55,8 +55,9 @@ export function showUserProfile(userId, callback) {
   return userDb.findOne({ _id: userId }, callback);
 }
 
+//NOTE: no Check 
 // Funktion zum Hinzufügen eines Kommentars zu einem Rezept
-export function addComment(recipeId, comment, callback) {
+export function addCommentToRecipe(recipeId, comment, callback) {
   comment.commentId = new Date().getTime().toString(); // Generiere eine eindeutige ID für den Kommentar
   comment.createdAt = new Date().toISOString();
   return recipeDb.update(
@@ -67,13 +68,15 @@ export function addComment(recipeId, comment, callback) {
   );
 }
 
+//NOTE: no Check 
 // Funktion zum Erstellen eines neuen Rezepts
-export function createRecipe(recipe, callback) {
+export function addRecipe(recipe, callback) {
   recipe.createdAt = new Date().toISOString();
   recipe.updatedAt = new Date().toISOString();
   return recipeDb.insert(recipe, callback);
 }
 
+//NOTE: no Check 
 // Funktion zum Bearbeiten eines Rezepts
 export function editRecipe(recipeId, updatedRecipe, callback) {
   updatedRecipe.updatedAt = new Date().toISOString();
@@ -85,11 +88,13 @@ export function editRecipe(recipeId, updatedRecipe, callback) {
   );
 }
 
+//NOTE: no Check 
 // Funktion zum Löschen eines Rezepts
 export function deleteRecipe(recipeId, callback) {
   return recipeDb.remove({ _id: recipeId }, {}, callback);
 }
 
+//NOTE: no Check 
 // Funktion zum Finden eines Rezepts nach ID
 export function findRecipeById(recipeId, callback) {
   return recipeDb.findOne({ _id: recipeId }, callback);

@@ -3,6 +3,7 @@ import cors from 'cors';
 
 import { echoController } from './controllers/echo.js';
 import { userController } from './controllers/userController.js';
+import { recipeController } from './controllers/recipeController.js';
 import { logRequest } from './util/logger.js';
 
 export const router = express.Router();
@@ -13,8 +14,7 @@ router.use(logRequest);
 
 router.use('/echo', echoController);
 router.use('/user', userController);
-router.use('/recipe', recipeViewController);
-router.use('/createRecipe', createRecipeController);
+router.use('/recipe', recipeController);
 //TODO - Add your routes here
 
 router.use((req, res) => {

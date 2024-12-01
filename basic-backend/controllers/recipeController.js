@@ -1,8 +1,9 @@
 import express from 'express';
-import { addRecipe, addCommentToRecipe, findRecipeById } from '../models/recipe.js';
+import { addRecipe, addCommentToRecipe, findRecipeById } from '../models/databases.js';
 
 const router = express.Router();
 
+//NOTE: no Check 
 // Middleware für Basic Authentication
 function basicAuth(req, res, next) {
     const authHeader = req.headers['authorization'];
@@ -30,7 +31,7 @@ function basicAuth(req, res, next) {
     });
   }
 
-
+//NOTE: no Check 
 // Route zum Hinzufügen eines neuen Rezepts (geschützt durch Basic Auth)
 router.post('/recipes', basicAuth, async (req, res) => {
   const recipe = req.body;
@@ -42,6 +43,7 @@ router.post('/recipes', basicAuth, async (req, res) => {
   });
 });
 
+//NOTE: no Check 
 // Route zum Abrufen eines Rezepts nach ID
 router.get('/recipes/:id', async (req, res) => {
   const recipeId = req.params.id;
@@ -56,6 +58,7 @@ router.get('/recipes/:id', async (req, res) => {
   });
 });
 
+//NOTE: no Check 
 // Route zum Hinzufügen eines Kommentars zu einem Rezept (geschützt durch Basic Auth)
 router.post('/recipes/:id/comments', basicAuth, async (req, res) => {
   const recipeId = req.params.id;
@@ -71,4 +74,4 @@ router.post('/recipes/:id/comments', basicAuth, async (req, res) => {
   });
 });
 
-export { router as userController };
+export { router as recipeController };
