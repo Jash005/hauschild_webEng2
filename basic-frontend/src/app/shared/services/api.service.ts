@@ -5,6 +5,9 @@ import { CreateEchoInput, Echo } from "../types/echo.type";
   providedIn: 'root'
 })
 export class ApiService {
+/* ====================================
+        API
+==================================== */
   private readonly BASE_URL = 'http://localhost:3000/api';
 
   private createAuthHeader(username: string, password: string): string {
@@ -36,6 +39,10 @@ export class ApiService {
     return response.json();
   }
 
+
+/* ====================================
+        User
+==================================== */
   async registerUser(user: any): Promise<any> {
     return this.getApiData('', `${this.BASE_URL}/user/register`, 'POST', user);
   }
@@ -44,6 +51,34 @@ export class ApiService {
     return this.getApiData('', `${this.BASE_URL}/user/login`, 'POST', user);
   }
 
+
+/* ====================================
+        Rezept
+==================================== */
+  async createRecipe(recipe: any): Promise<any> {
+    return this.getApiData('', `${this.BASE_URL}/recipe`, 'POST', recipe);
+  }
+
+  async getRecipes(): Promise<any> {
+    return this.getApiData('', `${this.BASE_URL}/recipe`, 'GET');
+  }
+
+  async getRecipeById(id: string): Promise<any> {
+    return this.getApiData('', `${this.BASE_URL}/recipe/${id}`, 'GET');
+  }
+
+  async updateRecipe(id: string, recipe: any): Promise<any> {
+    return this.getApiData('', `${this.BASE_URL}/recipe/${id}`, 'PUT', recipe);
+  }
+
+  async deleteRecipe(id: string): Promise<any> {
+    return this.getApiData('', `${this.BASE_URL}/recipe/${id}`, 'DELETE');
+  }
+
+
+/* ====================================
+        Echo
+==================================== */
   async doError(): Promise<Echo> {
     return this.getApiData('', `${this.BASE_URL}/echo`, 'POST');
   }
