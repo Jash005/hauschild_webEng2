@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -30,7 +30,7 @@ export class RecipeCreateComponent {
     this.recipeForm = this.fb.group({
       recipeTitle: ['', Validators.required],
       recipeDescription: ['', Validators.required],
-      recipeIngredients: this.fb.array([]),
+      recipeIngredients: this.fb.array([this.createIngredientField()]),
       recipeInstruction: ['', Validators.required]
     });
   }
@@ -38,56 +38,36 @@ export class RecipeCreateComponent {
   ngOnInit(): void {
   }
 
-// Getter for the tasks FormArray
-get recipeIngredients(): FormArray {
-  return this.recipeForm.get('tasks') as FormArray;
-}
-addIngredientsField(myName: string = '') {
-  const ingredientsGroup = this.fb.group({
-    ingredientItem: myName || '', // Default to an empty string
-  });
-  this.recipeIngredients.push(ingredientsGroup); // Add the task to the tasks array
-}
-removeIngredientField(index: number) {
-  this.recipeIngredients.removeAt(index);
-}
+  get recipeIngredients() {
+    return this.recipeForm.get('recipeIngredients') as FormArray;
+  }
+  createIngredientField(): FormControl {
+    return this.fb.control('');
+  }
+  addIngredientsField() {
+    this.recipeIngredients.push(this.createIngredientField());
+  }
+  removeIngredientField(index: number) {
+    this.recipeIngredients.removeAt(index);
+  }
 
-  // get recipeIngredients(): FormArray {
-  //   return this.recipeForm.get('recipeIngredients') as FormArray;
-  // }
-
-  // createIngredientField(): FormGroup {
-  //   return this.fb.group({
-  //     ingredient: ['', [Validators.required, Validators.minLength(2)]]
-  //   });
-  // }
-
-  // addIngredientField(): void {
-  //   if (this.recipeIngredients.length < 15) {
-  //     this.recipeIngredients.push(this.createIngredientField());
-  //   }
-  // }
-
-  // removeIngredientField(index: number): void {
-  //   if (this.recipeIngredients.length > 1) {
-  //     this.recipeIngredients.removeAt(index);
-  //   }
-  // }
-
-  // clearValue(index: number): void {
-  //   const ingredientControl = this.recipeIngredients.at(index).get('ingredient');
-  //   if (ingredientControl) {
-  //     ingredientControl.setValue('');
-  //   }
-  // }
+  prepareIngredientsArray(): void {
+    for (let i = 0; i < this.recipeForm.value.recipeIngredients.length; i++) {
+      let namePattern = 'ingName_'+i;
+      let inputElem = document.getElementById(namePattern) as HTMLInputElement;
+      if (inputElem.value != null) {
+        this.recipeForm.value.recipeIngredients[i] = inputElem.value;
+      }
+    }
+    this.recipeForm.value.recipeIngredients = this.recipeForm.value.recipeIngredients.filter((ingredient: string) => ingredient.trim() !== '');
+  }
 
   async submitForm(): Promise<void> {
     if (this.recipeForm.valid) {
+        this.prepareIngredientsArray();
+        console.log('rezeptZutaten: ' + this.recipeForm.value.recipeIngredients);
       try {
         const formValue = this.recipeForm.value;
-        // formValue.recipeIngredients = formValue.recipeIngredients
-        //   .map((ingredient: any) => ingredient.ingredient)
-        //   .filter((ingredient: string) => ingredient.trim() !== '');
 
         const response = await this.apiService.createRecipe(formValue);
         console.log('Rezept erfolgreich erstellt', response);
