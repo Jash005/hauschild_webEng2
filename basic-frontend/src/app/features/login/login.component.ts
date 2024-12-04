@@ -42,6 +42,11 @@ export class LoginComponent {
     this.hide.set(!this.hide());
     event.stopPropagation();
   }
+  private createAuthHeader(username: string, password: string): string {
+    const creds = `${username}:${password}`;
+    const encoded = btoa(creds);
+    return `Basic ${encoded}`;
+  }
 
   async submitForm(): Promise<void> {
     if (this.loginForm.valid) {
@@ -49,6 +54,7 @@ export class LoginComponent {
         const response = await this.apiService.loginUser(this.loginForm.value);
         console.log('User erfolgreich eingeloggt', response);
         localStorage.setItem("username", this.loginForm.value.username);
+        localStorage.setItem("authToken", this.createAuthHeader(this.loginForm.value.username, this.loginForm.value.password));
         localStorage.setItem('snackbarMessage', 'User erfolgreich eingeloggt');
         window.location.replace('/');
       } catch (error) {

@@ -17,6 +17,7 @@ export class HeaderComponent {
 
   logout() {
     localStorage.removeItem('username');
+    localStorage.removeItem('authToken');
     localStorage.setItem('snackbarMessage', 'User erfolgreich ausgeloggt');
     window.location.replace('/');
   }

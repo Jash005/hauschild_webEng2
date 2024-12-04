@@ -1,39 +1,60 @@
 import express from 'express';
-import { addRecipe, addCommentToRecipe, findRecipeById } from '../models/databases.js';
+import { addRecipe, addCommentToRecipe, findRecipeById, checkAuthHeader } from '../models/databases.js';
 
 const router = express.Router();
 
 //NOTE: no Check 
 // Middleware für Basic Authentication
 function basicAuth(req, res, next) {
-    const authHeader = req.headers['authorization'];
-    if (!authHeader) {
-      return res.status(401).send('Authorisierungs Header fehlt');
-    }
-  
-    const base64Credentials = authHeader.split(' ')[1];
-    const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
-    const [email, password] = credentials.split(':');
-  
-    userDb.findUserByEmail(email, (err, user) => {
-      if (err || !user) {
-        return res.status(401).send('Falsche E-Mail oder Passwort');
-      }
-  
-      userDb.verifyPassword(user, password, (err, isMatch) => {
-        if (err || !isMatch) {
-          return res.status(401).send('Falsche E-Mail oder Passwort');
-        }
-  
-        req.user = user;
+  if (req.headers['authorization']) {
+      //Autorisierungs-Header überprüfen
+      const authHeader = req.headers['authorization'];
+      const base64Credentials = authHeader.split(' ')[1];
+      const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
+      const [username, password] = credentials.split(':');
+      req.username = username;
+      req.password = password;
+
+      //suche in USerDB nach username und password
+      if(checkAuthHeader(username, password)){  
         next();
-      });
-    });
+      } else {  
+        res.status(401);
+        res.json({message: 'falscher Authorisierungs Header'});
+      } 
+
+
+  } else {
+      res.status(401);
+      res.json({message: 'Authorisierungs Header fehlt'});
+  }
+    // const authHeader = req.headers['authorization'];
+    // if (!authHeader) {
+    //   return res.status(401).send('Authorisierungs Header fehlt');
+    // }
+  
+    // const base64Credentials = authHeader.split(' ')[1];
+    // const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
+    // const [email, password] = credentials.split(':');
+  
+    // userDb.findUserByEmail(email, (err, user) => {
+    //   if (err || !user) {
+    //     return res.status(401).send('Falsche E-Mail oder Passwort');
+    //   }
+  
+    //   userDb.verifyPassword(user, password, (err, isMatch) => {
+    //     if (err || !isMatch) {
+    //       return res.status(401).send('Falsche E-Mail oder Passwort');
+    //     }
+  
+    //     req.user = user;
+    //     next();
+    //   });
+    // });
   }
 
-//NOTE: no Check 
 // Route zum Hinzufügen eines neuen Rezepts (geschützt durch Basic Auth)
-router.post('/recipes', basicAuth, async (req, res) => {
+router.post('/', basicAuth, async (req, res) => {
   const recipe = req.body;
   await addRecipe(recipe, (err, newRecipe) => {
     if (err) {
@@ -43,9 +64,11 @@ router.post('/recipes', basicAuth, async (req, res) => {
   });
 });
 
+
+
 //NOTE: no Check 
 // Route zum Abrufen eines Rezepts nach ID
-router.get('/recipes/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   const recipeId = req.params.id;
   await findRecipeById(recipeId, (err, recipe) => {
     if (err) {
@@ -60,7 +83,7 @@ router.get('/recipes/:id', async (req, res) => {
 
 //NOTE: no Check 
 // Route zum Hinzufügen eines Kommentars zu einem Rezept (geschützt durch Basic Auth)
-router.post('/recipes/:id/comments', basicAuth, async (req, res) => {
+router.post('/:id/comments', basicAuth, async (req, res) => {
   const recipeId = req.params.id;
   const comment = req.body;
   await addCommentToRecipe(recipeId, comment, (err, numUpdated) => {

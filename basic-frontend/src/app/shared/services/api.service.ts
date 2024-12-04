@@ -10,12 +10,6 @@ export class ApiService {
 ==================================== */
   private readonly BASE_URL = 'http://localhost:3000/api';
 
-  private createAuthHeader(username: string, password: string): string {
-    const creds = `${username}:${password}`;
-    const encoded = btoa(creds);
-    return `Basic ${encoded}`;
-  }
-
   private async getApiData<T>(authHeader: string, apiUrl: string, method: string, requestBody?: any): Promise<T> {
     const fetchOptions: RequestInit = {
       method: method,
@@ -56,7 +50,8 @@ export class ApiService {
         Rezept
 ==================================== */
   async createRecipe(recipe: any): Promise<any> {
-    return this.getApiData('', `${this.BASE_URL}/recipe`, 'POST', recipe);
+    let authHeader = localStorage.getItem('authToken') || '';
+    return this.getApiData(authHeader, `${this.BASE_URL}/recipe`, 'POST', recipe);
   }
 
   async getRecipes(): Promise<any> {
