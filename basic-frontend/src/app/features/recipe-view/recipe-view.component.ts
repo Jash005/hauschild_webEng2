@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ApiService } from '../../shared/services/api.service';
 import { DatePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { inject } from '@angular/core';
 import { MatTooltip } from '@angular/material/tooltip';
+import { NgModel, FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-recipe-view',
@@ -14,7 +14,8 @@ import { MatTooltip } from '@angular/material/tooltip';
     DatePipe,
     MatIconModule,
     MatButtonModule,
-    MatTooltip
+    MatTooltip,
+    FormsModule
   ],
   templateUrl: './recipe-view.component.html',
   styleUrl: './recipe-view.component.css'
@@ -32,6 +33,8 @@ export class RecipeViewComponent {
   createAt: Date = new Date();
   rating:number = 0;
   comments: { content: string, author: string, date: string }[] = [];
+  showCommentField: boolean = false;
+  newCommentContent: string = "";
 
   constructor(private ApiService: ApiService) { }
 
@@ -74,6 +77,7 @@ export class RecipeViewComponent {
     this.ApiService.updateRecipeRating(this.recipeId, this.rating);
   }
 
-
+  addComment(): void {
+  }
 
 }
