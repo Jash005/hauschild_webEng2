@@ -1,5 +1,5 @@
 import express from 'express';
-import { addRecipe, addCommentToRecipe, findRecipeById, checkAuthHeader } from '../models/databases.js';
+import { addRecipe, addCommentToRecipe, findRecipeById, checkAuthHeader, editRecipe } from '../models/databases.js';
 
 const router = express.Router();
 
@@ -61,6 +61,18 @@ router.post('/', basicAuth, async (req, res) => {
       return res.status(500).send(err);
     }
     res.status(201).send(newRecipe);
+  });
+});
+
+router.put('/:id',async (req, res) => {
+  const recipeId = req.params.id;
+  const recipe = req.body;
+  await editRecipe(recipeId, recipe, (err, numUpdated) => {
+    if (err) {
+      return res.status(500).send;
+    } else {
+      res.status(200).send('Rezept aktualisiert');
+    }
   });
 });
 

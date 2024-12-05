@@ -2,7 +2,26 @@
   <h2>{{ title }}</h2>
   <p>{{ author }}</p>
   <p>{{ createAt | date : 'mediumDate'}}</p>
-  <p>{{ rating }}</p>
+  <p>{{ rating }} Likes
+    <span>
+      @if (author === currentUser) {
+        <a mat-fab extended disabled>
+          <mat-icon>favorite</mat-icon>
+        </a>
+
+      } @else if (isLiked) {
+        <a mat-fab extended (click)="removeLike()">
+          <mat-icon>favorite</mat-icon> Like
+          </a>
+
+      } @else {
+        <a mat-fab extended (click)="addLike()">
+          <mat-icon>favorite</mat-icon> Like
+          </a>
+      }
+    </span>
+  </p>
+
   <p>{{ description }}</p>
 </section>
 
@@ -22,7 +41,7 @@
 
 <section id="comments">
   <h3>Kommentare</h3>
-  @if (comments) {
+  @if (comments.length > 0) {
     @for (comment of comments; track $index) {
       <div class="comment">
         <p>{{ comment.content }}</p>
@@ -31,6 +50,8 @@
         <p>{{ comment.date }}</p>
       </div>
     }
+  } @else {
+    <p>Es gibt noch keine Kommentare</p>
   }
 
 </section>
