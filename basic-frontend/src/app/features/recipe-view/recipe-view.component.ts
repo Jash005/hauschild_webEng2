@@ -24,15 +24,15 @@ export class RecipeViewComponent {
   private _snackBar = inject(MatSnackBar);
   currentUser: string = localStorage.getItem('username') || "Gast";
   isLiked: boolean = false;
-  recipeId: string = localStorage.getItem('recipeId') || "HkwJgJnCrVU67Mmw";
-  title:string = "";
+  recipeId: string = localStorage.getItem('recipeId') || "BcudOjYx2DEWavCL";
+  title: string = "";
   description: string = "";
   ingredients: string[] = [];
   instruction:string = "";
   author: string = "";
-  createAt: Date = new Date();
-  rating:number = 0;
-  comments: { content: string, author: string, date: string }[] = [];
+  createdAt: Date = new Date();
+  rating: number = 0;
+  comments: { content: string, author: string, createdAt: string }[] = [];
   showCommentField: boolean = false;
   newCommentContent: string = "";
 
@@ -54,18 +54,7 @@ export class RecipeViewComponent {
     });
   }
 
-  getStatusMessage(messageCase:string):void {
-    let messageText = "";
-    switch (messageCase) {
-      case "sameAsAuthor":
-        messageText = "Du kannst kannst dein eigenes Rezept nicht bewerten";
-        break;
-      case "noLogin":
-        messageText = "Du musst angemeldet sein um eine Bewertung abzugeben - <a routerLink='/login'>Login</a>";
-        break;
-    }
-    this._snackBar.open(messageText, '', { duration: 2000 });
-  }
+/* ----------- Ranking ----------- */
   addLike(): void {
     this.rating += 1;
     this.isLiked = true;
@@ -77,7 +66,30 @@ export class RecipeViewComponent {
     this.ApiService.updateRecipeRating(this.recipeId, this.rating);
   }
 
-  addComment(): void {
+  /* ----------- Comment -----------*/
+  async addComment(): Promise<void> {
+    this.comments.push({
+      content: this.newCommentContent,
+      author: this.currentUser,
+      createdAt: new Date().toISOString()
+    });
+    try {
+      const response = this.ApiService.addCommentToRecipe(this.recipeId, this.newCommentContent, this.currentUser);
+      console.log('Kommentar hinzugefügt', response);
+      this._snackBar.open('Kommentar hinzugefügt', 'x', { duration: 2000 });
+    } catch (error) {
+        console.error(error);
+
+        console.error('Fehler beim hinzufügen des Kommentars', error);
+        this._snackBar.open('Fehler beim hinzufügen des Kommentars', 'x', { duration: 2000 });
+
+        const snackBarElement = document.querySelector(".mat-mdc-snackbar-surface");
+        if (snackBarElement) {
+          (snackBarElement as HTMLElement).style.backgroundColor = '#f00';
+        }
+    }
+    this.showCommentField = false;
+    this.newCommentContent = "";
   }
 
 }

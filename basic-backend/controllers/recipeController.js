@@ -3,7 +3,6 @@ import { addRecipe, addCommentToRecipe, findRecipeById, checkAuthHeader, editRec
 
 const router = express.Router();
 
-//NOTE: no Check 
 // Middleware für Basic Authentication
 function basicAuth(req, res, next) {
   if (req.headers['authorization']) {
@@ -15,7 +14,7 @@ function basicAuth(req, res, next) {
       req.username = username;
       req.password = password;
 
-      //suche in USerDB nach username und password
+      //suche in UserDB nach username und password
       if(checkAuthHeader(username, password)){  
         next();
       } else {  
@@ -23,35 +22,11 @@ function basicAuth(req, res, next) {
         res.json({message: 'falscher Authorisierungs Header'});
       } 
 
-
   } else {
       res.status(401);
       res.json({message: 'Authorisierungs Header fehlt'});
   }
-    // const authHeader = req.headers['authorization'];
-    // if (!authHeader) {
-    //   return res.status(401).send('Authorisierungs Header fehlt');
-    // }
-  
-    // const base64Credentials = authHeader.split(' ')[1];
-    // const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
-    // const [email, password] = credentials.split(':');
-  
-    // userDb.findUserByEmail(email, (err, user) => {
-    //   if (err || !user) {
-    //     return res.status(401).send('Falsche E-Mail oder Passwort');
-    //   }
-  
-    //   userDb.verifyPassword(user, password, (err, isMatch) => {
-    //     if (err || !isMatch) {
-    //       return res.status(401).send('Falsche E-Mail oder Passwort');
-    //     }
-  
-    //     req.user = user;
-    //     next();
-    //   });
-    // });
-  }
+}
 
 // Route zum Hinzufügen eines neuen Rezepts (geschützt durch Basic Auth)
 router.post('/', basicAuth, async (req, res) => {
@@ -71,11 +46,10 @@ router.put('/:id',async (req, res) => {
     if (err) {
       return res.status(500).send;
     } else {
-      res.status(200).send('Rezept aktualisiert');
+      return res.status(200).send('Rezept aktualisiert');
     }
   });
 });
-
 
 
 //NOTE: no Check 
@@ -93,12 +67,13 @@ router.get('/:id', async (req, res) => {
   });
 });
 
-//NOTE: no Check 
+
 // Route zum Hinzufügen eines Kommentars zu einem Rezept (geschützt durch Basic Auth)
-router.post('/:id/comments', basicAuth, async (req, res) => {
+router.put('/:id/comments', basicAuth, async (req, res) => {
   const recipeId = req.params.id;
   const comment = req.body;
-  await addCommentToRecipe(recipeId, comment, (err, numUpdated) => {
+  const author = req.author;
+  await addCommentToRecipe(recipeId, comment, author, (err, numUpdated) => {
     if (err) {
       return res.status(500).send(err);
     }

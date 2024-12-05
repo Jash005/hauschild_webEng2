@@ -1,7 +1,7 @@
 <section id="headline">
   <h2>{{ title }}</h2>
   <p>{{ author }}</p>
-  <p>{{ createAt | date : 'mediumDate'}}</p>
+  <p>{{ createdAt | date : 'mediumDate'}}</p>
   <p>{{ rating }} Likes
     <span>
       @if (currentUser === "Gast" || currentUser === "") {
@@ -53,7 +53,7 @@
         <p>{{ comment.content }}</p>
         <p>{{ comment.author }}</p>
         <!-- //TODO - Alter in Tagen hier ausrechnen aus dem Erstelldatum -->
-        <p>{{ comment.date }}</p>
+        <p>{{ comment.createdAt | date: 'mediumDate' }}</p>
       </div>
     }
   } @else {

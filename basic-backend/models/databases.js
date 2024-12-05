@@ -17,13 +17,6 @@ export function findUserByUsername(username, callback) {
 export function verifyPassword(user, password) {
   return callback(null, user.password === password);
 }
-// export function validateLogin(username, password) {
-//   if (username === userDb.findOne({ username: username }) && password === userDb.findOne({ password: password })) {
-//     return true;
-//   } else {
-//     return false;
-//   }
-// }
 
 // Funktion zum Überprüfen, ob ein Benutzer existiert
 export function isUserExist(username, callback) {
@@ -55,14 +48,23 @@ export function showUserProfile(userId, callback) {
   return userDb.findOne({ _id: userId }, callback);
 }
 
-//NOTE: no Check 
-// Funktion zum Hinzufügen eines Kommentars zu einem Rezept
-export function addCommentToRecipe(recipeId, comment, callback) {
-  comment.commentId = new Date().getTime().toString(); // Generiere eine eindeutige ID für den Kommentar
-  comment.createdAt = new Date().toISOString();
+// Add Comment to Recipe
+export function addCommentToRecipe(recipeId, commentContent, author, callback) {
+  const updatedComment = {
+    commentId: new Date().getTime().toString(), 
+    content: commentContent.content,
+    author: commentContent.author,
+    createdAt: new Date().toISOString()
+  };
+  
   return recipeDb.update(
     { _id: recipeId },
-    { $push: { comments: comment }, $set: { updatedAt: new Date().toISOString() } },
+    {
+      $push: {
+        comments: updatedComment
+      },
+      $set: { updatedAt: new Date().toISOString() }
+     },
     {},
     callback
   );

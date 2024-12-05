@@ -47,9 +47,6 @@ export class RegisterComponent {
         window.location.replace('/');
       } catch (error) {
         console.error('Fehler bei der Registrierung', error);
-
-        console.log('error', error);
-        console.log('error.message', (error as any).message);
         const errorMessage = (error as any).message || 'Fehler bei der Registrierung';
         this._snackBar.open(errorMessage, 'x', { duration: 2000 });
 

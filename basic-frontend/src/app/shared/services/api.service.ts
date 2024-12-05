@@ -70,6 +70,12 @@ export class ApiService {
     return this.getApiData('', `${this.BASE_URL}/recipe/${id}`, 'PUT', {rating: rating});
   }
 
+  async addCommentToRecipe(id: string, comment: string, author: string): Promise<any> {
+    let bodyToSend = {content: comment, author: author};
+    let authHeader = localStorage.getItem('authToken') || '';
+    return this.getApiData(authHeader, `${this.BASE_URL}/recipe/${id}/comments`, 'PUT', bodyToSend);
+  }
+
 
   async deleteRecipe(id: string): Promise<any> {
     return this.getApiData('', `${this.BASE_URL}/recipe/${id}`, 'DELETE');
