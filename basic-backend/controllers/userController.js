@@ -28,7 +28,7 @@ router.post("/register", async (req, res) => {
   if (! emailRegex.test(user.email)) {
     return res.status(400).json({ error: "es ist kein gültiges E-Mail Format" });
   }
-  if (user.terms !== true) {
+  if (user.acceptTerms !== true) {
     return res.status(400).json({ error: "Nutzungsbedingungen müssen akzeptiert sein" });
   }
   addUser(user, (err, newUser) => {
