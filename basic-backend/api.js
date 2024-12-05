@@ -19,7 +19,7 @@ router.use('/recipe', recipeController);
 
 router.use((req, res) => {
     res.status(404);
-    res.json({ message: 'Route existeirt nicht' });
+    res.json({ message: 'Route existiert nicht' });
 });
 
 export { router as apiRouter };
