@@ -20,6 +20,11 @@ router.post("/register", async (req, res) => {
       .status(400)
       .json({ error: "Username ist nicht zwischen 3 und 12 Zeichen lang" });
   }
+  if (user.username === "Gast" || user.username === "gast") {
+    return res
+      .status(400)
+      .json({ error: "Username darf aus technischen Gründen nicht 'Gast' sein" });
+  }
   if (user.password.length < 6 || user.password.length > 20) {
     return res
       .status(400)
