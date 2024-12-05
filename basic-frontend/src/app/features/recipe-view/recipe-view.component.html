@@ -1,1 +1,36 @@
-<p>recipe-view works!</p>
+<section id="headline">
+  <h2>{{ title }}</h2>
+  <p>{{ author }}</p>
+  <p>{{ createAt | date : 'mediumDate'}}</p>
+  <p>{{ rating }}</p>
+  <p>{{ description }}</p>
+</section>
+
+<section id="ingredient">
+  <h3>Zutaten</h3>
+  <ul>
+    @for (ingredient of ingredients; track $index) {
+      <li>{{ ingredient }}</li>
+    }
+  </ul>
+</section>
+
+<section id="instruction">
+  <h3>Anleitung</h3>
+  <p>{{ instruction }}</p>
+</section>
+
+<section id="comments">
+  <h3>Kommentare</h3>
+  @if (comments) {
+    @for (comment of comments; track $index) {
+      <div class="comment">
+        <p>{{ comment.content }}</p>
+        <p>{{ comment.author }}</p>
+        <!-- //TODO - Alter in Tagen hier ausrechnen aus dem Erstelldatum -->
+        <p>{{ comment.date }}</p>
+      </div>
+    }
+  }
+
+</section>
