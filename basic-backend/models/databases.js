@@ -74,7 +74,7 @@ export function addRecipe(recipe, callback) {
   recipe.createdAt = new Date().toISOString();
   recipe.updatedAt = new Date().toISOString();
   recipe.comments = [];
-  recipe.likes = 0;
+  recipe.rating = 0;
  // recipe.author = 'Anonym';
   return recipeDb.insert(recipe, callback);
 }
