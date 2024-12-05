@@ -3,8 +3,9 @@ import { ApiService } from '../../shared/services/api.service';
 import { DatePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-
-
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { inject } from '@angular/core';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-recipe-view',
@@ -12,13 +13,15 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [
     DatePipe,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTooltip
   ],
   templateUrl: './recipe-view.component.html',
   styleUrl: './recipe-view.component.css'
 })
 export class RecipeViewComponent {
-  currentUser: any = localStorage.getItem('currentUser') || null;
+  private _snackBar = inject(MatSnackBar);
+  currentUser: string = localStorage.getItem('username') || "Gast";
   isLiked: boolean = false;
   recipeId: string = localStorage.getItem('recipeId') || "HkwJgJnCrVU67Mmw";
   title:string = "";
@@ -42,11 +45,24 @@ export class RecipeViewComponent {
       this.description = recipe.recipeDescription;
       this.ingredients = recipe.recipeIngredients;
       this.instruction = recipe.recipeInstruction;
+      this.author = recipe.author;
       this.rating = recipe.rating;
       this.comments = recipe.comments;
     });
   }
 
+  getStatusMessage(messageCase:string):void {
+    let messageText = "";
+    switch (messageCase) {
+      case "sameAsAuthor":
+        messageText = "Du kannst kannst dein eigenes Rezept nicht bewerten";
+        break;
+      case "noLogin":
+        messageText = "Du musst angemeldet sein um eine Bewertung abzugeben - <a routerLink='/login'>Login</a>";
+        break;
+    }
+    this._snackBar.open(messageText, '', { duration: 2000 });
+  }
   addLike(): void {
     this.rating += 1;
     this.isLiked = true;
@@ -57,6 +73,7 @@ export class RecipeViewComponent {
     this.isLiked = false;
     this.ApiService.updateRecipeRating(this.recipeId, this.rating);
   }
+
 
 
 }

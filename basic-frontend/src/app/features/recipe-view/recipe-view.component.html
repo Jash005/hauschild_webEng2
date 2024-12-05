@@ -4,16 +4,22 @@
   <p>{{ createAt | date : 'mediumDate'}}</p>
   <p>{{ rating }} Likes
     <span>
-      @if (author === currentUser) {
-        <a mat-fab extended disabled>
+      @if (currentUser === "Gast" || currentUser === "") {
+        <a mat-fab extended disabled
+        disabledInteractive
+        matTooltip="Du musst angemeldet sein um eine Bewertung anzugeben">
           <mat-icon>favorite</mat-icon>
         </a>
-
+      } @else if(currentUser === author) {
+        <a mat-fab extended disabled
+        disabledInteractive
+        matTooltip="Du kannst dein eigenes Rezept nicht bewerten">
+          <mat-icon>favorite</mat-icon>
+        </a>
       } @else if (isLiked) {
         <a mat-fab extended (click)="removeLike()">
           <mat-icon>favorite</mat-icon> Like
           </a>
-
       } @else {
         <a mat-fab extended (click)="addLike()">
           <mat-icon>favorite</mat-icon> Like
