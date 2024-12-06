@@ -62,7 +62,7 @@ export class ApiService {
     return this.getApiData(authHeader, `${this.BASE_URL}/recipe`, 'POST', recipe);
   }
 
-  async getRecipes(): Promise<any> {
+  async getAllRecipes(): Promise<any> {
     return this.getApiData('', `${this.BASE_URL}/recipe`, 'GET');
   }
 
@@ -83,7 +83,6 @@ export class ApiService {
     let authHeader = localStorage.getItem('authToken') || '';
     return this.getApiData(authHeader, `${this.BASE_URL}/recipe/${id}/comments`, 'PUT', bodyToSend);
   }
-
 
   async deleteRecipe(id: string): Promise<any> {
     return this.getApiData('', `${this.BASE_URL}/recipe/${id}`, 'DELETE');

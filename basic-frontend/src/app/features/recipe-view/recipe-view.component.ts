@@ -7,6 +7,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltip } from '@angular/material/tooltip';
 import { NgModel, FormsModule } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-view',
@@ -26,7 +28,7 @@ export class RecipeViewComponent {
   private _snackBar = inject(MatSnackBar);
   currentUser: string = localStorage.getItem('username') || "Gast";
   isLiked: boolean = false;
-  recipeId: string = localStorage.getItem('recipeId') || "dTz8j1SJo9Jd5cg3";
+  recipeId: string = localStorage.getItem('recipeId') || "";
   title: string = "";
   category: string = "";
   description: string = "";
@@ -39,13 +41,24 @@ export class RecipeViewComponent {
   showCommentField: boolean = false;
   newCommentContent: string = "";
 
-  constructor(private ApiService: ApiService) { }
+  constructor(private route: ActivatedRoute, private ApiService: ApiService, private router: Router) { }
 
   ngOnInit(): void {
-    this.getRecipeData();
+    this.recipeId = this.route.snapshot.queryParamMap.get('selectedRecipe') || 'none';
+    if(this.recipeId !== 'none') {
+      this.getRecipeData();
+    } else {
+      this._snackBar.open('Rezept wurde nicht gefunden', 'x', { duration: 2000 });
+      const snackBarElement = document.querySelector(".mat-mdc-snackbar-surface");
+      if (snackBarElement) {
+        (snackBarElement as HTMLElement).style.backgroundColor = '#f00';
+      }
+      this.router.navigate(['/']);
+    }
   }
 
   getRecipeData(): void {
+    console.log('Recipe ID:', this.recipeId);
     this.ApiService.getRecipeById(this.recipeId).then((recipe: any) => {
       this.title = recipe.recipeTitle;
       this.category = recipe.recipeCategory;

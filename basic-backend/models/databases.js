@@ -3,6 +3,9 @@ import Datastore from '@seald-io/nedb';
 export const userDb = new Datastore({ filename: './databases/users.db', autoload: true });
 export const recipeDb = new Datastore({ filename: './databases/recipes.db', autoload: true });
 
+/* ====================================
+        User Database Functions
+==================================== */
 // Funktion zum Hinzufügen eines neuen Benutzers
 export function addUser(user, callback) {
   user.createdAt = new Date().toISOString();
@@ -53,6 +56,9 @@ export function showUserProfile(userId, callback) {
   return userDb.findOne({ _id: userId }, { username: 1, createdAt: 1 }, callback);
 }
 
+/* ====================================
+        Recipe Database Functions
+==================================== */
 // Add Comment to Recipe
 export function addCommentToRecipe(recipeId, commentContent, author, callback) {
   const updatedComment = {
@@ -75,19 +81,27 @@ export function addCommentToRecipe(recipeId, commentContent, author, callback) {
   );
 }
 
-//NOTE: no Check 
 // Funktion zum Erstellen eines neuen Rezepts
 export function addRecipe(recipe, callback) {
   recipe.createdAt = new Date().toISOString();
   recipe.updatedAt = new Date().toISOString();
   recipe.comments = [];
   recipe.rating = 0;
- // recipe.author = 'Anonym';
+  if (!recipe.recipeCategory) recipe.recipeCategory = 'Unkategorisiert';
+  
   return recipeDb.insert(recipe, callback);
 }
 export function checkAuthHeader(username, password) {
   return userDb.findOne({username: username, password: password});
 }
+
+
+// Funktion zum Aufrufen aller Rezepte nach Aktualisierungsdatum von Neu nach alt sortiert
+export function getAllRecipes(callback) {
+  return recipeDb.find({}, {author: 1, rating: 1, recipeCategory: 1, recipeDescription: 1, recipeTitle: 1, updatedAt: 1, _id: 1}).sort({ updatedAt: -1 }).exec(callback);
+}
+
+
 
 //NOTE: no Check 
 // Funktion zum Bearbeiten eines Rezepts

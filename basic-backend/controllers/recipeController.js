@@ -1,5 +1,5 @@
 import express from 'express';
-import { addRecipe, addCommentToRecipe, findRecipeById, checkAuthHeader, editRecipe } from '../models/databases.js';
+import { addRecipe, addCommentToRecipe, findRecipeById, checkAuthHeader, editRecipe, getAllRecipes } from '../models/databases.js';
 
 const router = express.Router();
 
@@ -51,8 +51,6 @@ router.put('/:id',async (req, res) => {
   });
 });
 
-
-//NOTE: no Check 
 // Route zum Abrufen eines Rezepts nach ID
 router.get('/:id', async (req, res) => {
   const recipeId = req.params.id;
@@ -65,6 +63,17 @@ router.get('/:id', async (req, res) => {
     }
     res.status(200).send(recipe);
   });
+});
+
+// Rezpte abrufen nach Aktualisierungsdatum
+router.get('/', async (req, res) => {
+  await getAllRecipes((err, recipes) => {
+    if (err) {
+      return res.status(500).send('Rezepte konnten nicht gefunden werden');
+    }
+    res.status(200).send(recipes);
+  }
+  );
 });
 
 

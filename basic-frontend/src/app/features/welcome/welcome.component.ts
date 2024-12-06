@@ -1,4 +1,4 @@
-
+import { DatePipe } from '@angular/common';
 import {Component, computed, inject, Input, OnInit, signal} from '@angular/core';
 import { ApiService } from "../../shared/services/api.service";
 import { NgModule } from '@angular/core';
@@ -8,7 +8,8 @@ import { RouterLink } from '@angular/router';
   selector: 'app-welcome',
   standalone: true,
   imports: [
-    RouterLink
+    RouterLink,
+    DatePipe
   ],
   templateUrl: './welcome.component.html',
   styleUrl: './welcome.component.css',
@@ -16,8 +17,14 @@ import { RouterLink } from '@angular/router';
 })
 export class WelcomeComponent implements OnInit {
   allUserArray: any[] = [];
+  allRecipeArray: any[] = [];
   username: string = "";
   userId: string = "";
+  recipeTitle: string = "";
+  recipeAuthor: string = "";
+  recipeDescription: string = "";
+  recipeCategory: string = "";
+  recipeRating: number = 0;
 
   constructor(private ApiService: ApiService) { }
 
@@ -27,16 +34,15 @@ export class WelcomeComponent implements OnInit {
   }
 
   getRecipeData(): void {
-    // this.ApiService.getAllRecipes().then((recipe: any) => {
-    //   // this.title = recipe.recipeTitle;
-    //   // this.category = recipe.recipeCategory;
-    //   // this.description = recipe.recipeDescription;
-    //   // this.ingredients = recipe.recipeIngredients;
-    //   // this.instruction = recipe.recipeInstruction;
-    //   // this.author = recipe.author;
-    //   // this.rating = recipe.rating;
-    //   // this.comments = recipe.comments;
-    // });
+    this.ApiService.getAllRecipes().then((recipe: any) => {
+      this.allRecipeArray = recipe;
+      // // this.recipeTitle = recipe.recipeTitle;
+      // // this.recipeAuthor = recipe.author;
+      // // this.recipeDescription = recipe.recipeDescription;
+      // // this.recipeCategory = recipe.recipeCategory || "Unkatagorisiert";
+      // // this.recipeRating = recipe.rating;
+      console.log(this.allRecipeArray);
+    });
   }
   getUserData(): void {
     this.ApiService.getAllUser().then((userData: any) => {
