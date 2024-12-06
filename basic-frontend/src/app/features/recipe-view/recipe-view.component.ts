@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltip } from '@angular/material/tooltip';
 import { NgModel, FormsModule } from '@angular/forms';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'app-recipe-view',
@@ -15,7 +16,8 @@ import { NgModel, FormsModule } from '@angular/forms';
     MatIconModule,
     MatButtonModule,
     MatTooltip,
-    FormsModule
+    FormsModule,
+    MatChipsModule
   ],
   templateUrl: './recipe-view.component.html',
   styleUrl: './recipe-view.component.css'
@@ -24,8 +26,9 @@ export class RecipeViewComponent {
   private _snackBar = inject(MatSnackBar);
   currentUser: string = localStorage.getItem('username') || "Gast";
   isLiked: boolean = false;
-  recipeId: string = localStorage.getItem('recipeId') || "BcudOjYx2DEWavCL";
+  recipeId: string = localStorage.getItem('recipeId') || "dTz8j1SJo9Jd5cg3";
   title: string = "";
+  category: string = "";
   description: string = "";
   ingredients: string[] = [];
   instruction:string = "";
@@ -45,6 +48,7 @@ export class RecipeViewComponent {
   getRecipeData(): void {
     this.ApiService.getRecipeById(this.recipeId).then((recipe: any) => {
       this.title = recipe.recipeTitle;
+      this.category = recipe.recipeCategory;
       this.description = recipe.recipeDescription;
       this.ingredients = recipe.recipeIngredients;
       this.instruction = recipe.recipeInstruction;

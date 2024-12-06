@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl, FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,16 +8,21 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from "../../shared/services/api.service";
 import { Router } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-recipe-create',
   standalone: true,
   imports: [
     ReactiveFormsModule,
+    FormsModule,
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatIcon
+    MatSelectModule,
+    MatIcon,
+    MatRadioModule
   ],
   templateUrl: './recipe-create.component.html',
   styleUrl: './recipe-create.component.css'
@@ -25,10 +30,12 @@ import { MatIcon } from '@angular/material/icon';
 export class RecipeCreateComponent {
   private _snackBar = inject(MatSnackBar);
   recipeForm: FormGroup;
+  categories: string[] = ['Unkategorisiert', 'Fleisch', 'Fisch', 'Geflügel', 'Pasta', 'Asiatisch', 'Dessert', 'Beilage', 'Vegetarisch', 'Vegan', 'Sonstiges'];
 
   constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {
     this.recipeForm = this.fb.group({
       recipeTitle: ['', Validators.required],
+      recipeCategory: ['Unkategorisiert'],
       recipeDescription: ['', Validators.required],
       recipeIngredients: this.fb.array([this.createIngredientField()]),
       recipeInstruction: ['', Validators.required]
