@@ -8,7 +8,7 @@
     <div class="recipeBox" [routerLink]="['/recipe-view']" [queryParams]="{ selectedRecipe: recipe._id }">
       <h3>{{recipe.recipeTitle}}</h3>
       <p>{{recipe.recipeDescription || "Keine Beschreibung"}}</p>
-      <p>{{recipe.recipeAuthor || "Kein Autor"}}</p>
+      <p>{{recipe.author || "Kein Autor"}}</p>
       <p>{{recipe.recipeCategory || "Unkategorisiert"}}</p>
       <p>{{recipe.rating || 0}}</p>
       <p>{{recipe.updatedAt | date: 'mediumDate'}}</p>
@@ -18,8 +18,21 @@
   <p>Keine Rezepte vorhanden</p>
 }
 
-<h2>unsere Top 5 Rezepte</h2>
-
+<h2>Top 5 Rezepte</h2>
+@if(topRecipeArray.length > 1) {
+  @for (recipe of topRecipeArray; track $index) {
+    <div class="recipeBox" [routerLink]="['/recipe-view']" [queryParams]="{ selectedRecipe: recipe._id }">
+      <h3>{{recipe.recipeTitle}}</h3>
+      <p>{{recipe.recipeDescription || "Keine Beschreibung"}}</p>
+      <p>{{recipe.author || "Kein Autor"}}</p>
+      <p>{{recipe.recipeCategory || "Unkategorisiert"}}</p>
+      <p>{{recipe.rating || 0}}</p>
+      <p>{{recipe.updatedAt | date: 'mediumDate'}}</p>
+    </div>
+  }
+} @else {
+  <p>Keine Rezepte vorhanden</p>
+}
 
 
 

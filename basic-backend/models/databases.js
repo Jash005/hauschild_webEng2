@@ -101,6 +101,11 @@ export function getAllRecipes(callback) {
   return recipeDb.find({}, {author: 1, rating: 1, recipeCategory: 1, recipeDescription: 1, recipeTitle: 1, updatedAt: 1, _id: 1}).sort({ updatedAt: -1 }).exec(callback);
 }
 
+// Funktion zum Abrufen der Top 5 Rezepte nach Bewertung
+export function getTopRecipesWithLimit(limit, callback) {
+  return recipeDb.find({}, {author: 1, rating: 1, recipeCategory: 1, recipeDescription: 1, recipeTitle: 1, updatedAt: 1, _id: 1}).sort({ rating: -1 }).limit(limit).exec(callback);
+}
+
 
 
 //NOTE: no Check 

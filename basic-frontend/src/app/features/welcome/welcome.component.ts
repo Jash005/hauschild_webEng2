@@ -17,6 +17,7 @@ import { RouterLink } from '@angular/router';
 export class WelcomeComponent implements OnInit {
   allUserArray: any[] = [];
   allRecipeArray: any[] = [];
+  topRecipeArray: any[] = [];
   username: string = "";
   userId: string = "";
   recipeTitle: string = "";
@@ -28,20 +29,27 @@ export class WelcomeComponent implements OnInit {
   constructor(private ApiService: ApiService) { }
 
   ngOnInit(): void {
-    this.getRecipeData();
     this.getUserData();
+    this.getRecipeData();
+    this.getTopRecipeData();
   }
 
+  getUserData(): void {
+    this.ApiService.getAllUser().then((resData: any) => {
+      this.allUserArray = resData;
+      console.log(this.allUserArray);
+    });
+  }
   getRecipeData(): void {
-    this.ApiService.getAllRecipes().then((recipe: any) => {
-      this.allRecipeArray = recipe;
+    this.ApiService.getAllRecipes().then((resData: any) => {
+      this.allRecipeArray = resData;
       console.log(this.allRecipeArray);
     });
   }
-  getUserData(): void {
-    this.ApiService.getAllUser().then((userData: any) => {
-      this.allUserArray = userData;
-      console.log(this.allUserArray);
+  getTopRecipeData(): void {
+    this.ApiService.getTopRecipes().then((resData: any) => {
+      this.topRecipeArray = resData;
+      console.log('TOP 5', this.topRecipeArray);
     });
   }
 

@@ -66,6 +66,10 @@ export class ApiService {
     return this.getApiData('', `${this.BASE_URL}/recipe`, 'GET');
   }
 
+  async getTopRecipes(): Promise<any> {
+    return this.getApiData('', `${this.BASE_URL}/recipe/top`, 'GET');
+  }
+
   async getRecipeById(id: string): Promise<any> {
     return this.getApiData('', `${this.BASE_URL}/recipe/${id}`, 'GET');
   }

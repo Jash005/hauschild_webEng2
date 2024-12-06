@@ -1,5 +1,5 @@
 import express from 'express';
-import { addRecipe, addCommentToRecipe, findRecipeById, checkAuthHeader, editRecipe, getAllRecipes } from '../models/databases.js';
+import { addRecipe, addCommentToRecipe, findRecipeById, checkAuthHeader, editRecipe, getAllRecipes, getTopRecipesWithLimit } from '../models/databases.js';
 
 const router = express.Router();
 
@@ -51,29 +51,39 @@ router.put('/:id',async (req, res) => {
   });
 });
 
-// Route zum Abrufen eines Rezepts nach ID
-router.get('/:id', async (req, res) => {
-  const recipeId = req.params.id;
-  await findRecipeById(recipeId, (err, recipe) => {
-    if (err) {
-      return res.status(500).send(err);
-    }
-    if (!recipe) {
-      return res.status(404).send('Rezept nicht gefunden');
-    }
-    res.status(200).send(recipe);
-  });
-});
-
 // Rezpte abrufen nach Aktualisierungsdatum
 router.get('/', async (req, res) => {
-  await getAllRecipes((err, recipes) => {
+  await getAllRecipes((err, resData) => {
     if (err) {
       return res.status(500).send('Rezepte konnten nicht gefunden werden');
     }
-    res.status(200).send(recipes);
+    res.status(200).send(resData);
   }
   );
+});
+router.get('/top', async (req, res) => {
+  console.log('HIER in recipeController');
+  await getTopRecipesWithLimit(5, (err, resData) => {
+    if (err) {
+      return res.status(500).send('Rezepte konnten nicht gefunden werden');
+    }
+    res.status(200).send(resData);
+  }
+  );
+});
+
+// Route zum Abrufen eines Rezepts nach ID
+router.get('/:id', async (req, res) => {
+  const recipeId = req.params.id;
+  await findRecipeById(recipeId, (err, resData) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    if (!resData) {
+      return res.status(404).send('Rezept nicht gefunden');
+    }
+    res.status(200).send(resData);
+  });
 });
 
 
