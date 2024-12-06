@@ -62,7 +62,6 @@ router.get('/', async (req, res) => {
   );
 });
 router.get('/top', async (req, res) => {
-  console.log('HIER in recipeController');
   await getTopRecipesWithLimit(5, (err, resData) => {
     if (err) {
       return res.status(500).send('Rezepte konnten nicht gefunden werden');
