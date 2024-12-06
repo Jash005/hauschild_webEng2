@@ -12,12 +12,13 @@
     <mat-label>Kategorie</mat-label>
     <mat-form-field appearance="fill">
         <mat-label>Kategorie</mat-label>
-        <mat-select>
+        <mat-select formControlName="recipeCategory">
           @for (category of categories; track category) {
             @if ($index === 1) {
               <mat-option [value]="category" selected>{{category}}</mat-option>
+            } @else {
+              <mat-option [value]="category">{{category}}</mat-option>
             }
-            <mat-option [value]="category">{{category}}</mat-option>
           }
         </mat-select>
     </mat-form-field>

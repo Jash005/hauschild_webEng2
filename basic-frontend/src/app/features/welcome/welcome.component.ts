@@ -2,13 +2,15 @@ import { DatePipe } from '@angular/common';
 import {Component, computed, inject, Input, OnInit, signal} from '@angular/core';
 import { ApiService } from "../../shared/services/api.service";
 import { RouterLink } from '@angular/router';
+import { CdkAccordionModule } from '@angular/cdk/accordion';
 
 @Component({
   selector: 'app-welcome',
   standalone: true,
   imports: [
     RouterLink,
-    DatePipe
+    DatePipe,
+    CdkAccordionModule
   ],
   templateUrl: './welcome.component.html',
   styleUrl: './welcome.component.css',
@@ -18,6 +20,7 @@ export class WelcomeComponent implements OnInit {
   allUserArray: any[] = [];
   allRecipeArray: any[] = [];
   topRecipeArray: any[] = [];
+  recipeCategorysInDatabase: any[] = [];
   username: string = "";
   userId: string = "";
   recipeTitle: string = "";
@@ -26,7 +29,11 @@ export class WelcomeComponent implements OnInit {
   recipeCategory: string = "";
   recipeRating: number = 0;
 
-  constructor(private ApiService: ApiService) { }
+  items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
+  expandedIndex = 0;
+
+  constructor(private ApiService: ApiService) {
+  }
 
   ngOnInit(): void {
     this.getUserData();
@@ -44,6 +51,7 @@ export class WelcomeComponent implements OnInit {
     this.ApiService.getAllRecipes().then((resData: any) => {
       this.allRecipeArray = resData;
       console.log(this.allRecipeArray);
+      this.extractCategories()
     });
   }
   getTopRecipeData(): void {
@@ -51,6 +59,18 @@ export class WelcomeComponent implements OnInit {
       this.topRecipeArray = resData;
       console.log('TOP 5', this.topRecipeArray);
     });
+  }
+
+
+  extractCategories(): void {
+    const categorySet = new Set<string>();
+    this.allRecipeArray.forEach(elem => {
+      if (elem.recipeCategory) {
+        categorySet.add(elem.recipeCategory);
+      }
+    });
+    this.recipeCategorysInDatabase = Array.from(categorySet);
+    console.log(this.recipeCategorysInDatabase);
   }
 
 }

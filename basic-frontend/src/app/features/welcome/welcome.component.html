@@ -1,7 +1,45 @@
 <h1>Willkommen auf der Rezeptseite</h1>
 
 <h2>Rezepte nach Kategorien</h2>
+<cdk-accordion class="example-accordion">
+  @for (item of items; track item; let index = $index) {
+    <cdk-accordion-item
+      #accordionItem="cdkAccordionItem"
+      class="example-accordion-item"
+      role="button"
+      tabindex="0"
+      [attr.id]="'accordion-header-' + index"
+      [attr.aria-expanded]="accordionItem.expanded"
+      [attr.aria-controls]="'accordion-body-' + index">
+      <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
+        {{ item }}
+        <span class="example-accordion-item-description">
+          Click to {{ accordionItem.expanded ? 'close' : 'open' }}
+        </span>
+      </div>
+      <div
+        class="example-accordion-item-body"
+        role="region"
+        [style.display]="accordionItem.expanded ? '' : 'none'"
+        [attr.id]="'accordion-body-' + index"
+        [attr.aria-labelledby]="'accordion-header-' + index">
 
+        <!-- <div class="recipeBox" [routerLink]="['/recipe-view']" [queryParams]="{ selectedRecipe: recipe._id }">
+          <h3>{{recipe.recipeTitle}}</h3>
+          <p>{{recipe.recipeDescription || "Keine Beschreibung"}}</p>
+          <p>{{recipe.author || "Kein Autor"}}</p>
+          <p>{{recipe.recipeCategory || "Unkategorisiert"}}</p>
+          <p>{{recipe.rating || 0}}</p>
+          <p>{{recipe.updatedAt | date: 'mediumDate'}}</p>
+        </div> -->
+
+
+
+        Test {{item}}
+      </div>
+    </cdk-accordion-item>
+  }
+</cdk-accordion>
 
 
 <h2>Rezepte nach Neusten</h2>

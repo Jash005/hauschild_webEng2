@@ -1,3 +1,4 @@
+import { CategoryFilterAppender } from './../../../../node_modules/log4js/types/log4js.d';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl, FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -58,7 +59,7 @@ export class RecipeCreateComponent {
     this.recipeIngredients.removeAt(index);
   }
 
-  prepareIngredientsArray(): void {
+  async prepareIngredientsArray(): Promise<void> {
     for (let i = 0; i < this.recipeForm.value.recipeIngredients.length; i++) {
       let namePattern = 'ingName_'+i;
       let inputElem = document.getElementById(namePattern) as HTMLInputElement;
@@ -71,8 +72,7 @@ export class RecipeCreateComponent {
 
   async submitForm(): Promise<void> {
     if (this.recipeForm.valid) {
-        this.prepareIngredientsArray();
-        console.log('rezeptZutaten: ' + this.recipeForm.value.recipeIngredients);
+      await this.prepareIngredientsArray();
       try {
         const formValue = this.recipeForm.value;
         formValue.author = localStorage.getItem('username');

@@ -35,8 +35,12 @@
 <section id="ingredient">
   <h3>Zutaten</h3>
   <ul>
-    @for (ingredient of ingredients; track $index) {
-      <li>{{ ingredient }}</li>
+    @if(ingredients.length === 0) {
+      <p>Es gibt keine Zutaten</p>
+    } @else {
+      @for (ingredient of ingredients; track $index) {
+        <li>{{ ingredient }}</li>
+      }
     }
   </ul>
 </section>
