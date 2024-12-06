@@ -69,7 +69,11 @@ export class WelcomeComponent implements OnInit {
         categorySet.add(elem.recipeCategory);
       }
     });
-    this.recipeCategorysInDatabase = Array.from(categorySet);
+    this.recipeCategorysInDatabase = Array.from(categorySet).sort((a, b) => {
+      if (a === 'Unkategorisiert') return 1;
+      if (b === 'Unkategorisiert') return -1;
+      return a.localeCompare(b);
+    });
     console.log(this.recipeCategorysInDatabase);
   }
 
