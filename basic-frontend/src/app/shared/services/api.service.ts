@@ -45,6 +45,14 @@ export class ApiService {
     return this.getApiData('', `${this.BASE_URL}/user/login`, 'POST', user);
   }
 
+  async getAllUser(): Promise<any> {
+    return this.getApiData('', `${this.BASE_URL}/user`, 'GET');
+  }
+
+  async getUserById(id: string): Promise<any> {
+    return this.getApiData('', `${this.BASE_URL}/user/${id}`, 'GET');
+  }
+
 
 /* ====================================
         Rezept

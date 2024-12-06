@@ -11,7 +11,7 @@
   <div class="header-nav right">
     @if (username) {
       Hallo {{ username }}
-      <span routerLink="/userprofil">Zum Profil</span>
+      <span [routerLink]="['/userprofil']" [queryParams]="{ selectedUser: userId }">Zum Profil</span>
       <span (click)="logout()">Logout</span>
     } @else {
       <p routerLink="/login">Login</p>

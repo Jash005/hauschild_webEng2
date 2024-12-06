@@ -43,9 +43,14 @@ export function validateLogin(username, password, callback) {
   });
 }
 
-// Funktion zum Anzeigen des Benutzerprofils
+// Alle Benutzer anzeigen (nur Username und ID)
+export function getAllUsers(callback) {
+  return userDb.find({}, { username: 1, _id: 1 }, callback);
+}
+
+// Funktion zum Anzeigen des Benutzerprofils (nur Username und Erstellungsdatum)
 export function showUserProfile(userId, callback) {
-  return userDb.findOne({ _id: userId }, callback);
+  return userDb.findOne({ _id: userId }, { username: 1, createdAt: 1 }, callback);
 }
 
 // Add Comment to Recipe

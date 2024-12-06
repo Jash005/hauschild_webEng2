@@ -54,6 +54,7 @@ export class LoginComponent {
         const response = await this.apiService.loginUser(this.loginForm.value);
         console.log('User erfolgreich eingeloggt', response);
         localStorage.setItem("username", this.loginForm.value.username);
+        localStorage.setItem("userId", response.user._id);
         localStorage.setItem("authToken", this.createAuthHeader(this.loginForm.value.username, this.loginForm.value.password));
         localStorage.setItem('snackbarMessage', 'User erfolgreich eingeloggt');
         window.location.replace('/');

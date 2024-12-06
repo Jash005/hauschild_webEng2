@@ -4,6 +4,7 @@ import {
   validateLogin,
   isUsernameExist,
   showUserProfile,
+  getAllUsers,
 } from "../models/databases.js";
 
 const router = express.Router();
@@ -55,15 +56,29 @@ router.post("/login", async (req, res) => {
   });
 });
 
-// Route zum Anzeigen des Benutzerprofils
-router.get("/profile", async (req, res) => {
-  const userId = req.query.userId;
+// alle Benutzer anzeigen
+router.get("/", async (req, res) => {
+  getAllUsers((err, users) => {
+    if (err) {
+      return res.status(500).json({ error: "Fehler beim Abrufen der Benutzer" });
+    }
+    res.status(200).json(users);
+  }
+  );
+});
+
+// einzelnen Benutzer mit ID anzeigen
+router.get("/:userId", async (req, res) => {
+  const userId = req.params.userId;
   showUserProfile(userId, (err, user) => {
     if (err) {
-      return res.status(500).send(err);
+      return res.status(500).json({ error: "Fehler beim Abrufen des Benutzers" });
     }
-    res.status(200).send(user);
+    res.status(200).json(user);
   });
 });
+
+
+
 
 export { router as userController };

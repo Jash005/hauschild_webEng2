@@ -1,27 +1,20 @@
-<h1>Willkommen auf der Startseite</h1>
+<h1>Willkommen auf der Rezeptseite</h1>
 
-<div>
-  <label>
-    Echo hinzufügen:
-    <input [(ngModel)]="createInput"/>
-    <button (click)="addEcho()">Speichern</button>
-  </label>
-  <label>
-    Echos filtern:
-    <input [ngModel]="filterInput()"
-           (ngModelChange)="filterInput.set($event)"/>
-    <button (click)="error()">error</button>
-  </label>
-</div>
-<div>
-  <h2>Echos:</h2>
-  <ul>
-  @for (echo of filteredEchos(); track echo._id) {
-    <li>
-      {{ echo.message }}
-    </li>
-  } @empty {
-    Keine Echos vorhanden
+<h2>Rezepte nach Kategorien</h2>
+
+<h2>Rezepte nach Neusten</h2>
+
+<h2>unsere Top 5 Rezepte</h2>
+
+<h2>Benutzerprofile</h2>
+
+@if (allUserArray.length > 1) {
+  @for (user of allUserArray; track $index) {
+    <div class="userBox" [routerLink]="['/userprofil']" [queryParams]="{ selectedUser: user._id }">
+      <h3>{{user.username}}</h3>
+      <p>{{user._id}}</p>
+    </div>
   }
-  </ul>
-</div>
+} @else {
+  <p>Keine Benutzer vorhanden</p>
+}

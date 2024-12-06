@@ -14,9 +14,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class HeaderComponent {
   private _snackBar = inject(MatSnackBar);
   username = localStorage.getItem('username');
+  userId = localStorage.getItem('userId');
 
   logout() {
     localStorage.removeItem('username');
+    localStorage.removeItem('userId');
     localStorage.removeItem('authToken');
     localStorage.setItem('snackbarMessage', 'User erfolgreich ausgeloggt');
     window.location.replace('/');

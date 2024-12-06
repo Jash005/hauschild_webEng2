@@ -1,62 +1,48 @@
+
 import {Component, computed, inject, Input, OnInit, signal} from '@angular/core';
-import {ApiService} from "../../shared/services/api.service";
-import {Echo} from "../../shared/types/echo.type";
-import {FormsModule} from "@angular/forms";
-import {AsyncPipe} from "@angular/common";
+import { ApiService } from "../../shared/services/api.service";
+import { NgModule } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-welcome',
   standalone: true,
   imports: [
-    FormsModule,
-    AsyncPipe
+    RouterLink
   ],
   templateUrl: './welcome.component.html',
-  styleUrl: './welcome.component.css'
+  styleUrl: './welcome.component.css',
+  providers: [ApiService]
 })
 export class WelcomeComponent implements OnInit {
+  allUserArray: any[] = [];
+  username: string = "";
+  userId: string = "";
 
-  @Input() contains?: string; // URL Query Param
-
-  private apiService = inject(ApiService);
-
-  createInput = '';
-  filterInput = signal('');
-
-  allEchos = signal<Echo[]>([]);
-  filteredEchos = computed<Echo[]>(() => {
-    return this.allEchos().filter(echo => echo.message.includes(this.filterInput()));
-  });
+  constructor(private ApiService: ApiService) { }
 
   ngOnInit(): void {
-    void this.loadEchos();
-
-    if (this.contains) {
-      this.filterInput.set(this.contains);
-    }
+    this.getRecipeData();
+    this.getUserData();
   }
 
-  async addEcho(): Promise<void> {
-    const newEcho = await this.apiService.createEcho({
-      message: this.createInput
+  getRecipeData(): void {
+    // this.ApiService.getAllRecipes().then((recipe: any) => {
+    //   // this.title = recipe.recipeTitle;
+    //   // this.category = recipe.recipeCategory;
+    //   // this.description = recipe.recipeDescription;
+    //   // this.ingredients = recipe.recipeIngredients;
+    //   // this.instruction = recipe.recipeInstruction;
+    //   // this.author = recipe.author;
+    //   // this.rating = recipe.rating;
+    //   // this.comments = recipe.comments;
+    // });
+  }
+  getUserData(): void {
+    this.ApiService.getAllUser().then((userData: any) => {
+      this.allUserArray = userData;
+      console.log(this.allUserArray);
     });
-    const newEchoList = [...this.allEchos(), newEcho];
-    newEchoList.sort((a, b) => a.message.localeCompare(b.message));
-    this.allEchos.set(newEchoList);
   }
 
-  async loadEchos(): Promise<void> {
-    const echos = await this.apiService.getEchos();
-    echos.sort((a, b) => a.message.localeCompare(b.message));
-    this.allEchos.set(echos);
-  }
-
-  async error(): Promise<void> {
-    try {
-      await this.apiService.doError();
-      console.log('This will never trigger.')
-    } catch (err) {
-      console.log('Error caught in Component:', err);
-    }
-  }
 }
