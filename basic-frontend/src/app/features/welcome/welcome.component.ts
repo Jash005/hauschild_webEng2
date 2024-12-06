@@ -1,7 +1,6 @@
 import { DatePipe } from '@angular/common';
 import {Component, computed, inject, Input, OnInit, signal} from '@angular/core';
 import { ApiService } from "../../shared/services/api.service";
-import { NgModule } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -36,11 +35,6 @@ export class WelcomeComponent implements OnInit {
   getRecipeData(): void {
     this.ApiService.getAllRecipes().then((recipe: any) => {
       this.allRecipeArray = recipe;
-      // // this.recipeTitle = recipe.recipeTitle;
-      // // this.recipeAuthor = recipe.author;
-      // // this.recipeDescription = recipe.recipeDescription;
-      // // this.recipeCategory = recipe.recipeCategory || "Unkatagorisiert";
-      // // this.recipeRating = recipe.rating;
       console.log(this.allRecipeArray);
     });
   }
