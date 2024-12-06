@@ -87,7 +87,7 @@ export function addRecipe(recipe, callback) {
   recipe.updatedAt = new Date().toISOString();
   recipe.comments = [];
   recipe.rating = 0;
-  if (!recipe.recipeCategory) recipe.recipeCategory = 'Unkategorisiert';
+  //if (!recipe.recipeCategory) recipe.recipeCategory = 'Unkategorisiert';
   
   return recipeDb.insert(recipe, callback);
 }

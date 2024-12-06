@@ -44,20 +44,17 @@ export class WelcomeComponent implements OnInit {
   getUserData(): void {
     this.ApiService.getAllUser().then((resData: any) => {
       this.allUserArray = resData;
-      console.log(this.allUserArray);
     });
   }
   getRecipeData(): void {
     this.ApiService.getAllRecipes().then((resData: any) => {
       this.allRecipeArray = resData;
-      console.log(this.allRecipeArray);
       this.extractCategories()
     });
   }
   getTopRecipeData(): void {
     this.ApiService.getTopRecipes().then((resData: any) => {
       this.topRecipeArray = resData;
-      console.log('TOP 5', this.topRecipeArray);
     });
   }
 
@@ -74,7 +71,6 @@ export class WelcomeComponent implements OnInit {
       if (b === 'Unkategorisiert') return -1;
       return a.localeCompare(b);
     });
-    console.log(this.recipeCategorysInDatabase);
   }
 
 }
