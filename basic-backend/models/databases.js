@@ -107,6 +107,10 @@ export function getTopRecipesWithLimit(limit, callback) {
   return recipeDb.find({}, {author: 1, rating: 1, recipeCategory: 1, recipeDescription: 1, recipeTitle: 1, updatedAt: 1, _id: 1}).sort({ rating: -1 }).limit(limit).exec(callback);
 }
 
+// Funktion zum Finden eines Rezepts nach ID
+export function findRecipeByUserId(userId, callback) {
+  return recipeDb.findOne({ authorId: userId }, callback);
+}
 
 
 

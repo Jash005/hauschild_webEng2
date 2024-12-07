@@ -4,6 +4,21 @@
 }
 
 <h3>Meine Rezepte</h3>
+@if (recipesFromUser.length > 0) {
+  @for (recipe of recipesFromUser; track $index) {
+    <div class="recipeBox" [routerLink]="['/recipe-view']" [queryParams]="{ selectedRecipe: recipe._id, author: recipe.authorId }" queryParamsHandling="merge">
+      <h3>{{recipe.recipeTitle}}</h3>
+      <p>{{recipe.recipeDescription || "Keine Beschreibung"}}</p>
+      <p>{{recipe.author || "Kein Autor"}}</p>
+      <p>{{recipe.recipeCategory || "Unkategorisiert"}}</p>
+      <p>{{recipe.rating || 0}}</p>
+      <p>{{recipe.updatedAt | date: 'mediumDate'}}</p>
+    </div>
+  }
+} @else {
+  <p>Dieser User noch keine Rezepte erstellt.</p>
+
+}
 
 <h3>Meine Kommentare</h3>
 

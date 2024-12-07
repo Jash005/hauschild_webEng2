@@ -57,9 +57,12 @@ export class ApiService {
         zwischen User und Rezept
 ==================================== */
   async getRecipesByUserId(id: string): Promise<any> {
-    return this.getApiData('', `${this.BASE_URL}/recipe/${id}/`, 'GET');
+    return this.getApiData('', `${this.BASE_URL}/recipe/user/${id}`, 'GET');
   }
 
+  async getCommentsByUserId(id: string): Promise<any> {
+    return this.getApiData('', `${this.BASE_URL}/recipe/comment/${id}`, 'GET');
+  }
 
 /* ====================================
         Rezept

@@ -1,6 +1,6 @@
 import { routes } from './../../app.routes';
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { OnInit } from '@angular/core';
 import { ApiService } from '../../shared/services/api.service';
 import { inject } from '@angular/core';
@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
   selector: 'app-userprofil',
   standalone: true,
   imports: [
-    DatePipe
+    DatePipe,
+    RouterLink
   ],
   templateUrl: './userprofil.component.html',
   styleUrl: './userprofil.component.css',
@@ -24,7 +25,7 @@ export class UserprofilComponent implements OnInit {
   createdAt: Date = new Date();
   recipes = localStorage.getItem('recipes');
   comments = localStorage.getItem('comments');
-  recipesFromUser: any;
+  recipesFromUser: any[] = [];
 
   constructor(private route: ActivatedRoute, private ApiService: ApiService, private router: Router) {
   }
@@ -53,7 +54,7 @@ export class UserprofilComponent implements OnInit {
 
   getRecipesFromUser(userId: string) {
     this.ApiService.getRecipesByUserId(userId).then((resData: any) => {
-      this.recipesFromUser = resData;
+      this.recipesFromUser.push(resData);
       console.log("HIER:--- ",this.recipesFromUser);
     });
   }
