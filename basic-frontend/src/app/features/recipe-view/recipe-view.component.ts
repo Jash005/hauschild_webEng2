@@ -1,31 +1,46 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, Input, NgModule } from '@angular/core';
 import { ApiService } from '../../shared/services/api.service';
 import { DatePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltip } from '@angular/material/tooltip';
-import { NgModel, FormsModule } from '@angular/forms';
+import { FormArray, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { CommonModule } from '@angular/common';
+import { RecipeEditComponent } from '../recipe-edit/recipe-edit.component';
+
 
 @Component({
   selector: 'app-recipe-view',
   standalone: true,
+
   imports: [
+    RecipeEditComponent,
+    CommonModule,
     DatePipe,
     MatIconModule,
     MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
     MatTooltip,
     FormsModule,
     MatChipsModule,
-    RouterLink
+    RouterLink,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './recipe-view.component.html',
   styleUrl: './recipe-view.component.css'
 })
-export class RecipeViewComponent {
+export class RecipeViewComponent implements OnInit {
   private _snackBar = inject(MatSnackBar);
   currentUser: string = localStorage.getItem('username') || "Gast";
   isLiked: boolean = false;
@@ -42,8 +57,23 @@ export class RecipeViewComponent {
   comments: { content: string, author: string, authorId: string, createdAt: string }[] = [];
   showCommentField: boolean = false;
   newCommentContent: string = "";
+  isEditing: boolean = false;
+  editedRecipeForm: FormGroup;
+  editedTitle: string = "";
+  editedIngredients: FormArray;
+  editedDescription: string = "";
+  editedInstruction: string = "";
 
-  constructor(private route: ActivatedRoute, private ApiService: ApiService, private router: Router) { }
+
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private ApiService: ApiService, private router: Router) {
+    this.editedRecipeForm = this.fb.group({
+      editedTitle: [this.title, Validators.required],
+      editedDescription: [this.description, Validators.required],
+      editedIngredients: this.fb.array([]),
+      editedInstruction: [this.instruction, Validators.required]
+    });
+    this.editedIngredients = this.editedRecipeForm.get('ingredients') as FormArray;
+  }
 
   ngOnInit(): void {
     this.recipeId = this.route.snapshot.queryParamMap.get('selectedRecipe') || 'none';
@@ -61,6 +91,9 @@ export class RecipeViewComponent {
     }
 
     this.removeQueryParams(['author']);
+
+
+
   }
 
 /* ----------- bekomme Daten ----------- */
@@ -71,6 +104,7 @@ export class RecipeViewComponent {
       this.category = recipe.recipeCategory;
       this.description = recipe.recipeDescription;
       this.ingredients = recipe.recipeIngredients;
+      this.editedIngredients = recipe.recipeIngredients;
       this.instruction = recipe.recipeInstruction;
       this.author = recipe.author;
       this.rating = recipe.rating;
@@ -116,6 +150,46 @@ export class RecipeViewComponent {
     this.showCommentField = false;
     this.newCommentContent = "";
   }
+
+/* ----------- Rezept bearbeiten ----------- */
+  editRecipe(): void {
+    this.isEditing = !this.isEditing;
+  }
+  //   // Werte kopieren
+  //   this.editedTitle = this.title;
+  //   this.editedDescription = this.description;
+  //   //this.editedIngredients = this.ingredients;
+  //   this.editedInstruction = this.instruction;
+
+  //   console.log("HIER---", this.editedIngredients);
+  // }
+  // saveEditRecipe() {
+  //   if (this.editedRecipeForm.valid) {
+  //     this.title = this.editedRecipeForm.value.title;
+  //     this.description = this.editedRecipeForm.value.description;
+  //    // this.ingredients = this.editedRecipeForm.value.ingredients;
+  //     this.instruction = this.editedRecipeForm.value.instruction;
+  //     this.isEditing = false;
+  //   }
+  // }
+  // createIngredientField(): FormControl {
+  //   return this.fb.control('');
+  // }
+  // addIngredientsField() {
+  //   this.editedIngredients.push(this.createIngredientField());
+  // }
+  // removeIngredientField(index: number) {
+  //   this.editedIngredients.removeAt(index);
+  // }
+
+  // async submitForm(): Promise<void> {
+  //   if (this.editedRecipeForm.valid) {
+  //     //await this.prepareIngredientsArray();
+  //     try {
+  //     } catch (error) {
+  //     }
+  //   }
+  // }
 
 /* ----------- Lösche Rezept ----------- */
   deleteRecipe(): void {
