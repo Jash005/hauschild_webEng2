@@ -1,6 +1,6 @@
 import { CategoryFilterAppender } from './../../../../node_modules/log4js/types/log4js.d';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl, FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,13 +11,13 @@ import { Router } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { NgModule } from '@angular/core';
 
 @Component({
   selector: 'app-recipe-create',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    FormsModule,
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
@@ -32,6 +32,7 @@ export class RecipeCreateComponent {
   private _snackBar = inject(MatSnackBar);
   recipeForm: FormGroup;
   categories: string[] = ['Unkategorisiert', 'Fleisch', 'Fisch', 'Geflügel', 'Pasta', 'Asiatisch', 'Dessert', 'Beilage', 'Vegetarisch', 'Vegan', 'Sonstiges'];
+  valueIngredientArray: string[] = [];
 
   constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {
     this.recipeForm = this.fb.group({
@@ -59,25 +60,27 @@ export class RecipeCreateComponent {
     this.recipeIngredients.removeAt(index);
   }
 
-  async prepareIngredientsArray(): Promise<void> {
-    for (let i = 0; i < this.recipeForm.value.recipeIngredients.length; i++) {
-      let namePattern = 'ingName_'+i;
-      let inputElem = document.getElementById(namePattern) as HTMLInputElement;
-      if (inputElem.value != null) {
-        this.recipeForm.value.recipeIngredients[i] = inputElem.value;
-      }
-    }
-    this.recipeForm.value.recipeIngredients = this.recipeForm.value.recipeIngredients.filter((ingredient: string) => ingredient.trim() !== '');
-  }
+  // async prepareIngredientsArray(): Promise<void> {
+  //   for (let i = 0; i < this.recipeForm.value.recipeIngredients.length; i++) {
+  //     let namePattern = 'ingName_'+i;
+  //     let inputElem = document.getElementById(namePattern) as HTMLInputElement;
+  //     if (inputElem.value != null) {
+  //       this.recipeForm.value.recipeIngredients[i] = inputElem.value;
+  //     }
+  //   }
+  //   this.recipeForm.value.recipeIngredients = this.recipeForm.value.recipeIngredients.filter((ingredient: string) => ingredient.trim() !== '');
+  // }
 
   async submitForm(): Promise<void> {
     if (this.recipeForm.valid) {
-      await this.prepareIngredientsArray();
+      //await this.prepareIngredientsArray();
       try {
-        const formValue = this.recipeForm.value;
+        const formValue = { ...this.recipeForm.value };
+        formValue.recipeIngredients = formValue.recipeIngredients.filter((ingredient: string) => ingredient.trim() !== '');
+
         formValue.author = localStorage.getItem('username');
         formValue.authorId = localStorage.getItem('userId');
-
+        console.log("HIER DIE FORMULARDATEN:---",formValue);
         const response = await this.apiService.createRecipe(formValue);
         console.log('Rezept erfolgreich erstellt', response);
         this._snackBar.open('Rezept erfolgreich erstellt', 'x', { duration: 2000 });
