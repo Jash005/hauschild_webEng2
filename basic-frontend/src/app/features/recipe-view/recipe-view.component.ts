@@ -58,21 +58,21 @@ export class RecipeViewComponent implements OnInit {
   showCommentField: boolean = false;
   newCommentContent: string = "";
   isEditing: boolean = false;
-  editedRecipeForm: FormGroup;
-  editedTitle: string = "";
-  editedIngredients: FormArray;
-  editedDescription: string = "";
-  editedInstruction: string = "";
+  // editedRecipeForm: FormGroup;
+  // editedTitle: string = "";
+  // editedIngredients: FormArray;
+  // editedDescription: string = "";
+  // editedInstruction: string = "";
 
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private ApiService: ApiService, private router: Router) {
-    this.editedRecipeForm = this.fb.group({
-      editedTitle: [this.title, Validators.required],
-      editedDescription: [this.description, Validators.required],
-      editedIngredients: this.fb.array([]),
-      editedInstruction: [this.instruction, Validators.required]
-    });
-    this.editedIngredients = this.editedRecipeForm.get('ingredients') as FormArray;
+    // this.editedRecipeForm = this.fb.group({
+    //   editedTitle: [this.title, Validators.required],
+    //   editedDescription: [this.description, Validators.required],
+    //   editedIngredients: this.fb.array([]),
+    //   editedInstruction: [this.instruction, Validators.required]
+    // });
+    // this.editedIngredients = this.editedRecipeForm.get('ingredients') as FormArray;
   }
 
   ngOnInit(): void {
@@ -104,7 +104,7 @@ export class RecipeViewComponent implements OnInit {
       this.category = recipe.recipeCategory;
       this.description = recipe.recipeDescription;
       this.ingredients = recipe.recipeIngredients;
-      this.editedIngredients = recipe.recipeIngredients;
+      // this.editedIngredients = recipe.recipeIngredients;
       this.instruction = recipe.recipeInstruction;
       this.author = recipe.author;
       this.rating = recipe.rating;
