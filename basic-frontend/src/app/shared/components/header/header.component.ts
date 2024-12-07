@@ -1,12 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
-    RouterLink
+    RouterLink,
+    MatTooltip
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'

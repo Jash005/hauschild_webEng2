@@ -4,7 +4,13 @@
   </div>
 
   <div class="header-nav center">
-    <span routerLink="/recipe-create">Rezept erstellen</span>
+    @if (username) {
+      <span routerLink="/recipe-create">Rezept erstellen</span>
+    } @else {
+      <a mat-fab extended disabled
+      disabledInteractive
+      matTooltip="um ein Rezept zu erstellen musst du angemeldet sein">Rezept erstellen</a>
+    }
     <span routerLink="/">Startseite</span>
   </div>
 
