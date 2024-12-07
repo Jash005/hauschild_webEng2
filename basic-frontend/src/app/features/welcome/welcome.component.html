@@ -26,7 +26,7 @@
 
         @for (recipe of allRecipeArray; track $index) {
           @if (recipe.recipeCategory === categoryItem) {
-            <div class="recipeBox" [routerLink]="['/recipe-view']" [queryParams]="{ selectedRecipe: recipe._id }">
+            <div class="recipeBox" [routerLink]="['/recipe-view']" [queryParams]="{ selectedRecipe: recipe._id, author: recipe.authorId }" queryParamsHandling="merge">
               <h3>{{recipe.recipeTitle}}</h3>
               <p>{{recipe.recipeDescription || "Keine Beschreibung"}}</p>
               <p>{{recipe.author || "Kein Autor"}}</p>
@@ -45,7 +45,7 @@
 <h2>Rezepte nach Neusten</h2>
 @if (allRecipeArray.length > 1) {
   @for (recipe of allRecipeArray; track $index) {
-    <div class="recipeBox" [routerLink]="['/recipe-view']" [queryParams]="{ selectedRecipe: recipe._id }">
+    <div class="recipeBox" [routerLink]="['/recipe-view']" [queryParams]="{ selectedRecipe: recipe._id, author: recipe.authorId  }" queryParamsHandling="merge">
       <h3>{{recipe.recipeTitle}}</h3>
       <p>{{recipe.recipeDescription || "Keine Beschreibung"}}</p>
       <p>{{recipe.author || "Kein Autor"}}</p>
@@ -61,7 +61,7 @@
 <h2>Top 5 Rezepte</h2>
 @if(topRecipeArray.length > 1) {
   @for (recipe of topRecipeArray; track $index) {
-    <div class="recipeBox" [routerLink]="['/recipe-view']" [queryParams]="{ selectedRecipe: recipe._id }">
+    <div class="recipeBox" [routerLink]="['/recipe-view']" [queryParams]="{ selectedRecipe: recipe._id, author: recipe.authorId }" queryParamsHandling="merge">
       <h3>{{recipe.recipeTitle}}</h3>
       <p>{{recipe.recipeDescription || "Keine Beschreibung"}}</p>
       <p>{{recipe.author || "Kein Autor"}}</p>

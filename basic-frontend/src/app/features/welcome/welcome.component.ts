@@ -25,6 +25,7 @@ export class WelcomeComponent implements OnInit {
   userId: string = "";
   recipeTitle: string = "";
   recipeAuthor: string = "";
+  recipeAuthorId: string = "";
   recipeDescription: string = "";
   recipeCategory: string = "";
   recipeRating: number = 0;
@@ -49,16 +50,26 @@ export class WelcomeComponent implements OnInit {
   getRecipeData(): void {
     this.ApiService.getAllRecipes().then((resData: any) => {
       this.allRecipeArray = resData;
+
+      this.addAuthotIdToRecipe();
       this.extractCategories()
     });
   }
   getTopRecipeData(): void {
     this.ApiService.getTopRecipes().then((resData: any) => {
       this.topRecipeArray = resData;
+      this.addAuthotIdToRecipe();
     });
   }
 
-
+  addAuthotIdToRecipe(): void {
+    this.allRecipeArray.forEach(recipe => {
+      const user = this.allUserArray.find(user => user.username === recipe.author);
+      if (user) {
+        recipe.authorId = user._id;
+      }
+    });
+  }
   extractCategories(): void {
     const categorySet = new Set<string>();
     this.allRecipeArray.forEach(elem => {

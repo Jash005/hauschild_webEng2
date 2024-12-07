@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltip } from '@angular/material/tooltip';
 import { NgModel, FormsModule } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,7 +19,8 @@ import { Router } from '@angular/router';
     MatButtonModule,
     MatTooltip,
     FormsModule,
-    MatChipsModule
+    MatChipsModule,
+    RouterLink
   ],
   templateUrl: './recipe-view.component.html',
   styleUrl: './recipe-view.component.css'
@@ -35,9 +36,10 @@ export class RecipeViewComponent {
   ingredients: string[] = [];
   instruction:string = "";
   author: string = "";
+  recipeAuthorId: string = "";
   createdAt: Date = new Date();
   rating: number = 0;
-  comments: { content: string, author: string, createdAt: string }[] = [];
+  comments: { content: string, author: string, authorId: string, createdAt: string }[] = [];
   showCommentField: boolean = false;
   newCommentContent: string = "";
 
@@ -45,6 +47,8 @@ export class RecipeViewComponent {
 
   ngOnInit(): void {
     this.recipeId = this.route.snapshot.queryParamMap.get('selectedRecipe') || 'none';
+    this.recipeAuthorId = this.route.snapshot.queryParamMap.get('author') || 'none';
+
     if(this.recipeId !== 'none') {
       this.getRecipeData();
     } else {
@@ -55,6 +59,8 @@ export class RecipeViewComponent {
       }
       this.router.navigate(['/']);
     }
+
+    this.removeQueryParams(['author']);
   }
 
   getRecipeData(): void {
@@ -85,9 +91,11 @@ export class RecipeViewComponent {
 
   /* ----------- Comment -----------*/
   async addComment(): Promise<void> {
+    let authorId = localStorage.getItem('userId') || "";
     this.comments.push({
       content: this.newCommentContent,
       author: this.currentUser,
+      authorId: authorId,
       createdAt: new Date().toISOString()
     });
     try {
@@ -109,4 +117,14 @@ export class RecipeViewComponent {
     this.newCommentContent = "";
   }
 
+  /* ----------- Query Parameter ----------- */
+  removeQueryParams(paramsToRemove: string[]): void {
+    const queryParams = { ...this.route.snapshot.queryParams };
+    paramsToRemove.forEach(param => delete queryParams[param]);
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: queryParams
+    });
+  }
 }
