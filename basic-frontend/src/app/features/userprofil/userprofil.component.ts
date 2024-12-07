@@ -24,12 +24,14 @@ export class UserprofilComponent implements OnInit {
   createdAt: Date = new Date();
   recipes = localStorage.getItem('recipes');
   comments = localStorage.getItem('comments');
+  recipesFromUser: any;
 
   constructor(private route: ActivatedRoute, private ApiService: ApiService, private router: Router) {
   }
   ngOnInit() {
     this.userId = this.route.snapshot.queryParamMap.get('selectedUser') || '';
     this.getUserById();
+    this.getRecipesFromUser(this.userId);
     this.removeQueryParams(['selectedRecipe', 'author']);
   }
 
@@ -49,6 +51,15 @@ export class UserprofilComponent implements OnInit {
     this.comments = localStorage.getItem('comments');
   }
 
+  getRecipesFromUser(userId: string) {
+    this.ApiService.getRecipesByUserId(userId).then((resData: any) => {
+      this.recipesFromUser = resData;
+      console.log("HIER:--- ",this.recipesFromUser);
+    });
+  }
+
+
+
   removeQueryParams(paramsToRemove: string[]): void {
     const queryParams = { ...this.route.snapshot.queryParams };
     paramsToRemove.forEach(param => delete queryParams[param]);
@@ -58,6 +69,5 @@ export class UserprofilComponent implements OnInit {
       queryParams: queryParams
     });
   }
-
 
 }

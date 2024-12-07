@@ -53,6 +53,13 @@ export class ApiService {
     return this.getApiData('', `${this.BASE_URL}/user/${id}`, 'GET');
   }
 
+/* ====================================
+        zwischen User und Rezept
+==================================== */
+  async getRecipesByUserId(id: string): Promise<any> {
+    return this.getApiData('', `${this.BASE_URL}/recipe/${id}/`, 'GET');
+  }
+
 
 /* ====================================
         Rezept
@@ -82,8 +89,8 @@ export class ApiService {
     return this.getApiData('', `${this.BASE_URL}/recipe/${id}`, 'PUT', {rating: rating});
   }
 
-  async addCommentToRecipe(id: string, comment: string, author: string): Promise<any> {
-    let bodyToSend = {content: comment, author: author};
+  async addCommentToRecipe(id: string, comment: string, author: string, authorId: string): Promise<any> {
+    let bodyToSend = {content: comment, author: author, authorId: authorId};
     let authHeader = localStorage.getItem('authToken') || '';
     return this.getApiData(authHeader, `${this.BASE_URL}/recipe/${id}/comments`, 'PUT', bodyToSend);
   }

@@ -65,6 +65,7 @@ export function addCommentToRecipe(recipeId, commentContent, author, callback) {
     commentId: new Date().getTime().toString(), 
     content: commentContent.content,
     author: commentContent.author,
+    authorId: commentContent.authorId,
     createdAt: new Date().toISOString()
   };
   

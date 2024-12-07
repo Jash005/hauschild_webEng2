@@ -91,7 +91,8 @@ router.put('/:id/comments', basicAuth, async (req, res) => {
   const recipeId = req.params.id;
   const comment = req.body;
   const author = req.author;
-  await addCommentToRecipe(recipeId, comment, author, (err, numUpdated) => {
+  const authorId = req.authorId;
+  await addCommentToRecipe(recipeId, comment, author, authorId, (err, numUpdated) => {
     if (err) {
       return res.status(500).send(err);
     }

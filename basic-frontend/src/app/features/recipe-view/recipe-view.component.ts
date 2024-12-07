@@ -98,8 +98,9 @@ export class RecipeViewComponent {
       authorId: authorId,
       createdAt: new Date().toISOString()
     });
+    console.log('neuer Kommentar:', this.newCommentContent);
     try {
-      const response = this.ApiService.addCommentToRecipe(this.recipeId, this.newCommentContent, this.currentUser);
+      const response = this.ApiService.addCommentToRecipe(this.recipeId, this.newCommentContent, this.currentUser, authorId);
       console.log('Kommentar hinzugefügt', response);
       this._snackBar.open('Kommentar hinzugefügt', 'x', { duration: 2000 });
     } catch (error) {

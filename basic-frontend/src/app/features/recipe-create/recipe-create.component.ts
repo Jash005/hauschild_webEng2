@@ -76,6 +76,7 @@ export class RecipeCreateComponent {
       try {
         const formValue = this.recipeForm.value;
         formValue.author = localStorage.getItem('username');
+        formValue.authorId = localStorage.getItem('userId');
 
         const response = await this.apiService.createRecipe(formValue);
         console.log('Rezept erfolgreich erstellt', response);
