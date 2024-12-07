@@ -7,20 +7,27 @@ import { inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-userprofil',
   standalone: true,
   imports: [
     DatePipe,
-    RouterLink
+    RouterLink,
+    MatIconModule,
+    MatButtonModule
   ],
   templateUrl: './userprofil.component.html',
   styleUrl: './userprofil.component.css',
   providers: [ApiService]
 })
 export class UserprofilComponent implements OnInit {
+  private _snackBar = inject(MatSnackBar);
   userId: string = "";
+  userIdFromLoggedInUser: string = localStorage.getItem('userId') || "";
   username: string = "";
   userData: any;
   createdAt: Date = new Date();
@@ -32,15 +39,19 @@ export class UserprofilComponent implements OnInit {
   filteredCommentsRecipeTitle: string = "";
   preparedComments: any[] = [];
 
-  constructor(private route: ActivatedRoute, private ApiService: ApiService, private router: Router) {
-  }
+  constructor(private route: ActivatedRoute, private ApiService: ApiService, private router: Router) { }
   ngOnInit() {
     this.route.queryParamMap.subscribe(params => {
-      this.userId = this.route.snapshot.queryParamMap.get('selectedUser') || '';
-      this.getUserById();
-      this.getRecipesFromUser(this.userId);
-      this.getCommentsByUserId(this.userId);
-      this.removeQueryParams(['selectedRecipe', 'author']);
+      this.userId = this.route.snapshot.queryParamMap.get('selectedUser') || 'none';
+      if (this.userId === 'none') {
+        this._snackBar.open('Diesen Benutzer gibt es nicht mehr', 'x', { duration: 2000 });
+        this.router.navigate(['/']);
+      } else {
+        this.getUserById();
+        this.getRecipesFromUser(this.userId);
+        this.getCommentsByUserId(this.userId);
+        this.removeQueryParams(['selectedRecipe', 'author']);
+      }
     });
   }
 
@@ -51,13 +62,6 @@ export class UserprofilComponent implements OnInit {
       this.createdAt = this.userData.createdAt;
       console.log(this.userData);
     });
-  }
-
-  viewRecipe() {
-    this.recipes = localStorage.getItem('recipes');
-  }
-  viewRecipeWithComments() {
-    this.comments = localStorage.getItem('comments');
   }
 
   getRecipesFromUser(userId: string) {
@@ -88,6 +92,37 @@ export class UserprofilComponent implements OnInit {
       this.filteredComments = preparedComments.filter((comment: any) => comment.authorId === this.userId);
     });
   }
+
+
+/* ----------- Lösche User ----------- */
+deleteUser(): void {
+    const confirmation = confirm('Sind Sie sicher, dass Sie Ihr Benutzerkonto löschen möchten? - Ihre erstellen Rezepte bleiben erhalten');
+
+    if(confirmation) {
+      try {
+        this.ApiService.deleteUser(this.userId);
+        this._snackBar.open('Benutzer wurde gelöscht', 'x', { duration: 2000 });
+        localStorage.removeItem('username');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('authToken');
+        localStorage.setItem('snackbarMessage', 'Benutzer wurde erfolgreich gelöscht');
+        window.location.replace('/');
+      } catch (error) {
+          console.error('Fehler beim löschen des Benutzers', error);
+          this._snackBar.open('Fehler beim löschen des Benutzers', 'x', { duration: 2000 });
+
+          const snackBarElement = document.querySelector(".mat-mdc-snackbar-surface");
+          if (snackBarElement) {
+            (snackBarElement as HTMLElement).style.backgroundColor = '#f00';
+          }
+      }
+    }
+
+}
+
+
+
+
 
   removeQueryParams(paramsToRemove: string[]): void {
     const queryParams = { ...this.route.snapshot.queryParams };

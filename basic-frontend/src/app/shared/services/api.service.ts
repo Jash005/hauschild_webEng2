@@ -53,6 +53,10 @@ export class ApiService {
     return this.getApiData('', `${this.BASE_URL}/user/${id}`, 'GET');
   }
 
+  async deleteUser(id: string): Promise<any> {
+    return this.getApiData('', `${this.BASE_URL}/user/${id}`, 'DELETE');
+  }
+
 /* ====================================
         zwischen User und Rezept
 ==================================== */

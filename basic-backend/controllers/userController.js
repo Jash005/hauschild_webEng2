@@ -5,6 +5,7 @@ import {
   isUsernameExist,
   showUserProfile,
   getAllUsers,
+  deleteUser
 } from "../models/databases.js";
 
 const router = express.Router();
@@ -78,6 +79,20 @@ router.get("/:userId", async (req, res) => {
   });
 });
 
+
+/* --- Benutzer löschen --- */
+router.delete('/:id', async (req, res) => {
+  const userId = req.params.id;
+  await deleteUser(userId, (err, numDeleted) => {
+    if (err) {
+      return res.status(500);
+    }
+    if (numDeleted === 0) {
+      return res.status(404).send('Benutzer nicht gefunden');
+    }
+    res.status(200).send('Benutzer gelöscht');
+  });
+});
 
 
 

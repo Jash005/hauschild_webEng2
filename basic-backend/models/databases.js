@@ -56,6 +56,13 @@ export function showUserProfile(userId, callback) {
   return userDb.findOne({ _id: userId }, { username: 1, createdAt: 1 }, callback);
 }
 
+// Funktion zum Löschen eines Benutzers
+export function deleteUser(userId, callback) {
+  return userDb.remove({ _id: userId }, {}, callback);
+}
+
+
+
 /* ====================================
         Recipe Database Functions
 ==================================== */
