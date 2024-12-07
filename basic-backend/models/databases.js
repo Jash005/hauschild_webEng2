@@ -117,6 +117,15 @@ export function findCommentByUserId(userId, callback) {
   return recipeDb.find({ 'comments.authorId': userId }, callback);
 }
 
+// Funktion zum Löschen eines Rezepts
+export function deleteRecipe(recipeId, callback) {
+  return recipeDb.remove({ _id: recipeId }, {}, callback);
+}
+
+
+
+
+
 
 
 
@@ -130,12 +139,6 @@ export function editRecipe(recipeId, updatedRecipe, callback) {
     {},
     callback
   );
-}
-
-//NOTE: no Check 
-// Funktion zum Löschen eines Rezepts
-export function deleteRecipe(recipeId, callback) {
-  return recipeDb.remove({ _id: recipeId }, {}, callback);
 }
 
 //NOTE: no Check 

@@ -1,5 +1,5 @@
 import express from 'express';
-import { addRecipe, addCommentToRecipe, findRecipeById, checkAuthHeader, editRecipe, getAllRecipes, getTopRecipesWithLimit, findRecipeByUserId, findCommentByUserId } from '../models/databases.js';
+import { addRecipe, addCommentToRecipe, findRecipeById, checkAuthHeader, editRecipe, getAllRecipes, deleteRecipe, getTopRecipesWithLimit, findRecipeByUserId, findCommentByUserId } from '../models/databases.js';
 
 const router = express.Router();
 
@@ -132,6 +132,20 @@ router.put('/:id/comments', basicAuth, async (req, res) => {
       res.status(200).send(resData);
     });
   });
+
+/* --- Rezept löschen --- */
+router.delete('/:id', async (req, res) => {
+  const recipeId = req.params.id;
+  await deleteRecipe(recipeId, (err, numDeleted) => {
+    if (err) {
+      return res.status(500);
+    }
+    if (numDeleted === 0) {
+      return res.status(404).send('Rezept nicht gefunden');
+    }
+    res.status(200).send('Rezept gelöscht');
+  });
+});
 
 
 export { router as recipeController };

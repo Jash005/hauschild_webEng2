@@ -1,5 +1,12 @@
 <section id="headline">
   <h2>{{ title }}</h2>
+
+  @if (currentUser === author) {
+    <button mat-fab aria-label="Rezept komplett löschen" (click)="deleteRecipe()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  }
+
   <mat-chip>{{ category }}</mat-chip>
   <p [routerLink]="['/userprofil']" [queryParams]="{ selectedUser: recipeAuthorId }"  queryParamsHandling="merge">{{ author }} {{recipeAuthorId}}</p>
   <p>{{ createdAt | date : 'mediumDate'}}</p>

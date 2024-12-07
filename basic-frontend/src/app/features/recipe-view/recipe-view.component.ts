@@ -63,6 +63,7 @@ export class RecipeViewComponent {
     this.removeQueryParams(['author']);
   }
 
+/* ----------- bekomme Daten ----------- */
   getRecipeData(): void {
     console.log('Recipe ID:', this.recipeId);
     this.ApiService.getRecipeById(this.recipeId).then((recipe: any) => {
@@ -104,9 +105,7 @@ export class RecipeViewComponent {
       console.log('Kommentar hinzugefügt', response);
       this._snackBar.open('Kommentar hinzugefügt', 'x', { duration: 2000 });
     } catch (error) {
-        console.error(error);
-
-        console.error('Fehler beim hinzufügen des Kommentars', error);
+      console.error('Fehler beim hinzufügen des Kommentars', error);
         this._snackBar.open('Fehler beim hinzufügen des Kommentars', 'x', { duration: 2000 });
 
         const snackBarElement = document.querySelector(".mat-mdc-snackbar-surface");
@@ -116,6 +115,27 @@ export class RecipeViewComponent {
     }
     this.showCommentField = false;
     this.newCommentContent = "";
+  }
+
+/* ----------- Lösche Rezept ----------- */
+  deleteRecipe(): void {
+    const confirmation = confirm('Sind Sie sicher, dass Sie das Rezept löschen möchten?');
+
+    if(confirmation) {
+      try {
+        this.ApiService.deleteRecipe(this.recipeId);
+        this._snackBar.open('Rezept wurde gelöscht', 'x', { duration: 2000 });
+        this.router.navigate(['/']);
+      } catch (error) {
+          console.error('Fehler beim löschen des Rezepts', error);
+          this._snackBar.open('Fehler beim löschen des Rezepts', 'x', { duration: 2000 });
+
+          const snackBarElement = document.querySelector(".mat-mdc-snackbar-surface");
+          if (snackBarElement) {
+            (snackBarElement as HTMLElement).style.backgroundColor = '#f00';
+          }
+      }
+    }
   }
 
   /* ----------- Query Parameter ----------- */
