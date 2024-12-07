@@ -6,6 +6,7 @@ import { ApiService } from '../../shared/services/api.service';
 import { inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-userprofil',
@@ -26,6 +27,10 @@ export class UserprofilComponent implements OnInit {
   recipes = localStorage.getItem('recipes');
   comments = localStorage.getItem('comments');
   recipesFromUser: any[] = [];
+  commentsFromAllUser: any[] = [];
+  filteredComments: any[] = [];
+  filteredCommentsRecipeTitle: string = "";
+  preparedComments: any[] = [];
 
   constructor(private route: ActivatedRoute, private ApiService: ApiService, private router: Router) {
   }
@@ -33,6 +38,7 @@ export class UserprofilComponent implements OnInit {
     this.userId = this.route.snapshot.queryParamMap.get('selectedUser') || '';
     this.getUserById();
     this.getRecipesFromUser(this.userId);
+    this.getCommentsByUserId(this.userId);
     this.removeQueryParams(['selectedRecipe', 'author']);
   }
 
@@ -55,11 +61,31 @@ export class UserprofilComponent implements OnInit {
   getRecipesFromUser(userId: string) {
     this.ApiService.getRecipesByUserId(userId).then((resData: any) => {
       this.recipesFromUser.push(resData);
-      console.log("HIER:--- ",this.recipesFromUser);
     });
   }
+  getCommentsByUserId(userId: string) {
+    this.ApiService.getCommentsByUserId(userId).then((resData: any) => {
+      // Arrays leeren um doppelte Einträge zu vermeiden
+      const preparedComments: any[] = [];
+      this.commentsFromAllUser = [];
 
+      resData.forEach((recipe: any) => {
+        const recipeTitle = recipe.recipeTitle;
+        const recipeId = recipe._id;
+        recipe.comments.forEach((comment: any) => {
+          if (comment.authorId === this.userId) {
+            preparedComments.push({
+              ...comment,
+              recipeTitle: recipeTitle,
+              recipeId: recipeId
+            });
+          }
+        });
+      });
 
+      this.filteredComments = preparedComments.filter((comment: any) => comment.authorId === this.userId);
+    });
+  }
 
   removeQueryParams(paramsToRemove: string[]): void {
     const queryParams = { ...this.route.snapshot.queryParams };

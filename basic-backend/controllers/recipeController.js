@@ -1,5 +1,5 @@
 import express from 'express';
-import { addRecipe, addCommentToRecipe, findRecipeById, checkAuthHeader, editRecipe, getAllRecipes, getTopRecipesWithLimit, findRecipeByUserId } from '../models/databases.js';
+import { addRecipe, addCommentToRecipe, findRecipeById, checkAuthHeader, editRecipe, getAllRecipes, getTopRecipesWithLimit, findRecipeByUserId, findCommentByUserId } from '../models/databases.js';
 
 const router = express.Router();
 
@@ -120,6 +120,18 @@ router.put('/:id/comments', basicAuth, async (req, res) => {
 
 
 /* --- Kommentar Verlauf einer UserId --- */
+  router.get('/comment/:id', async (req, res) => {
+    const userId = req.params.id;
+    await findCommentByUserId(userId, (err, resData) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+      if (!resData) {
+        return res.status(404).send('Kommentar nicht gefunden');
+      }
+      res.status(200).send(resData);
+    });
+  });
 
 
 export { router as recipeController };

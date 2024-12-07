@@ -112,6 +112,10 @@ export function findRecipeByUserId(userId, callback) {
   return recipeDb.findOne({ authorId: userId }, callback);
 }
 
+// Funktion zum Finden eines Kommentars für die Kommentarhistorie
+export function findCommentByUserId(userId, callback) {
+  return recipeDb.find({ 'comments.authorId': userId }, callback);
+}
 
 
 

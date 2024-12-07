@@ -21,4 +21,15 @@
 }
 
 <h3>Meine Kommentare</h3>
+@if (filteredComments.length > 0) {
+  @for (comment of filteredComments; track $index) {
+    <div class="commentBox" [routerLink]="['/recipe-view']" [queryParams]="{ selectedRecipe: comment.recipeId, author: comment.authorId }" queryParamsHandling="merge">
+      <h3>{{comment?.recipeTitle || ''}}</h3>
+      <p>{{comment?.content || ''}}</p>
+      <p>{{comment?.createdAt | date: 'mediumDate'}}</p>
+    </div>
+  }
+} @else {
+  <p>Dieser User noch keine Kommentare erstellt.</p>
+}
 
