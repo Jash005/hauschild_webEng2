@@ -35,11 +35,13 @@ export class UserprofilComponent implements OnInit {
   constructor(private route: ActivatedRoute, private ApiService: ApiService, private router: Router) {
   }
   ngOnInit() {
-    this.userId = this.route.snapshot.queryParamMap.get('selectedUser') || '';
-    this.getUserById();
-    this.getRecipesFromUser(this.userId);
-    this.getCommentsByUserId(this.userId);
-    this.removeQueryParams(['selectedRecipe', 'author']);
+    this.route.queryParamMap.subscribe(params => {
+      this.userId = this.route.snapshot.queryParamMap.get('selectedUser') || '';
+      this.getUserById();
+      this.getRecipesFromUser(this.userId);
+      this.getCommentsByUserId(this.userId);
+      this.removeQueryParams(['selectedRecipe', 'author']);
+    });
   }
 
   getUserById(): void {

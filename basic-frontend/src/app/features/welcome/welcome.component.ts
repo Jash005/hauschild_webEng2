@@ -3,6 +3,7 @@ import {Component, computed, inject, Input, OnInit, signal} from '@angular/core'
 import { ApiService } from "../../shared/services/api.service";
 import { RouterLink } from '@angular/router';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-welcome',
@@ -30,16 +31,15 @@ export class WelcomeComponent implements OnInit {
   recipeCategory: string = "";
   recipeRating: number = 0;
 
-  items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
-  expandedIndex = 0;
-
-  constructor(private ApiService: ApiService) {
+  constructor(private route: ActivatedRoute, private ApiService: ApiService, private router: Router) {
   }
 
   ngOnInit(): void {
     this.getUserData();
     this.getRecipeData();
     this.getTopRecipeData();
+
+    this.removeQueryParams(['selectedRecipe', 'author']);
   }
 
   getUserData(): void {
@@ -84,4 +84,14 @@ export class WelcomeComponent implements OnInit {
     });
   }
 
+    /* ----------- Query Parameter ----------- */
+    removeQueryParams(paramsToRemove: string[]): void {
+      const queryParams = { ...this.route.snapshot.queryParams };
+      paramsToRemove.forEach(param => delete queryParams[param]);
+
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: queryParams
+      });
+    }
 }
