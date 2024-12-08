@@ -42,7 +42,6 @@ export class RegisterComponent {
     if (this.registerForm.valid) {
       try {
         const response = await this.apiService.registerUser(this.registerForm.value);
-        console.log('User erfolgreich registriert', response);
         localStorage.setItem('snackbarMessage', 'User erfolgreich registriert');
         window.location.replace('/login');
       } catch (error) {

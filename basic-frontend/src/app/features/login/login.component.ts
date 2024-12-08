@@ -11,7 +11,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from "../../shared/services/api.service";
 
 
-
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -42,17 +41,18 @@ export class LoginComponent {
     this.hide.set(!this.hide());
     event.stopPropagation();
   }
+
   private createAuthHeader(username: string, password: string): string {
     const creds = `${username}:${password}`;
     const encoded = btoa(creds);
     return `Basic ${encoded}`;
   }
 
+
   async submitForm(): Promise<void> {
     if (this.loginForm.valid) {
       try {
         const response = await this.apiService.loginUser(this.loginForm.value);
-        console.log('User erfolgreich eingeloggt', response);
         localStorage.setItem("username", this.loginForm.value.username);
         localStorage.setItem("userId", response.user._id);
         localStorage.setItem("authToken", this.createAuthHeader(this.loginForm.value.username, this.loginForm.value.password));

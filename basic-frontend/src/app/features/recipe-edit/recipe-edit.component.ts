@@ -77,7 +77,6 @@ export class RecipeEditComponent  {
       try {
         const formValue = { ...this.recipeForm.value };
 
-        console.log('neueIngredients:', formValue.recipeIngredients);
         if (!Array.isArray(formValue.recipeIngredients)) {
           formValue.recipeIngredients = formValue.recipeIngredients
             .split(',')
@@ -88,7 +87,6 @@ export class RecipeEditComponent  {
         formValue.author = localStorage.getItem('username');
         formValue.authorId = localStorage.getItem('userId');
         const response = await this.apiService.editRecipe(this.recipe2send._id, formValue);
-        console.log('Rezept erfolgreich bearbeitet', response);
         this._snackBar.open('Rezept erfolgreich bearbeitet', 'x', { duration: 2000 });
         this.router.navigate(['/']);
       } catch (error) {

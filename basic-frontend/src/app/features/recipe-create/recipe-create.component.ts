@@ -80,9 +80,7 @@ export class RecipeCreateComponent {
 
         formValue.author = localStorage.getItem('username');
         formValue.authorId = localStorage.getItem('userId');
-        console.log("HIER DIE FORMULARDATEN:---",formValue);
         const response = await this.apiService.createRecipe(formValue);
-        console.log('Rezept erfolgreich erstellt', response);
         this._snackBar.open('Rezept erfolgreich erstellt', 'x', { duration: 2000 });
         this.router.navigate(['/']);
       } catch (error) {

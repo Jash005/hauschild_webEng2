@@ -44,7 +44,6 @@ export class UserprofilComponent implements OnInit {
   ngOnInit() {
     // this.route.queryParamMap.subscribe(params => {
       this.userId = this.route.snapshot.queryParamMap.get('selectedUser') || 'none';
-      console.log('userId aus URL: ', this.userId);
 
       if (this.userId === 'none') {
         this._snackBar.open('Diesen Benutzer gibt es nicht mehr', 'x', { duration: 2000 });
@@ -61,23 +60,19 @@ export class UserprofilComponent implements OnInit {
   }
 
   getUserById(): void {
-    console.log('getUserById ausgeführt');
     this.ApiService.getUserById(this.userId).then((userData: any) => {
       this.userData = userData;
       this.username = this.userData.username;
       this.createdAt = this.userData.createdAt;
-      console.log(this.userData);
     });
   }
 
   getRecipesFromUser(userId: string) {
-    console.log('getRecipesFromUser ausgeführt');
     this.ApiService.getRecipesByUserId(userId).then((resData: any) => {
       this.recipesFromUser.push(resData);
     });
   }
   getCommentsByUserId(userId: string) {
-    console.log('getCommentsByUserId ausgeführt');
     this.ApiService.getCommentsByUserId(userId).then((resData: any) => {
       // Arrays leeren um doppelte Einträge zu vermeiden
       const preparedComments: any[] = [];

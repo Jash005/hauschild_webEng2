@@ -91,7 +91,6 @@ export class RecipeViewComponent implements OnInit {
 
 /* ----------- bekomme Daten ----------- */
   getRecipeData(): void {
-    console.log('Recipe ID:', this.recipeId);
     this.ApiService.getRecipeById(this.recipeId).then((recipe: any) => {
       this.title = recipe.recipeTitle;
       this.category = recipe.recipeCategory;
@@ -102,11 +101,7 @@ export class RecipeViewComponent implements OnInit {
       this.author = recipe.author;
       this.rating = recipe.rating;
       this.comments = recipe.comments;
-
-
-
       this.recipe2send = recipe;
-      console.log('Recipe2Send in Eltern:', this.recipe2send);
     });
   }
 
@@ -131,10 +126,8 @@ export class RecipeViewComponent implements OnInit {
       authorId: authorId,
       createdAt: new Date().toISOString()
     });
-    console.log('neuer Kommentar:', this.newCommentContent);
     try {
       const response = this.ApiService.addCommentToRecipe(this.recipeId, this.newCommentContent, this.currentUser, authorId);
-      console.log('Kommentar hinzugefügt', response);
       this._snackBar.open('Kommentar hinzugefügt', 'x', { duration: 2000 });
     } catch (error) {
       console.error('Fehler beim hinzufügen des Kommentars', error);
@@ -153,41 +146,6 @@ export class RecipeViewComponent implements OnInit {
   editRecipe(): void {
     this.isEditing = !this.isEditing;
   }
-  //   // Werte kopieren
-  //   this.editedTitle = this.title;
-  //   this.editedDescription = this.description;
-  //   //this.editedIngredients = this.ingredients;
-  //   this.editedInstruction = this.instruction;
-
-  //   console.log("HIER---", this.editedIngredients);
-  // }
-  // saveEditRecipe() {
-  //   if (this.editedRecipeForm.valid) {
-  //     this.title = this.editedRecipeForm.value.title;
-  //     this.description = this.editedRecipeForm.value.description;
-  //    // this.ingredients = this.editedRecipeForm.value.ingredients;
-  //     this.instruction = this.editedRecipeForm.value.instruction;
-  //     this.isEditing = false;
-  //   }
-  // }
-  // createIngredientField(): FormControl {
-  //   return this.fb.control('');
-  // }
-  // addIngredientsField() {
-  //   this.editedIngredients.push(this.createIngredientField());
-  // }
-  // removeIngredientField(index: number) {
-  //   this.editedIngredients.removeAt(index);
-  // }
-
-  // async submitForm(): Promise<void> {
-  //   if (this.editedRecipeForm.valid) {
-  //     //await this.prepareIngredientsArray();
-  //     try {
-  //     } catch (error) {
-  //     }
-  //   }
-  // }
 
 /* ----------- Lösche Rezept ----------- */
   deleteRecipe(): void {
