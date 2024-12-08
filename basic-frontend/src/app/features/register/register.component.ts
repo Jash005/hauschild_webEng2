@@ -44,7 +44,7 @@ export class RegisterComponent {
         const response = await this.apiService.registerUser(this.registerForm.value);
         console.log('User erfolgreich registriert', response);
         localStorage.setItem('snackbarMessage', 'User erfolgreich registriert');
-        window.location.replace('/');
+        window.location.replace('/login');
       } catch (error) {
         console.error('Fehler bei der Registrierung', error);
         const errorMessage = (error as any).message || 'Fehler bei der Registrierung';

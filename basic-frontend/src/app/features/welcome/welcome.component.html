@@ -1,51 +1,55 @@
 <h1>Willkommen auf der Rezeptseite</h1>
 
 <h2>Rezepte nach Kategorien</h2>
-<cdk-accordion class="example-accordion">
-  @for (categoryItem of recipeCategorysInDatabase; track categoryItem; let i = $index) {
-    <cdk-accordion-item
-      #accordionItem="cdkAccordionItem"
-      class="example-accordion-item"
-      role="button"
-      tabindex="0"
-      [attr.id]="'accordion-header-' + i"
-      [attr.aria-expanded]="accordionItem.expanded"
-      [attr.aria-controls]="'accordion-body-' + i">
-      <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
-        {{ categoryItem }}
-        <span class="example-accordion-item-description">
-          Click to {{ accordionItem.expanded ? 'close' : 'open' }}
-        </span>
-      </div>
-      <div
-        class="example-accordion-item-body"
-        role="region"
-        [style.display]="accordionItem.expanded ? '' : 'none'"
-        [attr.id]="'accordion-body-' + i"
-        [attr.aria-labelledby]="'accordion-header-' + i">
+@if (allRecipeArray.length > 0) {
+  <cdk-accordion class="example-accordion">
+    @for (categoryItem of recipeCategorysInDatabase; track categoryItem; let i = $index) {
+      <cdk-accordion-item
+        #accordionItem="cdkAccordionItem"
+        class="example-accordion-item"
+        role="button"
+        tabindex="0"
+        [attr.id]="'accordion-header-' + i"
+        [attr.aria-expanded]="accordionItem.expanded"
+        [attr.aria-controls]="'accordion-body-' + i">
+        <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
+          {{ categoryItem }}
+          <span class="example-accordion-item-description">
+            Click to {{ accordionItem.expanded ? 'close' : 'open' }}
+          </span>
+        </div>
+        <div
+          class="example-accordion-item-body"
+          role="region"
+          [style.display]="accordionItem.expanded ? '' : 'none'"
+          [attr.id]="'accordion-body-' + i"
+          [attr.aria-labelledby]="'accordion-header-' + i">
 
-        @for (recipe of allRecipeArray; track $index) {
-          @if (recipe.recipeCategory === categoryItem) {
-            <div class="recipeBox" [routerLink]="['/recipe-view']" [queryParams]="{ selectedRecipe: recipe._id, author: recipe.authorId }" queryParamsHandling="merge">
-              <h3>{{recipe.recipeTitle}}</h3>
-              <p>{{recipe.recipeDescription || "Keine Beschreibung"}}</p>
-              <p>{{recipe.author || "Kein Autor"}}</p>
-              <p>{{recipe.recipeCategory || "Unkategorisiert"}}</p>
-              <p>{{recipe.rating || 0}}</p>
-              <p>{{recipe.updatedAt | date: 'mediumDate'}}</p>
-            </div>
+          @for (recipe of allRecipeArray; track $index) {
+            @if (recipe.recipeCategory === categoryItem) {
+              <div class="recipeBox" [routerLink]="['/recipe-view']" [queryParams]="{ selectedRecipe: recipe._id, author: recipe.authorId }" queryParamsHandling="merge">
+                <h3>{{recipe.recipeTitle}}</h3>
+                <p>{{recipe.recipeDescription || "Keine Beschreibung"}}</p>
+                <p>{{recipe.author || "Kein Autor"}}</p>
+                <p>{{recipe.recipeCategory || "Unkategorisiert"}}</p>
+                <p>{{recipe.rating || 0}}</p>
+                <p>{{recipe.updatedAt | date: 'mediumDate'}}</p>
+              </div>
+            }
           }
-        }
-      </div>
-    </cdk-accordion-item>
-  }
-</cdk-accordion>
-
+        </div>
+      </cdk-accordion-item>
+    }
+  </cdk-accordion>
+} @else {
+  <p>Keine Rezepte vorhanden</p>
+}
 
 <h2>Rezepte nach Neusten</h2>
-@if (allRecipeArray.length > 1) {
+@if (allRecipeArray.length > 0) {
   @for (recipe of allRecipeArray; track $index) {
-    <div class="recipeBox" [routerLink]="['/recipe-view']" [queryParams]="{ selectedRecipe: recipe._id, author: recipe.authorId  }" queryParamsHandling="merge">
+    {{recipe.authorId}}
+    <div class="recipeBox" [routerLink]="['/recipe-view']" [queryParams]="{ selectedRecipe: recipe._id, author: recipe.authorId }" queryParamsHandling="merge">
       <h3>{{recipe.recipeTitle}}</h3>
       <p>{{recipe.recipeDescription || "Keine Beschreibung"}}</p>
       <p>{{recipe.author || "Kein Autor"}}</p>
@@ -59,8 +63,9 @@
 }
 
 <h2>Top 5 Rezepte</h2>
-@if(topRecipeArray.length > 1) {
+@if(topRecipeArray.length > 0) {
   @for (recipe of topRecipeArray; track $index) {
+    {{recipe.authorId}}
     <div class="recipeBox" [routerLink]="['/recipe-view']" [queryParams]="{ selectedRecipe: recipe._id, author: recipe.authorId }" queryParamsHandling="merge">
       <h3>{{recipe.recipeTitle}}</h3>
       <p>{{recipe.recipeDescription || "Keine Beschreibung"}}</p>
@@ -77,7 +82,7 @@
 
 
 <h2>Benutzerprofile</h2>
-@if (allUserArray.length > 1) {
+@if (allUserArray.length > 0) {
   @for (user of allUserArray; track $index) {
     <div class="userBox" [routerLink]="['/userprofil']" [queryParams]="{ selectedUser: user._id }">
       <h3>{{user.username}}</h3>
@@ -87,3 +92,7 @@
 } @else {
   <p>Keine Benutzer vorhanden</p>
 }
+
+
+<!-- //TODO - löschen vor der Abgabe -->
+<button (click)="DELETEALLDATAFROMDATABASE()">DELTE ALL DATA FROM DATABASE</button>

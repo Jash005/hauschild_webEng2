@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 
-import { echoController } from './controllers/echo.js';
 import { userController } from './controllers/userController.js';
 import { recipeController } from './controllers/recipeController.js';
 import { logRequest } from './util/logger.js';
@@ -12,7 +11,6 @@ router.use(cors());
 router.use(express.json());
 router.use(logRequest);
 
-router.use('/echo', echoController);
 router.use('/user', userController);
 router.use('/recipe', recipeController);
 //TODO - Add your routes here

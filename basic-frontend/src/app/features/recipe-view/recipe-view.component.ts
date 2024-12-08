@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, Input, NgModule } from '@angular/core';
+import { Component, inject, OnInit, Input, NgModule, signal } from '@angular/core';
 import { ApiService } from '../../shared/services/api.service';
 import { DatePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -64,18 +64,11 @@ export class RecipeViewComponent implements OnInit {
   // editedDescription: string = "";
   // editedInstruction: string = "";
 
+  recipe2send: any = {};
+  isEditing2send = this.isEditing;
+
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private ApiService: ApiService, private router: Router) {
-    // this.editedRecipeForm = this.fb.group({
-    //   editedTitle: [this.title, Validators.required],
-    //   editedDescription: [this.description, Validators.required],
-    //   editedIngredients: this.fb.array([]),
-    //   editedInstruction: [this.instruction, Validators.required]
-    // });
-    // this.editedIngredients = this.editedRecipeForm.get('ingredients') as FormArray;
-  }
-
-  ngOnInit(): void {
     this.recipeId = this.route.snapshot.queryParamMap.get('selectedRecipe') || 'none';
     this.recipeAuthorId = this.route.snapshot.queryParamMap.get('author') || 'none';
 
@@ -90,10 +83,10 @@ export class RecipeViewComponent implements OnInit {
       this.router.navigate(['/']);
     }
 
-    this.removeQueryParams(['author']);
+    this.removeQueryParams(['selectedRecipe', 'author', 'selectedUser']);
+  }
 
-
-
+  ngOnInit(): void {
   }
 
 /* ----------- bekomme Daten ----------- */
@@ -109,6 +102,11 @@ export class RecipeViewComponent implements OnInit {
       this.author = recipe.author;
       this.rating = recipe.rating;
       this.comments = recipe.comments;
+
+
+
+      this.recipe2send = recipe;
+      console.log('Recipe2Send in Eltern:', this.recipe2send);
     });
   }
 

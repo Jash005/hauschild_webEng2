@@ -70,7 +70,7 @@
   </button>
 }
 @if (isEditing) {
-  <app-recipe-edit></app-recipe-edit>
+  <app-recipe-edit [recipe2send]="recipe2send"></app-recipe-edit>
 
   <!-- <section>
   <form [formGroup]="editedRecipeForm" (ngSubmit)="submitForm()">

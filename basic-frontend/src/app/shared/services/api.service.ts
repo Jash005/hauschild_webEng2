@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { CreateEchoInput, Echo } from "../types/echo.type";
 
 @Injectable({
   providedIn: 'root'
@@ -76,6 +75,11 @@ export class ApiService {
     return this.getApiData(authHeader, `${this.BASE_URL}/recipe`, 'POST', recipe);
   }
 
+  async editRecipe(id:string, recipe: any): Promise<any> {
+    let authHeader = localStorage.getItem('authToken') || '';
+    return this.getApiData(authHeader, `${this.BASE_URL}/recipe/${id}`, 'PUT', recipe);
+  }
+
   async getAllRecipes(): Promise<any> {
     return this.getApiData('', `${this.BASE_URL}/recipe`, 'GET');
   }
@@ -88,9 +92,9 @@ export class ApiService {
     return this.getApiData('', `${this.BASE_URL}/recipe/${id}`, 'GET');
   }
 
-  async updateRecipe(id: string, recipe: any): Promise<any> {
-    return this.getApiData('', `${this.BASE_URL}/recipe/${id}`, 'PUT', recipe);
-  }
+  // async updateRecipe(id: string, recipe: any): Promise<any> {
+  //   return this.getApiData('', `${this.BASE_URL}/recipe/${id}`, 'PUT', recipe);
+  // }
 
   async updateRecipeRating(id: string, rating: number): Promise<any> {
     return this.getApiData('', `${this.BASE_URL}/recipe/${id}`, 'PUT', {rating: rating});
@@ -107,30 +111,22 @@ export class ApiService {
   }
 
 
-/* ====================================
-        Echo
-==================================== */
-  async doError(): Promise<Echo> {
-    return this.getApiData('', `${this.BASE_URL}/echo`, 'POST');
-  }
 
-  async getEchos(contains?: string): Promise<Echo[]> {
-    let url = `${this.BASE_URL}/echo`;
-    if (contains) {
-      url += `?contains=${encodeURIComponent(contains)}`;
-    }
-    const response = await fetch(url);
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Fehler beim API Aufruf:', response.status, errorText);
-      throw new Error(errorText);
-    }
-    return response.json();
-  }
 
-  async createEcho(echo: CreateEchoInput): Promise<Echo> {
-    //return this.post<Echo>(`${this.BASE_URL}/echo`, echo);
-    return this.getApiData('', `${this.BASE_URL}/echo`, 'POST', echo);
-  }
 
+
+
+
+
+//TODO - löschen vor der Abgabe
+  async deleteAllUserData(): Promise<any> {
+    return this.getApiData('', `${this.BASE_URL}/user/ALL/ALL`, 'DELETE');
+  }
+  async deleteAllRecipeData(): Promise<any> {
+    return this.getApiData('', `${this.BASE_URL}/recipe/ALL/ALL`, 'DELETE');
+  }
 }
+
+
+
+

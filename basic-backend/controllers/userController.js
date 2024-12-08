@@ -5,7 +5,8 @@ import {
   isUsernameExist,
   showUserProfile,
   getAllUsers,
-  deleteUser
+  deleteUser,
+  deleteAllUser
 } from "../models/databases.js";
 
 const router = express.Router();
@@ -38,7 +39,7 @@ router.post("/register", async (req, res) => {
   if (user.acceptTerms !== true) {
     return res.status(400).json({ error: "Nutzungsbedingungen müssen akzeptiert sein" });
   }
-  addUser(user, (err, newUser) => {
+  await addUser(user, (err, newUser) => {
     if (err) {
       return res.status(500).send(err);
     }
@@ -49,7 +50,7 @@ router.post("/register", async (req, res) => {
 // Route für den Benutzer-Login
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
-  validateLogin(username, password, (err, user) => {
+  await validateLogin(username, password, (err, user) => {
     if (err || !user) {
       return res.status(401).json({ error: "Invalid username or password" });
     }
@@ -59,7 +60,7 @@ router.post("/login", async (req, res) => {
 
 // alle Benutzer anzeigen
 router.get("/", async (req, res) => {
-  getAllUsers((err, users) => {
+  await getAllUsers((err, users) => {
     if (err) {
       return res.status(500).json({ error: "Fehler beim Abrufen der Benutzer" });
     }
@@ -71,7 +72,7 @@ router.get("/", async (req, res) => {
 // einzelnen Benutzer mit ID anzeigen
 router.get("/:userId", async (req, res) => {
   const userId = req.params.userId;
-  showUserProfile(userId, (err, user) => {
+  await showUserProfile(userId, (err, user) => {
     if (err) {
       return res.status(500).json({ error: "Fehler beim Abrufen des Benutzers" });
     }
@@ -94,6 +95,20 @@ router.delete('/:id', async (req, res) => {
   });
 });
 
+
+
+//TODO - löschen vor der Abgabe
+router.delete('/ALL/ALL', async (req, res) => {
+  await deleteAllUser((err, numDeleted) => {
+    if (err) {
+      return res.status(500);
+    }
+    if (numDeleted === 0) {
+      return res.status(404).send('fehler User');
+    }
+    res.status(200).send('alles User gelöscht');
+  });
+});
 
 
 export { router as userController };

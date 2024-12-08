@@ -95,7 +95,6 @@ export function addRecipe(recipe, callback) {
   recipe.updatedAt = new Date().toISOString();
   recipe.comments = [];
   recipe.rating = 0;
-  //if (!recipe.recipeCategory) recipe.recipeCategory = 'Unkategorisiert';
   
   return recipeDb.insert(recipe, callback);
 }
@@ -106,12 +105,12 @@ export function checkAuthHeader(username, password) {
 
 // Funktion zum Aufrufen aller Rezepte nach Aktualisierungsdatum von Neu nach alt sortiert
 export function getAllRecipes(callback) {
-  return recipeDb.find({}, {author: 1, rating: 1, recipeCategory: 1, recipeDescription: 1, recipeTitle: 1, updatedAt: 1, _id: 1}).sort({ updatedAt: -1 }).exec(callback);
+  return recipeDb.find({}, {author: 1, authorId: 1, rating: 1, recipeCategory: 1, recipeDescription: 1, recipeTitle: 1, updatedAt: 1, _id: 1}).sort({ updatedAt: -1 }).exec(callback);
 }
 
 // Funktion zum Abrufen der Top 5 Rezepte nach Bewertung
 export function getTopRecipesWithLimit(limit, callback) {
-  return recipeDb.find({}, {author: 1, rating: 1, recipeCategory: 1, recipeDescription: 1, recipeTitle: 1, updatedAt: 1, _id: 1}).sort({ rating: -1 }).limit(limit).exec(callback);
+  return recipeDb.find({}, {author: 1, authorId: 1, rating: 1, recipeCategory: 1, recipeDescription: 1, recipeTitle: 1, updatedAt: 1, _id: 1}).sort({ rating: -1 }).limit(limit).exec(callback);
 }
 
 // Funktion zum Finden eines Rezepts nach ID
@@ -131,16 +130,10 @@ export function deleteRecipe(recipeId, callback) {
 
 
 
-
-
-
-
-
-//NOTE: no Check 
 // Funktion zum Bearbeiten eines Rezepts
 export function editRecipe(recipeId, updatedRecipe, callback) {
   updatedRecipe.updatedAt = new Date().toISOString();
-   return recipeDb.update(
+  return recipeDb.update(
     { _id: recipeId },
     { $set: updatedRecipe },
     {},
@@ -148,8 +141,25 @@ export function editRecipe(recipeId, updatedRecipe, callback) {
   );
 }
 
+
+
+
+
+
+
 //NOTE: no Check 
 // Funktion zum Finden eines Rezepts nach ID
 export function findRecipeById(recipeId, callback) {
   return recipeDb.findOne({ _id: recipeId }, callback);
+}
+
+
+
+
+//TODO - löschen vor der Abgabe
+export function deleteAllUser(callback) {
+  return userDb.remove({}, { multi: true }, callback);
+}
+export function deleteAllRecipe(callback) {
+  return recipeDb.remove({}, { multi: true }, callback);
 }

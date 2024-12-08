@@ -1,5 +1,17 @@
 import express from 'express';
-import { addRecipe, addCommentToRecipe, findRecipeById, checkAuthHeader, editRecipe, getAllRecipes, deleteRecipe, getTopRecipesWithLimit, findRecipeByUserId, findCommentByUserId } from '../models/databases.js';
+import { 
+  addRecipe, 
+  addCommentToRecipe, 
+  findRecipeById, 
+  checkAuthHeader, 
+  editRecipe, 
+  getAllRecipes, 
+  deleteRecipe, 
+  getTopRecipesWithLimit, 
+  findRecipeByUserId, 
+  findCommentByUserId, 
+  deleteAllRecipe 
+} from '../models/databases.js';
 
 const router = express.Router();
 
@@ -46,7 +58,7 @@ router.put('/:id',async (req, res) => {
     if (err) {
       return res.status(500).send;
     } else {
-      return res.status(200).send('Rezept aktualisiert');
+      res.status(200).send('Rezept aktualisiert');
     }
   });
 });
@@ -97,7 +109,7 @@ router.put('/:id/comments', basicAuth, async (req, res) => {
       return res.status(500).send(err);
     }
     if (numUpdated === 0) {
-      return res.status(404).send('Rezept nicht gefunden');
+      return res.status(204).send('Keine Kommentare vorhanden');
     }
     res.status(200).send('Kommentar hinzugefügt');
   });
@@ -111,8 +123,9 @@ router.put('/:id/comments', basicAuth, async (req, res) => {
       if (err) {
         return res.status(500).send(err);
       }
+
       if (!resData) {
-        return res.status(404).send('Rezept nicht gefunden');
+        return res.status(204).send('keine Rezepte vorhanden');
       }
       res.status(200).send(resData);
     });
@@ -147,5 +160,21 @@ router.delete('/:id', async (req, res) => {
   });
 });
 
+
+
+
+
+//TODO - löschen vor der Abgabe
+router.delete('/ALL/ALL', async (req, res) => {
+  await deleteAllRecipe((err, numDeleted) => {
+    if (err) {
+      return res.status(500);
+    }
+    if (numDeleted === 0) {
+      return res.status(404).send('fehler Recipe');
+    }
+    res.status(200).send('alles recipe gelöscht');
+  });
+});
 
 export { router as recipeController };

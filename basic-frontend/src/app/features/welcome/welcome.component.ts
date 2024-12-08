@@ -32,14 +32,14 @@ export class WelcomeComponent implements OnInit {
   recipeRating: number = 0;
 
   constructor(private route: ActivatedRoute, private ApiService: ApiService, private router: Router) {
-  }
-
-  ngOnInit(): void {
     this.getUserData();
     this.getRecipeData();
     this.getTopRecipeData();
 
-    this.removeQueryParams(['selectedRecipe', 'author']);
+    this.removeQueryParams(['selectedRecipe', 'author', 'selectedUser']);
+  }
+
+  ngOnInit(): void {
   }
 
   getUserData(): void {
@@ -92,6 +92,19 @@ export class WelcomeComponent implements OnInit {
       this.router.navigate([], {
         relativeTo: this.route,
         queryParams: queryParams
+      });
+    }
+
+
+
+
+//TODO - löschen vor der Abgabe
+    DELETEALLDATAFROMDATABASE(): void {
+      this.ApiService.deleteAllUserData().then((resData: any) => {
+        console.log('ALLE user DATEN WURDEN GELÖSCHT');
+      });
+      this.ApiService.deleteAllRecipeData().then((resData: any) => {
+        console.log('ALLE recipe DATEN WURDEN GELÖSCHT');
       });
     }
 }
