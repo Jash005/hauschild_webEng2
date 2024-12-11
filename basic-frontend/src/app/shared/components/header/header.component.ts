@@ -15,12 +15,15 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+/* ----------- Initialisierung -----------*/
   private _snackBar = inject(MatSnackBar);
   username = localStorage.getItem('username');
   userId = localStorage.getItem('userId');
 
   constructor(private router: Router, private route: ActivatedRoute) { }
 
+
+/* ----------- Logout ----------- */
   logout() {
     localStorage.removeItem('username');
     localStorage.removeItem('userId');
@@ -29,6 +32,8 @@ export class HeaderComponent {
     window.location.replace('/');
   }
 
+
+/* ----------- zum Userprofil navigieren ----------- */
   navigateAndReload(): void {
     this.router.navigate(['/userprofil'], { queryParams: { selectedUser: this.userId } }).then(() => {
       window.location.reload();

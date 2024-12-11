@@ -17,7 +17,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './welcome.component.css',
   providers: [ApiService]
 })
-export class WelcomeComponent implements OnInit {
+export class WelcomeComponent {
+/* ----------- Initialisierung -----------*/
   allUserArray: any[] = [];
   allRecipeArray: any[] = [];
   topRecipeArray: any[] = [];
@@ -39,30 +40,9 @@ export class WelcomeComponent implements OnInit {
     this.removeQueryParams(['selectedRecipe', 'author', 'selectedUser']);
   }
 
-  ngOnInit(): void {
-  }
 
-  getUserData(): void {
-    this.ApiService.getAllUser().then((resData: any) => {
-      this.allUserArray = resData;
-    });
-  }
-  getRecipeData(): void {
-    this.ApiService.getAllRecipes().then((resData: any) => {
-      this.allRecipeArray = resData;
-
-      this.addAuthotIdToRecipe();
-      this.extractCategories()
-    });
-  }
-  getTopRecipeData(): void {
-    this.ApiService.getTopRecipes().then((resData: any) => {
-      this.topRecipeArray = resData;
-      this.addAuthotIdToRecipe();
-    });
-  }
-
-  addAuthotIdToRecipe(): void {
+  /* ----------- AuthorID zu Rezepten zuorndnen für eine effizentere Datenverabreitung -----------*/
+  addAuthorIdToRecipe(): void {
     this.allRecipeArray.forEach(recipe => {
       const user = this.allUserArray.find(user => user.username === recipe.author);
       if (user) {
@@ -70,6 +50,8 @@ export class WelcomeComponent implements OnInit {
       }
     });
   }
+
+  /* ----------- Kategorien aus Rezepten extrahieren ----------- */
   extractCategories(): void {
     const categorySet = new Set<string>();
     this.allRecipeArray.forEach(elem => {
@@ -84,7 +66,32 @@ export class WelcomeComponent implements OnInit {
     });
   }
 
-    /* ----------- Query Parameter ----------- */
+
+  /* ----------- API-Aufruf alle Userdaten holen -----------*/
+    getUserData(): void {
+      this.ApiService.getAllUser().then((resData: any) => {
+        this.allUserArray = resData;
+      });
+    }
+
+  /* ----------- API-Aufruf alle Rezeptdaten holen -----------*/
+    getRecipeData(): void {
+      this.ApiService.getAllRecipes().then((resData: any) => {
+        this.allRecipeArray = resData;
+
+        this.addAuthorIdToRecipe();
+        this.extractCategories()
+      });
+    }
+    getTopRecipeData(): void {
+      this.ApiService.getTopRecipes().then((resData: any) => {
+        this.topRecipeArray = resData;
+        this.addAuthorIdToRecipe();
+      });
+    }
+
+
+  /* ----------- Query-Parameter aufräumen ----------- */
     removeQueryParams(paramsToRemove: string[]): void {
       const queryParams = { ...this.route.snapshot.queryParams };
       paramsToRemove.forEach(param => delete queryParams[param]);
@@ -107,4 +114,7 @@ export class WelcomeComponent implements OnInit {
         console.log('ALLE recipe DATEN WURDEN GELÖSCHT');
       });
     }
+
+
+
 }

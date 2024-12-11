@@ -10,7 +10,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from "../../shared/services/api.service";
 
-
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -26,6 +25,7 @@ import { ApiService } from "../../shared/services/api.service";
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+/* ----------- Initalisierung -----------*/
   private _snackBar = inject(MatSnackBar);
   loginForm: FormGroup;
   hide = signal(true);
@@ -42,6 +42,8 @@ export class LoginComponent {
     event.stopPropagation();
   }
 
+
+/* ----------- Auth-Headers -----------*/
   private createAuthHeader(username: string, password: string): string {
     const creds = `${username}:${password}`;
     const encoded = btoa(creds);
@@ -49,6 +51,7 @@ export class LoginComponent {
   }
 
 
+/* ----------- API Aufruf zum Login -----------*/
   async submitForm(): Promise<void> {
     if (this.loginForm.valid) {
       try {

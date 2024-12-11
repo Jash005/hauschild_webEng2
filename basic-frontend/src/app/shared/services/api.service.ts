@@ -92,10 +92,6 @@ export class ApiService {
     return this.getApiData('', `${this.BASE_URL}/recipe/${id}`, 'GET');
   }
 
-  // async updateRecipe(id: string, recipe: any): Promise<any> {
-  //   return this.getApiData('', `${this.BASE_URL}/recipe/${id}`, 'PUT', recipe);
-  // }
-
   async updateRecipeRating(id: string, rating: number): Promise<any> {
     return this.getApiData('', `${this.BASE_URL}/recipe/${id}`, 'PUT', {rating: rating});
   }

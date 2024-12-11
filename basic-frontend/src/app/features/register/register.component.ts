@@ -23,6 +23,7 @@ import { Router } from '@angular/router';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
+/* ----------- Initialisierung -----------*/
   private _snackBar = inject(MatSnackBar);
   registerForm: FormGroup;
 
@@ -35,9 +36,8 @@ export class RegisterComponent {
     });
   }
 
-  ngOnInit(): void {
-  }
 
+/* ----------- API-Aufruf zum Registrieren eines Benutzers -----------*/
   async submitForm(): Promise<void> {
     if (this.registerForm.valid) {
       try {
@@ -48,7 +48,6 @@ export class RegisterComponent {
         console.error('Fehler bei der Registrierung', error);
         const errorMessage = (error as any).message || 'Fehler bei der Registrierung';
         this._snackBar.open(errorMessage, 'x', { duration: 2000 });
-
         const snackBarElement = document.querySelector(".mat-mdc-snackbar-surface");
         if (snackBarElement) {
           (snackBarElement as HTMLElement).style.backgroundColor = '#f00';

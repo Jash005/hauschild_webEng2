@@ -1,4 +1,3 @@
-import { CategoryFilterAppender } from './../../../../node_modules/log4js/types/log4js.d';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -11,7 +10,6 @@ import { Router } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
-import { NgModule } from '@angular/core';
 
 @Component({
   selector: 'app-recipe-create',
@@ -29,6 +27,7 @@ import { NgModule } from '@angular/core';
   styleUrl: './recipe-create.component.css'
 })
 export class RecipeCreateComponent {
+/* ----------- Initialisierung -----------*/
   private _snackBar = inject(MatSnackBar);
   recipeForm: FormGroup;
   categories: string[] = ['Unkategorisiert', 'Fleisch', 'Fisch', 'Geflügel', 'Pasta', 'Asiatisch', 'Dessert', 'Beilage', 'Vegetarisch', 'Vegan', 'Sonstiges'];
@@ -44,9 +43,7 @@ export class RecipeCreateComponent {
     });
   }
 
-  ngOnInit(): void {
-  }
-
+/* ----------- komplexes Inputfeld für Zutaten -----------*/
   get recipeIngredients() {
     return this.recipeForm.get('recipeIngredients') as FormArray;
   }
@@ -60,24 +57,12 @@ export class RecipeCreateComponent {
     this.recipeIngredients.removeAt(index);
   }
 
-  // async prepareIngredientsArray(): Promise<void> {
-  //   for (let i = 0; i < this.recipeForm.value.recipeIngredients.length; i++) {
-  //     let namePattern = 'ingName_'+i;
-  //     let inputElem = document.getElementById(namePattern) as HTMLInputElement;
-  //     if (inputElem.value != null) {
-  //       this.recipeForm.value.recipeIngredients[i] = inputElem.value;
-  //     }
-  //   }
-  //   this.recipeForm.value.recipeIngredients = this.recipeForm.value.recipeIngredients.filter((ingredient: string) => ingredient.trim() !== '');
-  // }
-
+/* ----------- API-Aufruf Rezept erstellen -----------*/
   async submitForm(): Promise<void> {
     if (this.recipeForm.valid) {
-      //await this.prepareIngredientsArray();
       try {
         const formValue = { ...this.recipeForm.value };
         formValue.recipeIngredients = formValue.recipeIngredients.filter((ingredient: string) => ingredient.trim() !== '');
-
         formValue.author = localStorage.getItem('username');
         formValue.authorId = localStorage.getItem('userId');
         const response = await this.apiService.createRecipe(formValue);
@@ -86,7 +71,6 @@ export class RecipeCreateComponent {
       } catch (error) {
         console.error('Fehler beim Erstellen des Rezepts', error);
         this._snackBar.open('Fehler beim Erstellen des Rezepts', 'x', { duration: 2000 });
-
         const snackBarElement = document.querySelector(".mat-mdc-snackbar-surface");
         if (snackBarElement) {
           (snackBarElement as HTMLElement).style.backgroundColor = '#f00';

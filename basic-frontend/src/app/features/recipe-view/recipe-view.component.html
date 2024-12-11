@@ -71,54 +71,6 @@
 }
 @if (isEditing) {
   <app-recipe-edit [recipe2send]="recipe2send"></app-recipe-edit>
-
-  <!-- <section>
-  <form [formGroup]="editedRecipeForm" (ngSubmit)="submitForm()">
-    <mat-label>Titel</mat-label>
-    <mat-form-field appearance="fill">
-      <mat-label>Titel</mat-label>
-      <input matInput type="text" id="title" formControlName="editedTitle" placeholder="Titel">
-    </mat-form-field>
-
-    <mat-label>Beschreibung</mat-label>
-    <mat-form-field appearance="fill">
-      <mat-label>Beschreibung</mat-label>
-      <textarea matInput type="text" id="description" formControlName="editedDescription" placeholder="Beschreibung"></textarea>
-    </mat-form-field>
-
-
-    <mat-label>Zutaten</mat-label>
-    <div formArrayName="editedIngredients">
-
-      {{ editedIngredients.controls }}
-
-      @for (ingredient of editedIngredients.controls; track ingredient; let i = $index) {
-        <div class="ingredient-item">
-            <mat-form-field appearance="fill">
-                <mat-label>Zutat {{ i + 1 }}</mat-label>
-                <input matInput type="text" formControlName="{{$index}}" />
-                <span matSuffix>
-                  @if (editedIngredients.length > 1) {
-                    <mat-icon aria-label="Clear" (click)="removeIngredientField(i)">close</mat-icon>
-                  }
-                  @if ($index === editedIngredients.length - 1 && editedIngredients.length < 15) {
-                    <mat-icon aria-label="Add" (click)="addIngredientsField()">add_circle</mat-icon>
-                  }
-                </span>
-            </mat-form-field>
-        </div>
-      }
-    </div>
-
-    <mat-label>Anleitung</mat-label>
-    <mat-form-field appearance="fill">
-      <mat-label>Anleitung</mat-label>
-      <textarea matInput type="text" id="instruction" formControlName="editedInstruction" placeholder="Anleitung"></textarea>
-    </mat-form-field>
-
-    <button mat-raised-button [disabled]="editedRecipeForm.invalid" (click)="saveEditRecipe()">Änderungen Speichern</button>
-  </form>
-  </section> -->
 }
 
 
@@ -131,7 +83,6 @@
       <div class="comment">
         <p>{{ comment.content }}</p>
         <p>{{ comment.author }}</p>
-        <!-- //TODO - Alter in Tagen hier ausrechnen aus dem Erstelldatum -->
         <p>{{ comment.createdAt | date: 'mediumDate' }}</p>
       </div>
     }

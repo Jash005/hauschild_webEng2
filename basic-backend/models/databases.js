@@ -6,27 +6,29 @@ export const recipeDb = new Datastore({ filename: './databases/recipes.db', auto
 /* ====================================
         User Database Functions
 ==================================== */
-// Funktion zum Hinzufügen eines neuen Benutzers
+// Hinzufügen eines neuen Benutzers
 export function addUser(user, callback) {
   user.createdAt = new Date().toISOString();
   user.updatedAt = new Date().toISOString();
   return userDb.insert(user, callback);
 }
 
+// Benutzer nach ID finden
 export function findUserByUsername(username, callback) {
   return userDb.findOne({ username: username }, callback);
 }
 
+// Passwort überprüfen
 export function verifyPassword(user, password) {
   return callback(null, user.password === password);
 }
 
-// Funktion zum Überprüfen, ob ein Benutzer existiert
+// Überprüfen, ob ein Benutzer existiert
 export function isUserExist(username, callback) {
   return userDb.findOne({ username: username }, callback);
 }
 
-// Funktion zum Überprüfen, ob ein Benutzername existiert
+// Überprüfen, ob ein Benutzername existiert
 export async function isUsernameExist(username) {
   if(await userDb.findOneAsync({ username: username })) {
     return true;
@@ -35,7 +37,7 @@ export async function isUsernameExist(username) {
   }
 }
 
-// Funktion zum Validieren des Benutzer-Logins
+// Validieren des Benutzer-Logins
 export function validateLogin(username, password, callback) {
   return userDb.findOne({ username: username }, (err, user) => {
     if (err || !user) {
@@ -51,12 +53,12 @@ export function getAllUsers(callback) {
   return userDb.find({}, { username: 1, _id: 1 }, callback);
 }
 
-// Funktion zum Anzeigen des Benutzerprofils (nur Username und Erstellungsdatum)
+// Anzeigen des Benutzerprofils (nur Username und Erstellungsdatum)
 export function showUserProfile(userId, callback) {
   return userDb.findOne({ _id: userId }, { username: 1, createdAt: 1 }, callback);
 }
 
-// Funktion zum Löschen eines Benutzers
+// Löschen eines Benutzers
 export function deleteUser(userId, callback) {
   return userDb.remove({ _id: userId }, {}, callback);
 }
@@ -66,7 +68,7 @@ export function deleteUser(userId, callback) {
 /* ====================================
         Recipe Database Functions
 ==================================== */
-// Add Comment to Recipe
+// Kommentar zu einem Rezept hinzufügen
 export function addCommentToRecipe(recipeId, commentContent, author, callback) {
   const updatedComment = {
     commentId: new Date().getTime().toString(), 
@@ -89,7 +91,7 @@ export function addCommentToRecipe(recipeId, commentContent, author, callback) {
   );
 }
 
-// Funktion zum Erstellen eines neuen Rezepts
+// Erstellen eines neuen Rezepts
 export function addRecipe(recipe, callback) {
   recipe.createdAt = new Date().toISOString();
   recipe.updatedAt = new Date().toISOString();
@@ -98,39 +100,41 @@ export function addRecipe(recipe, callback) {
   
   return recipeDb.insert(recipe, callback);
 }
+
+// Überprüfen des Auth-Headers
 export function checkAuthHeader(username, password) {
   return userDb.findOne({username: username, password: password});
 }
 
 
-// Funktion zum Aufrufen aller Rezepte nach Aktualisierungsdatum von Neu nach alt sortiert
+// Aufrufen aller Rezepte nach Aktualisierungsdatum von Neu nach alt sortiert
 export function getAllRecipes(callback) {
   return recipeDb.find({}, {author: 1, authorId: 1, rating: 1, recipeCategory: 1, recipeDescription: 1, recipeTitle: 1, updatedAt: 1, _id: 1}).sort({ updatedAt: -1 }).exec(callback);
 }
 
-// Funktion zum Abrufen der Top 5 Rezepte nach Bewertung
+// Abrufen der Top 5 Rezepte nach Bewertung
 export function getTopRecipesWithLimit(limit, callback) {
   return recipeDb.find({}, {author: 1, authorId: 1, rating: 1, recipeCategory: 1, recipeDescription: 1, recipeTitle: 1, updatedAt: 1, _id: 1}).sort({ rating: -1 }).limit(limit).exec(callback);
 }
 
-// Funktion zum Finden eines Rezepts nach ID
+// Finden eines Rezepts nach ID
 export function findRecipeByUserId(userId, callback) {
   return recipeDb.findOne({ authorId: userId }, callback);
 }
 
-// Funktion zum Finden eines Kommentars für die Kommentarhistorie
+// Finden eines Kommentars für die Kommentarhistorie
 export function findCommentByUserId(userId, callback) {
   return recipeDb.find({ 'comments.authorId': userId }, callback);
 }
 
-// Funktion zum Löschen eines Rezepts
+// Löschen eines Rezepts
 export function deleteRecipe(recipeId, callback) {
   return recipeDb.remove({ _id: recipeId }, {}, callback);
 }
 
 
 
-// Funktion zum Bearbeiten eines Rezepts
+// Bearbeiten eines Rezepts
 export function editRecipe(recipeId, updatedRecipe, callback) {
   updatedRecipe.updatedAt = new Date().toISOString();
   return recipeDb.update(
@@ -142,13 +146,7 @@ export function editRecipe(recipeId, updatedRecipe, callback) {
 }
 
 
-
-
-
-
-
-//NOTE: no Check 
-// Funktion zum Finden eines Rezepts nach ID
+// Finden eines Rezepts nach ID
 export function findRecipeById(recipeId, callback) {
   return recipeDb.findOne({ _id: recipeId }, callback);
 }

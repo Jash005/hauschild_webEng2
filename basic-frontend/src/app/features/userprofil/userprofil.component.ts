@@ -1,4 +1,3 @@
-import { routes } from './../../app.routes';
 import { Component } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { OnInit } from '@angular/core';
@@ -6,7 +5,6 @@ import { ApiService } from '../../shared/services/api.service';
 import { inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { filter } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,6 +23,7 @@ import { MatButtonModule } from '@angular/material/button';
   providers: [ApiService]
 })
 export class UserprofilComponent implements OnInit {
+/* ----------- Initialisierung -----------*/
   private _snackBar = inject(MatSnackBar);
   userId: string = "";
   userIdFromLoggedInUser: string = localStorage.getItem('userId') || "";
@@ -39,10 +38,9 @@ export class UserprofilComponent implements OnInit {
   filteredCommentsRecipeTitle: string = "";
   preparedComments: any[] = [];
 
-  constructor(private route: ActivatedRoute, private ApiService: ApiService, private router: Router) {
-  }
+  constructor(private route: ActivatedRoute, private ApiService: ApiService, private router: Router) {}
+
   ngOnInit() {
-    // this.route.queryParamMap.subscribe(params => {
       this.userId = this.route.snapshot.queryParamMap.get('selectedUser') || 'none';
 
       if (this.userId === 'none') {
@@ -54,11 +52,10 @@ export class UserprofilComponent implements OnInit {
         this.getCommentsByUserId(this.userId);
         this.removeQueryParams(['selectedRecipe', 'author', 'selectedUser']);
       }
-
-    //});
-
   }
 
+
+/* ----------- API-Aufruf Userdaten abrufen ----------- */
   getUserById(): void {
     this.ApiService.getUserById(this.userId).then((userData: any) => {
       this.userData = userData;
@@ -67,17 +64,18 @@ export class UserprofilComponent implements OnInit {
     });
   }
 
+/* ----------- API-Aufruf Rezepte von User holen ----------- */
   getRecipesFromUser(userId: string) {
     this.ApiService.getRecipesByUserId(userId).then((resData: any) => {
       this.recipesFromUser.push(resData);
     });
   }
+
+/* ----------- API-Aufruf Kommentare von User holen ----------- */
   getCommentsByUserId(userId: string) {
     this.ApiService.getCommentsByUserId(userId).then((resData: any) => {
-      // Arrays leeren um doppelte Einträge zu vermeiden
       const preparedComments: any[] = [];
       this.commentsFromAllUser = [];
-
       resData.forEach((recipe: any) => {
         const recipeTitle = recipe.recipeTitle;
         const recipeId = recipe._id;
@@ -91,16 +89,14 @@ export class UserprofilComponent implements OnInit {
           }
         });
       });
-
       this.filteredComments = preparedComments.filter((comment: any) => comment.authorId === this.userId);
     });
   }
 
 
-/* ----------- Lösche User ----------- */
+/* ----------- API-AUfruf User löschen ----------- */
 deleteUser(): void {
     const confirmation = confirm('Sind Sie sicher, dass Sie Ihr Benutzerkonto löschen möchten? - Ihre erstellen Rezepte bleiben erhalten');
-
     if(confirmation) {
       try {
         this.ApiService.deleteUser(this.userId);
@@ -113,7 +109,6 @@ deleteUser(): void {
       } catch (error) {
           console.error('Fehler beim löschen des Benutzers', error);
           this._snackBar.open('Fehler beim löschen des Benutzers', 'x', { duration: 2000 });
-
           const snackBarElement = document.querySelector(".mat-mdc-snackbar-surface");
           if (snackBarElement) {
             (snackBarElement as HTMLElement).style.backgroundColor = '#f00';
@@ -124,13 +119,10 @@ deleteUser(): void {
 }
 
 
-
-
-
+/* ----------- Query-Parameter aufräumen -----------*/
   removeQueryParams(paramsToRemove: string[]): void {
     const queryParams = { ...this.route.snapshot.queryParams };
     paramsToRemove.forEach(param => delete queryParams[param]);
-
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: queryParams

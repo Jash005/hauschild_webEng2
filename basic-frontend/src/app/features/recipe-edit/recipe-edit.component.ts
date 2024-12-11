@@ -1,6 +1,5 @@
-import { RecipeViewComponent } from './../recipe-view/recipe-view.component';
-import { Component, inject, input, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
+import { Component, inject, Input } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,7 +7,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from "../../shared/services/api.service";
 import { Router } from '@angular/router';
-import { MatIcon } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
@@ -27,10 +25,8 @@ import { MatSelectModule } from '@angular/material/select';
   styleUrl: './recipe-edit.component.css'
 })
 export class RecipeEditComponent  {
+/* ----------- Initialisierung -----------*/
   @Input() recipe2send: any = {};
- // @Input() isEditing2send: boolean = false;
-
-
   private _snackBar = inject(MatSnackBar);
   recipeForm: FormGroup;
   categories: string[] = ['Unkategorisiert', 'Fleisch', 'Fisch', 'Geflügel', 'Pasta', 'Asiatisch', 'Dessert', 'Beilage', 'Vegetarisch', 'Vegan', 'Sonstiges'];
@@ -48,7 +44,6 @@ export class RecipeEditComponent  {
 
   ngOnInit(): void {
     const recipeData = this.recipe2send;
-
     this.recipeForm.patchValue({
       recipeTitle: recipeData.recipeTitle,
       recipeCategory: recipeData.recipeCategory,
@@ -59,19 +54,7 @@ export class RecipeEditComponent  {
 
   }
 
-  // get recipeIngredients() {
-  //   return this.recipeForm.get('recipeIngredients') as FormArray;
-  // }
-  // createIngredientField(): FormControl {
-  //   return this.fb.control('');
-  // }
-  // addIngredientsField() {
-  //   this.recipeIngredients.push(this.createIngredientField());
-  // }
-  // removeIngredientField(index: number) {
-  //   this.recipeIngredients.removeAt(index);
-  // }
-
+/* ----------- API-Aufruf zum bearbeiten eines Rezepts -----------*/
   async submitForm(): Promise<void> {
     if (this.recipeForm.valid) {
       try {

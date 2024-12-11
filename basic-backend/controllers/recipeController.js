@@ -15,10 +15,10 @@ import {
 
 const router = express.Router();
 
-// Middleware für Basic Authentication
+/* ----------- Middleware für Basic Authentication -----------*/
 function basicAuth(req, res, next) {
   if (req.headers['authorization']) {
-      //Autorisierungs-Header überprüfen
+      // Autorisierungs-Header überprüfen
       const authHeader = req.headers['authorization'];
       const base64Credentials = authHeader.split(' ')[1];
       const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
@@ -26,7 +26,7 @@ function basicAuth(req, res, next) {
       req.username = username;
       req.password = password;
 
-      //suche in UserDB nach username und password
+      // suche in UserDB nach username und password
       if(checkAuthHeader(username, password)){  
         next();
       } else {  
@@ -40,7 +40,9 @@ function basicAuth(req, res, next) {
   }
 }
 
-// Route zum Hinzufügen eines neuen Rezepts (geschützt durch Basic Auth)
+
+/* ----------- Routen -----------*/
+// Hinzufügen eines neuen Rezepts (geschützt durch Basic Auth)
 router.post('/', basicAuth, async (req, res) => {
   const recipe = req.body;
   await addRecipe(recipe, (err, newRecipe) => {
@@ -51,6 +53,7 @@ router.post('/', basicAuth, async (req, res) => {
   });
 });
 
+// Rezept aktualisieren
 router.put('/:id',async (req, res) => {
   const recipeId = req.params.id;
   const recipe = req.body;
@@ -73,6 +76,7 @@ router.get('/', async (req, res) => {
   }
   );
 });
+// Rezept abrufen nach Bewertung (Top 5)
 router.get('/top', async (req, res) => {
   await getTopRecipesWithLimit(5, (err, resData) => {
     if (err) {
@@ -116,7 +120,7 @@ router.put('/:id/comments', basicAuth, async (req, res) => {
 });
 
 
-/* --- Rezept Verlauf einer UsersId --- */
+// Rezept Verlauf einer UsersId
   router.get('/user/:id', async (req, res) => {
     const userId = req.params.id;
     await findRecipeByUserId(userId, (err, resData) => {
@@ -132,7 +136,7 @@ router.put('/:id/comments', basicAuth, async (req, res) => {
   });
 
 
-/* --- Kommentar Verlauf einer UserId --- */
+// Kommentar Verlauf einer UserId
   router.get('/comment/:id', async (req, res) => {
     const userId = req.params.id;
     await findCommentByUserId(userId, (err, resData) => {
@@ -146,7 +150,8 @@ router.put('/:id/comments', basicAuth, async (req, res) => {
     });
   });
 
-/* --- Rezept löschen --- */
+  
+// Rezept löschen
 router.delete('/:id', async (req, res) => {
   const recipeId = req.params.id;
   await deleteRecipe(recipeId, (err, numDeleted) => {

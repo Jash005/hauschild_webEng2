@@ -11,10 +11,11 @@ import {
 
 const router = express.Router();
 
-// Route für die Benutzerregistrierung
+/* ----------- Router -----------*/
+// Benutzerregistrierung + Eingabevalidierung
 router.post("/register", async (req, res) => {
   const user = req.body;
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // @-Zeichen, keine Leerzeichen, Punkt, top-level-domain muss enthalten sein
   if (await isUsernameExist(user.username)) {
     return res.status(400).json({ error: "Username existiert bereits" });
   }
@@ -47,7 +48,7 @@ router.post("/register", async (req, res) => {
   });
 });
 
-// Route für den Benutzer-Login
+// Benutzer-Login
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
   await validateLogin(username, password, (err, user) => {
@@ -81,7 +82,7 @@ router.get("/:userId", async (req, res) => {
 });
 
 
-/* --- Benutzer löschen --- */
+// Benutzer löschen
 router.delete('/:id', async (req, res) => {
   const userId = req.params.id;
   await deleteUser(userId, (err, numDeleted) => {
