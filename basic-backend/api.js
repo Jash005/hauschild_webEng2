@@ -13,7 +13,6 @@ router.use(logRequest);
 
 router.use('/user', userController);
 router.use('/recipe', recipeController);
-//TODO - Add your routes here
 
 router.use((req, res) => {
     res.status(404);

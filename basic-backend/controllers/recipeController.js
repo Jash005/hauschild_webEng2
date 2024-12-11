@@ -57,7 +57,7 @@ router.post('/', basicAuth, async (req, res) => {
 router.put('/:id',async (req, res) => {
   const recipeId = req.params.id;
   const recipe = req.body;
-  await editRecipe(recipeId, recipe, (err, numUpdated) => {
+  await editRecipe(recipeId, recipe, (err) => {
     if (err) {
       return res.status(500).send;
     } else {

@@ -7,7 +7,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from "../../shared/services/api.service";
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -27,7 +26,7 @@ export class RegisterComponent {
   private _snackBar = inject(MatSnackBar);
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {
+  constructor(private fb: FormBuilder, private apiService: ApiService) {
     this.registerForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(12)]],
       email: ['', [Validators.required, Validators.email]],
@@ -41,7 +40,7 @@ export class RegisterComponent {
   async submitForm(): Promise<void> {
     if (this.registerForm.valid) {
       try {
-        const response = await this.apiService.registerUser(this.registerForm.value);
+        await this.apiService.registerUser(this.registerForm.value);
         localStorage.setItem('snackbarMessage', 'User erfolgreich registriert');
         window.location.replace('/login');
       } catch (error) {

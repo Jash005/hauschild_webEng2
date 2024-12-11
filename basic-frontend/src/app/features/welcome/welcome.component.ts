@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import {Component, computed, inject, Input, OnInit, signal} from '@angular/core';
+import { Component } from '@angular/core';
 import { ApiService } from "../../shared/services/api.service";
 import { RouterLink } from '@angular/router';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
@@ -26,11 +26,8 @@ export class WelcomeComponent {
   username: string = "";
   userId: string = "";
   recipeTitle: string = "";
-  recipeAuthor: string = "";
-  recipeAuthorId: string = "";
   recipeDescription: string = "";
   recipeCategory: string = "";
-  recipeRating: number = 0;
 
   constructor(private route: ActivatedRoute, private ApiService: ApiService, private router: Router) {
     this.getUserData();
@@ -99,22 +96,15 @@ export class WelcomeComponent {
       this.router.navigate([], {
         relativeTo: this.route,
         queryParams: queryParams
+      }).then(success => {
+        if (success) {
+          console.log('Navigation erfolgreich');
+        } else {
+          console.error('Navigation fehlgeschlagen');
+        }
+      }).catch(error => {
+        console.error('Fehler bei der Navigation', error);
       });
     }
-
-
-
-
-//TODO - löschen vor der Abgabe
-    DELETEALLDATAFROMDATABASE(): void {
-      this.ApiService.deleteAllUserData().then((resData: any) => {
-        console.log('ALLE user DATEN WURDEN GELÖSCHT');
-      });
-      this.ApiService.deleteAllRecipeData().then((resData: any) => {
-        console.log('ALLE recipe DATEN WURDEN GELÖSCHT');
-      });
-    }
-
-
 
 }

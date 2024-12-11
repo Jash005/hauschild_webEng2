@@ -30,13 +30,10 @@ export class UserprofilComponent implements OnInit {
   username: string = "";
   userData: any;
   createdAt: Date = new Date();
-  recipes = localStorage.getItem('recipes');
   comments = localStorage.getItem('comments');
   recipesFromUser: any[] = [];
   commentsFromAllUser: any[] = [];
   filteredComments: any[] = [];
-  filteredCommentsRecipeTitle: string = "";
-  preparedComments: any[] = [];
 
   constructor(private route: ActivatedRoute, private ApiService: ApiService, private router: Router) {}
 
@@ -45,7 +42,7 @@ export class UserprofilComponent implements OnInit {
 
       if (this.userId === 'none') {
         this._snackBar.open('Diesen Benutzer gibt es nicht mehr', 'x', { duration: 2000 });
-        this.router.navigate(['/']);
+        this.router.navigate(['/']).then(response => console.log(response));
       } else {
         this.getUserById();
         this.getRecipesFromUser(this.userId);
@@ -94,12 +91,12 @@ export class UserprofilComponent implements OnInit {
   }
 
 
-/* ----------- API-AUfruf User löschen ----------- */
-deleteUser(): void {
+/* ----------- API-Aufruf User löschen ----------- */
+async deleteUser(): Promise<void> {
     const confirmation = confirm('Sind Sie sicher, dass Sie Ihr Benutzerkonto löschen möchten? - Ihre erstellen Rezepte bleiben erhalten');
     if(confirmation) {
       try {
-        this.ApiService.deleteUser(this.userId);
+        await this.ApiService.deleteUser(this.userId);
         this._snackBar.open('Benutzer wurde gelöscht', 'x', { duration: 2000 });
         localStorage.removeItem('username');
         localStorage.removeItem('userId');
@@ -126,6 +123,14 @@ deleteUser(): void {
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: queryParams
+    }).then(success => {
+      if (success) {
+        console.log('Navigation erfolgreich');
+      } else {
+        console.error('Navigation fehlgeschlagen');
+      }
+    }).catch(error => {
+      console.error('Fehler bei der Navigation', error);
     });
   }
 

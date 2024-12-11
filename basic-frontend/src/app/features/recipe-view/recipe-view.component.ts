@@ -9,7 +9,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
-import { FormBuilder } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -60,9 +59,8 @@ export class RecipeViewComponent {
   newCommentContent: string = "";
   isEditing: boolean = false;
   recipe2send: any = {};
-  isEditing2send = this.isEditing;
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private ApiService: ApiService, private router: Router) {
+  constructor(private route: ActivatedRoute, private ApiService: ApiService, private router: Router) {
     this.recipeId = this.route.snapshot.queryParamMap.get('selectedRecipe') || 'none';
     this.recipeAuthorId = this.route.snapshot.queryParamMap.get('author') || 'none';
     if(this.recipeId !== 'none') {
@@ -73,22 +71,30 @@ export class RecipeViewComponent {
       if (snackBarElement) {
         (snackBarElement as HTMLElement).style.backgroundColor = '#f00';
       }
-      this.router.navigate(['/']);
+      this.router.navigate(['/']).then(response => console.log(response));
     }
-    this.removeQueryParams(['selectedRecipe', 'author', 'selectedUser']);
+    this.removeQueryParams(['selectedRecipe', 'author', 'selectedUser']).then(response => console.log(response));
   }
 
 
 /* ----------- Ranking eines Rezepts ----------- */
-  addLike(): void {
+  async addLike(): Promise<void> {
     this.rating += 1;
     this.isLiked = true;
-    this.ApiService.updateRecipeRating(this.recipeId, this.rating);
+    try {
+      await this.ApiService.updateRecipeRating(this.recipeId, this.rating);
+    } catch (error) {
+      console.error('Fehler beim aktualisieren der Bewertung')
+    }
   }
-  removeLike(): void {
+  async removeLike(): Promise<void> {
     this.rating -= 1;
     this.isLiked = false;
-    this.ApiService.updateRecipeRating(this.recipeId, this.rating);
+    try {
+      await this.ApiService.updateRecipeRating(this.recipeId, this.rating);
+    } catch (error) {
+      console.error('Fehler beim aktualisieren der Bewertung')
+    }
   }
 
 
@@ -125,7 +131,7 @@ async addComment(): Promise<void> {
     createdAt: new Date().toISOString()
   });
   try {
-    const response = this.ApiService.addCommentToRecipe(this.recipeId, this.newCommentContent, this.currentUser, authorId);
+    await this.ApiService.addCommentToRecipe(this.recipeId, this.newCommentContent, this.currentUser, authorId);
     this._snackBar.open('Kommentar hinzugefügt', 'x', { duration: 2000 });
   } catch (error) {
     console.error('Fehler beim hinzufügen des Kommentars', error);
@@ -140,14 +146,14 @@ async addComment(): Promise<void> {
 }
 
 /* ----------- API-Aufruf zum Löschen eines Rezepts ----------- */
-  deleteRecipe(): void {
+  async deleteRecipe(): Promise<void> {
     const confirmation = confirm('Sind Sie sicher, dass Sie das Rezept löschen möchten?');
 
     if(confirmation) {
       try {
-        this.ApiService.deleteRecipe(this.recipeId);
+        await this.ApiService.deleteRecipe(this.recipeId);
         this._snackBar.open('Rezept wurde gelöscht', 'x', { duration: 2000 });
-        this.router.navigate(['/']);
+        await this.router.navigate(['/']);
       } catch (error) {
           console.error('Fehler beim löschen des Rezepts', error);
           this._snackBar.open('Fehler beim löschen des Rezepts', 'x', { duration: 2000 });
@@ -161,11 +167,11 @@ async addComment(): Promise<void> {
   }
 
 /* ----------- Query Parameter ----------- */
-  removeQueryParams(paramsToRemove: string[]): void {
+  async removeQueryParams(paramsToRemove: string[]): Promise<void> {
     const queryParams = { ...this.route.snapshot.queryParams };
     paramsToRemove.forEach(param => delete queryParams[param]);
 
-    this.router.navigate([], {
+    await this.router.navigate([], {
       relativeTo: this.route,
       queryParams: queryParams
     });

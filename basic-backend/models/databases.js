@@ -13,16 +13,7 @@ export function addUser(user, callback) {
   return userDb.insert(user, callback);
 }
 
-// Benutzer nach ID finden
-export function findUserByUsername(username, callback) {
-  return userDb.findOne({ username: username }, callback);
-}
-
-// Passwort überprüfen
-export function verifyPassword(user, password) {
-  return callback(null, user.password === password);
-}
-
+//TODO
 // Überprüfen, ob ein Benutzer existiert
 export function isUserExist(username, callback) {
   return userDb.findOne({ username: username }, callback);
@@ -30,11 +21,7 @@ export function isUserExist(username, callback) {
 
 // Überprüfen, ob ein Benutzername existiert
 export async function isUsernameExist(username) {
-  if(await userDb.findOneAsync({ username: username })) {
-    return true;
-  } else {
-    return false;
-  }
+  return !!(await userDb.findOneAsync({username: username}));
 }
 
 // Validieren des Benutzer-Logins

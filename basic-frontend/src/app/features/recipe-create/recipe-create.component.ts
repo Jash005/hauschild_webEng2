@@ -31,7 +31,6 @@ export class RecipeCreateComponent {
   private _snackBar = inject(MatSnackBar);
   recipeForm: FormGroup;
   categories: string[] = ['Unkategorisiert', 'Fleisch', 'Fisch', 'Geflügel', 'Pasta', 'Asiatisch', 'Dessert', 'Beilage', 'Vegetarisch', 'Vegan', 'Sonstiges'];
-  valueIngredientArray: string[] = [];
 
   constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {
     this.recipeForm = this.fb.group({
@@ -65,9 +64,9 @@ export class RecipeCreateComponent {
         formValue.recipeIngredients = formValue.recipeIngredients.filter((ingredient: string) => ingredient.trim() !== '');
         formValue.author = localStorage.getItem('username');
         formValue.authorId = localStorage.getItem('userId');
-        const response = await this.apiService.createRecipe(formValue);
+        await this.apiService.createRecipe(formValue);
         this._snackBar.open('Rezept erfolgreich erstellt', 'x', { duration: 2000 });
-        this.router.navigate(['/']);
+        await this.router.navigate(['/']);
       } catch (error) {
         console.error('Fehler beim Erstellen des Rezepts', error);
         this._snackBar.open('Fehler beim Erstellen des Rezepts', 'x', { duration: 2000 });

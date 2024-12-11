@@ -30,7 +30,6 @@ export class RecipeEditComponent  {
   private _snackBar = inject(MatSnackBar);
   recipeForm: FormGroup;
   categories: string[] = ['Unkategorisiert', 'Fleisch', 'Fisch', 'Geflügel', 'Pasta', 'Asiatisch', 'Dessert', 'Beilage', 'Vegetarisch', 'Vegan', 'Sonstiges'];
-  valueIngredientArray: string[] = [];
 
   constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {
     this.recipeForm = this.fb.group({
@@ -40,18 +39,6 @@ export class RecipeEditComponent  {
       recipeIngredients: [''],
       recipeInstruction: ['', Validators.required]
     });
-  }
-
-  ngOnInit(): void {
-    const recipeData = this.recipe2send;
-    this.recipeForm.patchValue({
-      recipeTitle: recipeData.recipeTitle,
-      recipeCategory: recipeData.recipeCategory,
-      recipeDescription: recipeData.recipeDescription,
-      recipeIngredients: recipeData.recipeIngredients,
-      recipeInstruction: recipeData.recipeInstruction
-    });
-
   }
 
 /* ----------- API-Aufruf zum bearbeiten eines Rezepts -----------*/
@@ -69,9 +56,9 @@ export class RecipeEditComponent  {
 
         formValue.author = localStorage.getItem('username');
         formValue.authorId = localStorage.getItem('userId');
-        const response = await this.apiService.editRecipe(this.recipe2send._id, formValue);
+        await this.apiService.editRecipe(this.recipe2send._id, formValue);
         this._snackBar.open('Rezept erfolgreich bearbeitet', 'x', { duration: 2000 });
-        this.router.navigate(['/']);
+        await this.router.navigate(['/']);
       } catch (error) {
         console.error('Fehler beim Bearbeiten des Rezepts', error);
         this._snackBar.open('Fehler beim Bearbeiten des Rezepts', 'x', { duration: 2000 });
@@ -82,7 +69,7 @@ export class RecipeEditComponent  {
         }
       } finally {
         this._snackBar.open('Rezept erfolgreich bearbeitet', 'x', { duration: 2000 });
-        this.router.navigate(['/']);
+        await this.router.navigate(['/']);
       }
     }
   }
