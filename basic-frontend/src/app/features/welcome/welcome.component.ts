@@ -4,6 +4,9 @@ import { ApiService } from "../../shared/services/api.service";
 import { RouterLink } from '@angular/router';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-welcome',
@@ -11,7 +14,10 @@ import { ActivatedRoute, Router } from '@angular/router';
   imports: [
     RouterLink,
     DatePipe,
-    CdkAccordionModule
+    CdkAccordionModule,
+    MatCardModule,
+    MatChipsModule,
+    MatIconModule
   ],
   templateUrl: './welcome.component.html',
   styleUrl: './welcome.component.css',
