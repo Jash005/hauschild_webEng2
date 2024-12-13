@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CommonModule } from '@angular/common';
 import { RecipeEditComponent } from '../recipe-edit/recipe-edit.component';
 
@@ -35,6 +36,7 @@ import { RecipeEditComponent } from '../recipe-edit/recipe-edit.component';
     RouterLink,
     FormsModule,
     ReactiveFormsModule,
+    MatCheckboxModule
   ],
   templateUrl: './recipe-view.component.html',
   styleUrl: './recipe-view.component.css'
@@ -73,7 +75,7 @@ export class RecipeViewComponent {
       }
       this.router.navigate(['/']).then(response => console.log(response));
     }
-    this.removeQueryParams(['selectedRecipe', 'author', 'selectedUser']).then(response => console.log(response));
+    //this.removeQueryParams(['selectedRecipe', 'author', 'selectedUser']).then(response => console.log(response));
   }
 
 

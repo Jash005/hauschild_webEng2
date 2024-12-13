@@ -334,7 +334,7 @@ h2 {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Deutlicherer Schatteneffekt */
   }
   .recipeBox::before {
-    width: 10px; /* Breiterer Kontraststreifen auf größeren Bildschirmen */
+    width: calc(2 * var(--card-width-contrastline)); /* Breiterer Kontraststreifen auf größeren Bildschirmen */
   }
   #allRecipes .recipePreview, #allRecipes section {
     flex-wrap: wrap;

@@ -1,4 +1,30 @@
 <section id="headline">
+  <div id="ranking">
+    <span>
+      @if (currentUser === "Gast" || currentUser === "") {
+        <a mat-fab extended disabled
+        disabledInteractive
+        matTooltip="Du musst angemeldet sein um eine Bewertung abzugeben">
+          <mat-icon>favorite</mat-icon> {{ rating }}
+        </a>
+      } @else if(currentUser === author) {
+        <a mat-fab extended disabled
+        disabledInteractive
+        matTooltip="Du kannst dein eigenes Rezept nicht bewerten">
+          <mat-icon>favorite</mat-icon> {{ rating }}
+        </a>
+      } @else if (isLiked) {
+        <a mat-fab extended (click)="removeLike()">
+          <mat-icon>favorite</mat-icon> {{ rating }}
+          </a>
+      } @else {
+        <a mat-fab extended (click)="addLike()">
+          <mat-icon>favorite</mat-icon> {{ rating }}
+          </a>
+      }
+    </span>
+  </div> <!-- ENDE: #ranking -->
+
   <h2>{{ title }}</h2>
 
   @if (currentUser === author) {
@@ -11,39 +37,16 @@
     </button>
   }
 
-  <mat-chip>{{ category }}</mat-chip>
-  <p [routerLink]="['/userprofil']" [queryParams]="{ selectedUser: recipeAuthorId }"  queryParamsHandling="merge">{{ author }} {{recipeAuthorId}}</p>
-  <p>{{ createdAt | date : 'mediumDate'}}</p>
-  <p>{{ rating }} Likes
-    <span>
-      @if (currentUser === "Gast" || currentUser === "") {
-        <a mat-fab extended disabled
-        disabledInteractive
-        matTooltip="Du musst angemeldet sein um eine Bewertung abzugeben">
-          <mat-icon>favorite</mat-icon>
-        </a>
-      } @else if(currentUser === author) {
-        <a mat-fab extended disabled
-        disabledInteractive
-        matTooltip="Du kannst dein eigenes Rezept nicht bewerten">
-          <mat-icon>favorite</mat-icon>
-        </a>
-      } @else if (isLiked) {
-        <a mat-fab extended (click)="removeLike()">
-          <mat-icon>favorite</mat-icon> Like
-          </a>
-      } @else {
-        <a mat-fab extended (click)="addLike()">
-          <mat-icon>favorite</mat-icon> Like
-          </a>
-      }
-    </span>
-  </p>
-
-  <div>
+  <div id="recipeDescription">
     <p>{{ description }}</p>
-  </div>
-</section>
+    <mat-chip>{{ category }}</mat-chip>
+  </div> <!-- ENDE: #recipeDescription -->
+
+  am <span>{{ createdAt | date : 'mediumDate'}}</span>
+  von <span [routerLink]="['/userprofil']" [queryParams]="{ selectedUser: recipeAuthorId }"  queryParamsHandling="merge">{{ author }}</span>
+</section> <!-- ENDE: #headline -->
+
+
 
 <section id="ingredient">
   <h3>Zutaten</h3>
@@ -52,16 +55,16 @@
       <p>Es gibt keine Zutaten</p>
     } @else {
       @for (ingredient of ingredients; track $index) {
-        <li>{{ ingredient }}</li>
+        <li> <mat-checkbox matTooltip="Das Checken dient nur deiner Übersicht und wird nicht gespeichert">{{ ingredient }}</mat-checkbox> </li>
       }
     }
   </ul>
-</section>
+</section> <!-- ENDE: #ingredient -->
 
 <section id="instruction">
   <h3>Anleitung</h3>
   <p>{{ instruction }}</p>
-</section>
+</section> <!-- ENDE: #instruction -->
 
 
 @if (currentUser === author) {
@@ -74,21 +77,20 @@
 }
 
 
-
-
 <section id="comments">
   <h3>Kommentare</h3>
-  @if (comments.length > 0) {
-    @for (comment of comments; track $index) {
-      <div class="comment">
-        <p>{{ comment.content }}</p>
-        <p>{{ comment.author }}</p>
-        <p>{{ comment.createdAt | date: 'mediumDate' }}</p>
-      </div>
+  <article>
+    @if (comments.length > 0) {
+      @for (comment of comments; track $index) {
+        <div class="comment">
+          <p>{{ comment.content }}</p>
+          <p>von {{ comment.author }} am {{ comment.createdAt | date: 'mediumDate' }}</p>
+        </div>
+      }
+    } @else {
+      <p>Es gibt noch keine Kommentare</p>
     }
-  } @else {
-    <p>Es gibt noch keine Kommentare</p>
-  }
+  </article> <!-- ENDE: Kommentare -->
 
   <div>
     @if (currentUser === "Gast" || currentUser === "") {
@@ -101,10 +103,11 @@
       <a mat-flat-button (click)="showCommentField = !showCommentField">Kommentieren</a>
     } @else {
       <br />
-      <p (click)="showCommentField = !showCommentField">X</p>
       <textarea [(ngModel)]="newCommentContent" placeholder="Schreibe einen Kommentar"></textarea>
+      <br />
+      <span id="closeButton" (click)="showCommentField = !showCommentField">X</span>
       <a mat-flat-button (click)="addComment()">Absenden</a>
     }
-  </div>
+  </div> <!-- ENDE: Button und Funktion von Kommentieren -->
 
-</section>
+</section> <!-- ENDE: #comments -->

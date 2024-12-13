@@ -47,16 +47,20 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-weight: bold;
   color: #333;
-  margin-bottom: 20px;
+  margin-bottom: calc(2 * var(--margin-element));
+  margin-top: calc(4 * var(--margin-element));
   text-align: center;
-
 }
-
 h2 {
   font-size: 2em;
   padding: 10px;
   border-bottom: 2px solid #ddd;
 }
+h3 {
+  font-variant: petite-caps;
+  font-weight: 500;
+}
+
 p {
   white-space: pre-line;
 }
