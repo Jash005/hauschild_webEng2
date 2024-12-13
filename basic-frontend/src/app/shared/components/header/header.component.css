@@ -1,7 +1,17 @@
+/* =====================================================
+
+  Stylesheet für die Gestaltung der Header Komponente
+  Datei: header.componente.css
+  letzte Aenderung: 13.12.2024
+  Autor: Jasmin Hauschild
+
+======================================================== */
+
 .header {
   background-color: #000000;
   padding: 0 24px;
-  height: 56px;
+  min-height: 56px;
+  height: 13vh;
 }
 
 .header-nav {
@@ -9,11 +19,26 @@
   display: inline-block;
   line-height: 56px;
 }
+.header-nav.left span, .header-nav.right span {
+  margin: 0 var(--margin-element);
+}
 
 .left {
   float: left;
 }
 
+
+
 .right {
   float: right;
+}
+
+
+/* ====================================
+        Responsive Design
+==================================== */
+@media (min-width: 600px) {
+  .header {
+    max-height: 5vh;
+  }
 }
