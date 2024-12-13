@@ -1,27 +1,90 @@
-.userBox {
-  background-color: tomato;
-}
+/* =====================================================
 
-.horizontal-scroll {
+  Stylesheet für die Gestaltung der Welcome Komponente
+  Datei: welcome.componente.css
+  letzte Aenderung: 13.12.2024
+  Autor: Jasmin Hauschild
+
+======================================================== */
+
+
+/* ----------- Section Preview ----------- */
+.recipePreview section, .recipeCategory section, .userPreview section {
+  width: 90%;
+  margin: auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: var(--border-radius-element);
+}
+.recipePreview section, .recipeCategory section {
   display: flex;
-  overflow-x: auto;
-  padding: 10px 0;
+  align-items: center;
+}
+.recipePreview section {
+  flex-direction: column;
 }
 
+
+/* ----------- Hover-Effekt für Karten ----------- */
+.userBox:hover,
+.recipeBox:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+
+/* ----------- User Box ----------- */
+.userPreview {
+  margin: 20px 0;
+}
+
+
+.userPreview section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.userBox {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 200px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.userBox h3 {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.userBox p {
+  font-size: 0.9em;
+  color: #666;
+}
+
+
+/* ----------- Recipe Box ----------- */
 .recipeBox {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex: 0 0 auto;
-  width: 100%; /* Volle Breite auf mobilen Geräten */
-  height: 400px; /* Feste Höhe für alle Karten */
-  margin-right: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  width: var(--card-width-mobile); /* Volle Breite auf mobilen Geräten */
+  height: var(--card-height-mobile); /* Feste Höhe für alle Karten */
+  margin: var(--card-margin);
+  border: var(--border-element);
+  border-radius: var(--border-radius-element);
   overflow: hidden;
   position: relative;
   background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Leichter Schatteneffekt */
+  box-shadow: var(--card-box-shadow);
 }
 
 .recipeBox::before {
@@ -29,26 +92,25 @@
   position: absolute;
   top: 0;
   right: 0;
-  width: 5px; /* Schmaler Kontraststreifen auf mobilen Geräten */
+  width: var(--card-width-contrastline); /* Schmaler Kontraststreifen auf mobilen Geräten */
   height: 100%;
   background-color: #007bff; /* Farbe des Kontraststreifens */
 }
 
-@media (max-width: 600px) {
-  .recipeBox {
-    width: 100%;
-  }
-}
+
 
 /* ----------- Accordion -----------*/
 .example-accordion {
   display: block;
   max-width: 500px;
+  border: none;
+  background-color: transparent;
+  width: 100%;
 }
 
 .example-accordion-item {
   display: block;
-  border: solid 1px #ccc;
+  border: var(--border-element);
 }
 
 .example-accordion-item + .example-accordion-item {
@@ -59,6 +121,12 @@
   display: flex;
   align-content: center;
   justify-content: space-between;
+  padding: 10px;
+  font-size: 1.5em; /* Beispielgröße, anpassen nach Bedarf */
+  font-weight: bold;
+  color: #333; /* Dunklere Farbe */
+  cursor: pointer;
+  border-bottom: 1px solid #ddd; /* Unterer Rahmen */
 }
 
 .example-accordion-item-description {
@@ -86,18 +154,75 @@
   border-bottom-right-radius: 4px;
 }
 
-section {
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-  margin: auto;
-  overflow-x: scroll;
-  align-items: center;
-  padding: 20px;
-  background-color: #f5f5f5; /* Einfarbiger Hintergrund */
+/* Anpassen des Inhalts des cdk-accordion-item */
+cdk-accordion-item .example-accordion-item-body {
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #ddd; /* Unterer Rahmen */
+}
+
+/* Anpassen des Indikators des cdk-accordion-item */
+cdk-accordion-item .example-accordion-item-header .example-accordion-item-description {
+  font-size: 0.9em;
+  color: #a9a9a9; /* Hellere Farbe */
+  margin-left: 10px;
 }
 
 
+mat-accordion {
+  border: none;
+  border-radius: 0;
+}
+mat-accordion mat-expansion-panel:last-of-type {
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+/* Entfernen des Rahmens und der Hintergrundfarbe des mat-expansion-panel */
+mat-expansion-panel {
+  box-shadow: none;
+  border: none;
+  background-color: transparent;
+  border-radius: 0;
+  margin: 0; /* Entfernen von Margin */
+  padding: 0; /* Entfernen von Padding */
+}
+/* Entfernen des Rahmens des mat-expansion-panel-Body */
+mat-expansion-panel .mat-expansion-panel-content {
+  border-top: none;
+  border-radius: 0;
+}
+.mat-expansion-panel-header-title {
+  padding-top: 15px;
+}
+
+/* Anpassen des Headers des mat-expansion-panel */
+mat-expansion-panel-header {
+  padding: 0;
+  font-size: 1.5em; /* Beispielgröße, anpassen nach Bedarf */
+  font-weight: bold;
+  color: inherit; /* Erbt die Farbe von der übergeordneten Komponente */
+  border-bottom: none;
+  border-radius: 0;
+}
+
+/* Anpassen des Indikators des mat-expansion-panel */
+mat-expansion-panel-header .mat-expansion-indicator {
+  font-size: 1.5em; /* Größerer Schriftgrad */
+  font-weight: bold; /* Fettere Schrift */
+  color: inherit; /* Erbt die Farbe von der übergeordneten Komponente */
+  margin-right: 15px;
+}
+
+
+
+
+
+
+
+
+/* ----------- Card ----------- */
 mat-card-header {
   padding: 16px;
   background-color: #007bff; /* Farbe des Headers */
@@ -140,10 +265,8 @@ mat-chip {
   margin-right: 8px;
 }
 
-p {
-  margin: 8px 0;
-}
 
+/* ----------- Icon ----------- */
 .favoriteIcon {
   display: flex;
   align-items: center;
@@ -154,22 +277,79 @@ p {
   margin-right: 4px;
 }
 
-/* Stile für größere Bildschirme */
+
+/* ----------- Scrollbar ----------- */
+/* Allgemein für moderne Browser */
+body {
+  scrollbar-width: thin; /* Für Firefox */
+  scrollbar-color: #888 #f1f1f1; /* Für Firefox */
+}
+
+/* Für Chrome, Edge und Safari */
+::-webkit-scrollbar {
+  width: 12px; /* Breite der gesamten Scrollbar */
+}
+::-webkit-scrollbar-track {
+  background: #dfdfdf; /* Hintergrund der Scroll-Leiste */
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background: #888; /* Farbe des Scrollbalkens */
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: chartreuse;
+}
+
+
+/* ----------- Heading ----------- */
+h2 {
+  font-size: 2em; /* Größerer Schriftgrad */
+  font-weight: bold; /* Fettere Schrift */
+  color: #333; /* Dunklere Farbe */
+  text-align: center; /* Zentrierter Text */
+  margin: 20px 0; /* Abstand oben und unten */
+  padding: 10px; /* Innenabstand */
+  border-bottom: 2px solid #ddd; /* Unterer Rahmen */
+}
+
+/* ====================================
+        Responsive Design
+==================================== */
 @media (min-width: 600px) {
-  section {
+  /* ----------- Section Preview ----------- */
+  .recipePreview section, .recipeCategory section, .userPreview section {
+    width: 75%;
+  }
+  .recipePreview section {
     flex-direction: row;
+    overflow-x: scroll;
   }
 
+  /* ----------- Recipe Box ----------- */
   .recipeBox {
-    width: 300px; /* Feste Breite auf größeren Bildschirmen */
-    height: 300px; /* Feste Höhe für alle Karten */
+    width: var(--card-width-desktop); /* Feste Breite auf größeren Bildschirmen */
+    height: var(--card-height-desktop); /* Feste Höhe für alle Karten */
     margin-right: 20px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Deutlicherer Schatteneffekt */
   }
-
   .recipeBox::before {
     width: 10px; /* Breiterer Kontraststreifen auf größeren Bildschirmen */
   }
+  #allRecipes .recipePreview, #allRecipes section {
+    flex-wrap: wrap;
+    flex-direction: column;
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-height: calc(3 * var(--card-height-desktop));
+  }
+
+  .horizontal-scroll {
+    display: flex;
+    overflow-x: auto;
+    padding: 10px 0;
+  }
+
 
   mat-card-title {
     font-size: 1.5em;
@@ -178,4 +358,16 @@ p {
   mat-card-subtitle {
     font-size: 1em;
   }
+
+  /* ----------- Accordion (cdk) -----------*/
+  .example-accordion {
+    width: 100%;
+    max-width: none;
+  }
+  .example-accordion-item-body {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-evenly;
+  }
+
 }
