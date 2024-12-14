@@ -1,42 +1,58 @@
-<h2>{{ username }}</h2>
+<article class="headline">
+  <h2>{{ username }}</h2>
+  <section class="subHeadline">
+    @if (createdAt) {
+      <p>Mitglied seit {{createdAt | date: 'mediumDate'}}</p>
+    }
+  </section>
+</article> <!-- ENDE .headline -->
 
- @if (userId === userIdFromLoggedInUser) {
-  <button mat-fab aria-label="Rezept komplett löschen" (click)="deleteUser()">
-    <mat-icon>delete</mat-icon>
-  </button>
- }
-
-@if (createdAt) {
-  <p>Mitglied seit {{createdAt | date: 'mediumDate'}}</p>
-}
-
+<article class="recipePreview">
 <h3>Meine Rezepte</h3>
-@if (recipesFromUser.length > 0) {
-  @for (recipe of recipesFromUser; track $index) {
-    <div class="recipeBox" [routerLink]="['/recipe-view']" [queryParams]="{ selectedRecipe: recipe._id, author: recipe.authorId }" queryParamsHandling="merge">
-      <h3>{{recipe.recipeTitle}}</h3>
-      <p>{{recipe.recipeDescription || "Keine Beschreibung"}}</p>
-      <p>{{recipe.author || "Kein Autor"}}</p>
-      <p>{{recipe.recipeCategory || "Unkategorisiert"}}</p>
-      <p>{{recipe.rating || 0}}</p>
-      <p>{{recipe.updatedAt | date: 'mediumDate'}}</p>
-    </div>
+  <section>
+    @if (recipesFromUser.length > 0) {
+      @for (recipe of recipesFromUser; track $index) {
+        <mat-card appearance="outlined" class="recipeBox" [routerLink]="['/recipe-view']" [queryParams]="{ selectedRecipe: recipe._id, author: recipe.authorId }" queryParamsHandling="merge">
+          <mat-card-header>
+            <mat-card-title>{{recipe.recipeTitle}}</mat-card-title>
+            <mat-card-subtitle>von {{recipe.author || "Kein Autor"}} - {{recipe.updatedAt | date: 'mediumDate'}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content class="card-content">
+            {{recipe.recipeDescription || "Keine Beschreibung"}}
+          </mat-card-content>
+          <mat-card-footer class="card-footer">
+            <mat-chip>{{recipe.recipeCategory || "Unkategorisiert"}}</mat-chip>
+            <span class="favoriteIcon"> <mat-icon>favorite</mat-icon> {{recipe.rating || 0}}</span>
+          </mat-card-footer>
+        </mat-card>
+      }
+    } @else {
+      <p>Dieser User noch keine Rezepte erstellt.</p>
+
+    }
+  </section>
+</article> <!-- ENDE .recipePreview -->
+
+<section id="comments">
+  <h3>Meine Kommentare</h3>
+  @if (filteredComments.length > 0) {
+    @for (comment of filteredComments; track $index) {
+      <div class="comment">
+        <p>{{ comment.content }}</p>
+        <h4>in {{comment?.recipeTitle || ''}}</h4>
+
+        <p><mat-icon>comment</mat-icon> von {{ comment.author }} am {{ comment.createdAt | date: 'mediumDate' }}</p>
+      </div>
+    }
+  } @else {
+    <p>Dieser User noch keine Kommentare erstellt.</p>
   }
-} @else {
-  <p>Dieser User noch keine Rezepte erstellt.</p>
+</section> <!-- ENDE #comments -->
 
-}
-
-<h3>Meine Kommentare</h3>
-@if (filteredComments.length > 0) {
-  @for (comment of filteredComments; track $index) {
-    <div class="commentBox" [routerLink]="['/recipe-view']" [queryParams]="{ selectedRecipe: comment.recipeId, author: comment.authorId }" queryParamsHandling="merge">
-      <h3>{{comment?.recipeTitle || ''}}</h3>
-      <p>{{comment?.content || ''}}</p>
-      <p>{{comment?.createdAt | date: 'mediumDate'}}</p>
-    </div>
+<article class="footline">
+  @if (userId === userIdFromLoggedInUser) {
+    <button mat-fab aria-label="Rezept komplett löschen" (click)="deleteUser()">
+      <mat-icon>delete</mat-icon> Profil löschen
+    </button>
   }
-} @else {
-  <p>Dieser User noch keine Kommentare erstellt.</p>
-}
-
+</article> <!-- ENDE .footline -->

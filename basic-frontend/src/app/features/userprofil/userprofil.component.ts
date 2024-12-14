@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'app-userprofil',
@@ -16,7 +18,9 @@ import { MatButtonModule } from '@angular/material/button';
     DatePipe,
     RouterLink,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule,
+    MatChipsModule
   ],
   templateUrl: './userprofil.component.html',
   styleUrl: './userprofil.component.css',
@@ -47,7 +51,7 @@ export class UserprofilComponent implements OnInit {
         this.getUserById();
         this.getRecipesFromUser(this.userId);
         this.getCommentsByUserId(this.userId);
-        this.removeQueryParams(['selectedRecipe', 'author', 'selectedUser']);
+        // this.removeQueryParams(['selectedRecipe', 'author', 'selectedUser']);
       }
   }
 
@@ -123,12 +127,6 @@ async deleteUser(): Promise<void> {
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: queryParams
-    }).then(success => {
-      if (success) {
-        console.log('Navigation erfolgreich');
-      } else {
-        console.error('Navigation fehlgeschlagen');
-      }
     }).catch(error => {
       console.error('Fehler bei der Navigation', error);
     });

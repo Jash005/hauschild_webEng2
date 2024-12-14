@@ -1,7 +1,50 @@
-.recipeBox {
-  background-color: cadetblue;
+/* =====================================================
+
+  Stylesheet für die Gestaltung der Userprofil Komponente
+  Datei: userprofil.component.css
+  letzte Aenderung: 14.12.2024
+  Autor: Jasmin Hauschild
+
+======================================================== */
+@import '../../../recipePreviewBox.css';
+@import '../../../commentBox.css';
+
+/* ----------- Kopfzeile -----------*/
+.headline .subHeadline {
+  text-align: center;
 }
 
-.commentBox {
-  background-color: lightblue;
+
+/* ----------- Überschriften -----------*/
+h3 {
+  font-variant: petite-caps;
+  font-weight: 500;
+  margin-top: calc(3 * var(--margin-element));
+}
+
+
+/* ----------- Recipe Box ----------- */
+
+
+/* ----------- Kommentare -----------*/
+.comment h4 {
+  font-size: 1em;
+  font-weight: 900;
+  border-top: 2px solid #ddd;
+  width: 50%;
+  margin: auto;
+}
+.comment p mat-icon {
+  float: left;
+}
+
+/* ----------- Fußziele -----------*/
+.footline {
+  text-align: center;
+  margin-top: 2em;
+}
+.footline button {
+  width: auto;
+  padding: var(--margin-element);
+  font-weight: 900;
 }
