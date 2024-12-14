@@ -2,13 +2,15 @@
 
   Stylesheet für die Gestaltung der recipe-view Komponente
   Datei: recipe-view.componente.css
-  letzte Aenderung: 13.12.2024
+  letzte Aenderung: 14.12.2024
   Autor: Jasmin Hauschild
 
 ======================================================== */
+/* ----------- Importierte Styles ----------- */
 @import '../../../commentBox.css';
 
 
+/* ----------- Allgemein ----------- */
 section {
   text-align: center;
 }
@@ -23,7 +25,7 @@ mat-chip {
   margin-bottom: var(--margin-element);
 }
 span:last-child {
-  color: blue;
+  color: var(--primary-color);
   text-decoration: underline;
   cursor: pointer;
 }
@@ -53,12 +55,12 @@ ul {
 textarea {
   width: 90%;
   height: 100px;
-  padding: 10px;
+  padding: var(--margin-element);
   border: 1px solid #ddd;
   border-radius: 8px;
-  margin-bottom: 10px;
+  margin-bottom: var(--margin-element);
   font-size: 1em;
-  color: #333;
+  color: var(--dark-color);
 }
 
 textarea::placeholder {
@@ -91,10 +93,7 @@ textarea::placeholder {
         Responsive Design
 ==================================== */
 @media (min-width: 600px) {
-  /* ----------- Zutaten -----------*/
   ul {
     width: 20%;
   }
-
-
 }

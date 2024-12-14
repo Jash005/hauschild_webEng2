@@ -1,8 +1,8 @@
 /* ----------- Card ----------- */
 article.recipePreview mat-card-header {
   padding: 16px;
-  background-color: #007bff; /* Farbe des Headers */
-  color: #fff;
+  background-color: var(--primary-color); /* Farbe des Headers */
+  color: var(--light-color);
 }
 
 article.recipePreview mat-card-title {
@@ -12,7 +12,7 @@ article.recipePreview mat-card-title {
 
 article.recipePreview mat-card-subtitle {
   font-size: 0.9em;
-  color: #e0e0e0;
+  color: var(--light-color);
 }
 
 article.recipePreview  .card-content {
@@ -32,7 +32,7 @@ article.recipePreview  mat-card-footer {
   justify-content: space-between;
   align-items: center;
   padding: 16px;
-  background-color: #f5f5f5; /* Hintergrundfarbe des Footers */
+  background-color: var(--light-color); /* Hintergrundfarbe des Footers */
 }
 
 article.recipePreview  mat-chip {
@@ -44,7 +44,7 @@ article.recipePreview  mat-chip {
 article.recipePreview  .favoriteIcon {
   display: flex;
   align-items: center;
-  color: #007bff; /* Farbe des Icons */
+  color: var(--primary-color); /* Farbe des Icons */
 }
 
 article.recipePreview  .favoriteIcon mat-icon {
@@ -64,7 +64,7 @@ article.recipePreview  .recipeBox {
   border-radius: var(--border-radius-element);
   overflow: hidden;
   position: relative;
-  background-color: #fff;
+  background-color: var(--light-color);
   box-shadow: var(--card-box-shadow);
 }
 article.recipePreview  .recipeBox::before {
@@ -74,7 +74,7 @@ article.recipePreview  .recipeBox::before {
   right: 0;
   width: var(--card-width-contrastline); /* Schmaler Kontraststreifen auf mobilen Geräten */
   height: 100%;
-  background-color: #007bff; /* Farbe des Kontraststreifens */
+  background-color: var(--primary-color); /* Farbe des Kontraststreifens */
 }
 
 article.recipePreview  .recipeBox:hover {

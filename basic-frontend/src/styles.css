@@ -2,15 +2,20 @@
 
   Stylesheet für die Gestaltung aller Komponenten
   Datei: style.css
-  letzte Aenderung: 13.12.2024
+  letzte Aenderung: 14.12.2024
   Autor: Jasmin Hauschild
 
 ======================================================== */
 /* ----------- Variablen -----------*/
 :root {
   /* Farben */
-  --primary-color: #007bff;
-  --secondary-color: #6c757d;
+  --primary-color: #ff7b00;
+  --secondary-color: #64544b;
+  --contrast-color: #77bfe0;
+  --dark-color: #333;
+  --light-color: #fff;
+  --light-med-color: #e0dacb;
+
   /* Elemente */
   --font-size: 16px;
   --font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -46,7 +51,7 @@ body {
 }
 h1, h2, h3, h4, h5, h6 {
   font-weight: bold;
-  color: #333;
+  color: var(--dark-color);
   margin-bottom: calc(2 * var(--margin-element));
   margin-top: calc(4 * var(--margin-element));
   text-align: center;

@@ -15,7 +15,7 @@ section#comments .comment {
   border-radius: var(--border-radius-element);
   overflow: hidden;
   position: relative;
-  background-color: #fff;
+  background-color: var(--light-color);
   box-shadow: var(--card-box-shadow);
 }
 
@@ -26,7 +26,7 @@ section#comments .comment::before {
   right: 0;
   width: var(--card-width-contrastline); /* Schmaler Kontraststreifen auf mobilen Geräten */
   height: 100%;
-  background-color: #007bff; /* Farbe des Kontraststreifens */
+  background-color: var(--primary-color); /* Farbe des Kontraststreifens */
 }
 section#comments .comment p:first-child {
   padding: var(--margin-element) var(--margin-element) 0 var(--margin-element);
@@ -34,8 +34,8 @@ section#comments .comment p:first-child {
 section#comments .comment p:last-child {
   margin-bottom: 0;
   padding: calc(0.5 * var(--margin-element));
-  background-color: #007bff;
-  color: #fff;
+  background-color: var(--primary-color);
+  color: var(--light-color);
   text-align: left;
 }
 

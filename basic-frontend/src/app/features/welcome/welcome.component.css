@@ -2,7 +2,7 @@
 
   Stylesheet für die Gestaltung der Welcome Komponente
   Datei: welcome.componente.css
-  letzte Aenderung: 13.12.2024
+  letzte Aenderung: 14.12.2024
   Autor: Jasmin Hauschild
 
 ======================================================== */
@@ -13,8 +13,8 @@
 .recipePreview section, .recipeCategory section, .userPreview section {
   width: 90%;
   margin: auto;
-  padding: 20px;
-  background-color: #f9f9f9;
+  padding: calc(2 * var(--margin-element));
+  background-color: var(--light-med-color);
   border-radius: var(--border-radius-element);
 }
 .recipePreview section, .recipeCategory section {
@@ -36,7 +36,7 @@
 
 /* ----------- User Box ----------- */
 .userPreview {
-  margin: 20px 0;
+  margin: calc(2 * var(--margin-element)) 0;
 }
 
 
@@ -44,15 +44,15 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  gap: calc(2 * var(--margin-element));
 }
 
 .userBox {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  background-color: var(--light-color);
+  border: 1px solid var(--light-color);
+  border-radius: var(--border-radius-element);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding: calc(2 * var(--margin-element));
   width: 200px;
   text-align: center;
   transition: transform 0.3s, box-shadow 0.3s;
@@ -61,15 +61,14 @@
 .userBox h3 {
   font-size: 1.2em;
   font-weight: bold;
-  color: #333;
-  margin-bottom: 10px;
+  color: var(--dark-color);
+  margin-bottom: var(--margin-element);
 }
 
 .userBox p {
   font-size: 0.9em;
-  color: #666;
+  color: var(--secondary-color);
 }
-
 
 
 /* ----------- Accordion -----------*/
@@ -77,7 +76,7 @@
   display: block;
   max-width: 500px;
   border: none;
-  background-color: transparent;
+  background-color: var(--light-color);
   width: 100%;
 }
 
@@ -94,17 +93,20 @@
   display: flex;
   align-content: center;
   justify-content: space-between;
-  padding: 10px;
-  font-size: 1.5em; /* Beispielgröße, anpassen nach Bedarf */
+  padding: var(--margin-element);
+  font-size: 1.5em;
   font-weight: bold;
-  color: #333; /* Dunklere Farbe */
+  color: var(--dark-color);
   cursor: pointer;
-  border-bottom: 1px solid #ddd; /* Unterer Rahmen */
+  border-bottom: 1px solid var(--light-color);
+}
+.accordion .accordion-item-header:hover {
+  background-color: var(--light-med-color);
 }
 
 .accordion-item-description {
   font-size: 0.85em;
-  color: #999;
+  color: var(--light-color);
 }
 
 .accordion-item-header,
@@ -114,7 +116,7 @@
 
 .accordion-item-header:hover {
   cursor: pointer;
-  background-color: #eee;
+  background-color: var(--light-color);
 }
 
 .accordion-item:first-child {
@@ -127,20 +129,17 @@
   border-bottom-right-radius: 4px;
 }
 
-/* Anpassen des Inhalts des cdk-accordion-item */
 cdk-accordion-item .accordion-item-body {
-  padding: 10px;
-  background-color: #f9f9f9;
-  border-bottom: 1px solid #ddd; /* Unterer Rahmen */
+  padding: var(--margin-element);
+  background-color: var(--light-color);
+  border-bottom: 2px solid var(--light-med-color);
 }
 
-/* Anpassen des Indikators des cdk-accordion-item */
 cdk-accordion-item .accordion-item-header .accordion-item-description {
   font-size: 0.9em;
-  color: #a9a9a9; /* Hellere Farbe */
-  margin-left: 10px;
+  color: var(--secondary-color);
+  margin-left: var(--margin-element);
 }
-
 
 mat-accordion {
   border: none;
@@ -152,16 +151,16 @@ mat-accordion mat-expansion-panel:last-of-type {
   border-radius: 0;
   box-shadow: none;
 }
-/* Entfernen des Rahmens und der Hintergrundfarbe des mat-expansion-panel */
+
 mat-expansion-panel {
   box-shadow: none;
   border: none;
   background-color: transparent;
   border-radius: 0;
-  margin: 0; /* Entfernen von Margin */
-  padding: 0; /* Entfernen von Padding */
+  margin: 0;
+  padding: 0;
 }
-/* Entfernen des Rahmens des mat-expansion-panel-Body */
+
 mat-expansion-panel .mat-expansion-panel-content {
   border-top: none;
   border-radius: 0;
@@ -170,66 +169,56 @@ mat-expansion-panel .mat-expansion-panel-content {
   padding-top: 15px;
 }
 
-/* Anpassen des Headers des mat-expansion-panel */
 mat-expansion-panel-header {
   padding: 0;
-  font-size: 1.5em; /* Beispielgröße, anpassen nach Bedarf */
+  font-size: 1.5em;
   font-weight: bold;
-  color: inherit; /* Erbt die Farbe von der übergeordneten Komponente */
+  color: inherit;
   border-bottom: none;
   border-radius: 0;
 }
 
-/* Anpassen des Indikators des mat-expansion-panel */
 mat-expansion-panel-header .mat-expansion-indicator {
-  font-size: 1.5em; /* Größerer Schriftgrad */
-  font-weight: bold; /* Fettere Schrift */
-  color: inherit; /* Erbt die Farbe von der übergeordneten Komponente */
+  font-size: 1.5em;
+  font-weight: bold;
+  color: inherit;
   margin-right: 15px;
 }
-
-
-
-
-
-
-
-
 
 
 /* ----------- Scrollbar ----------- */
 /* Allgemein für moderne Browser */
 body {
-  scrollbar-width: thin; /* Für Firefox */
-  scrollbar-color: #888 #f1f1f1; /* Für Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
 }
 
 /* Für Chrome, Edge und Safari */
 ::-webkit-scrollbar {
-  width: 12px; /* Breite der gesamten Scrollbar */
+  width: 12px;
 }
 ::-webkit-scrollbar-track {
-  background: #dfdfdf; /* Hintergrund der Scroll-Leiste */
-  border-radius: 8px;
+  background: #dfdfdf;
+  border-radius: var(--border-radius-element);
 }
 ::-webkit-scrollbar-thumb {
-  border-radius: 8px;
-  background: #888; /* Farbe des Scrollbalkens */
+  border-radius: var(--border-radius-element);
+  background: #888;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background-color: chartreuse;
+  background-color: var(--contrast-color);
 }
 
 
 /* ----------- Heading ----------- */
 h2 {
-  font-size: 2em; /* Größerer Schriftgrad */
-  font-weight: bold; /* Fettere Schrift */
-  color: #333; /* Dunklere Farbe */
-  text-align: center; /* Zentrierter Text */
-  margin: 20px 0; /* Abstand oben und unten */
-  padding: 10px; /* Innenabstand */
-  border-bottom: 2px solid #ddd; /* Unterer Rahmen */
+  font-size: 2em;
+  font-weight: bold;
+  color: var(--dark-color);
+  text-align: center;
+  margin: calc(2 * var(--margin-element)) 0;
+  padding: var(--margin-element);
+  border-bottom: 2px solid #ddd;
 }
 
 /* ====================================
@@ -251,6 +240,7 @@ h2 {
     overflow-y: hidden;
     max-height: calc(3 * var(--card-height-desktop));
   }
+
     /* ----------- Recipe Box ----------- */
     article.recipePreview .recipeBox {
       margin-right: 20px;
@@ -261,7 +251,6 @@ h2 {
     overflow-x: auto;
     padding: 10px 0;
   }
-
 
   /* ----------- Accordion (cdk) -----------*/
   .accordion {

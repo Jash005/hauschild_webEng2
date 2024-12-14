@@ -7,31 +7,32 @@
 
 ======================================================== */
 
-/* Grundlegende Stile für das Formular */
+/* ----------- Formular -----------*/
 form {
   max-width: 600px;
   margin: 0 auto;
-  padding: 20px;
+  padding: calc(2 * var(--margin-element));
   background-color: #f9f9f9;
-  border-radius: 8px;
+  color: var(--dark-color);
+  border-radius: var(--border-radius-element);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* ----------- Heading ----------- */
 h2 {
-  font-size: 2em; /* Größerer Schriftgrad */
-  font-weight: bold; /* Fettere Schrift */
-  color: #333; /* Dunklere Farbe */
-  text-align: center; /* Zentrierter Text */
-  margin: 20px 0; /* Abstand oben und unten */
-  padding: 10px; /* Innenabstand */
-  border-bottom: 2px solid #ddd; /* Unterer Rahmen */
+  font-size: 2em;
+  font-weight: bold;
+  color: var(--dark-color);
+  text-align: center;
+  margin: calc(2 * var(--margin-element)) 0;
+  padding: var(--margin-element);
+  border-bottom: 2px solid #ddd;
 }
 
 /* ----------- Formlar Elemente ----------- */
 mat-form-field {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: calc(2 * var(--margin-element));
 }
 
 /* ----------- Zutaten ----------- */
@@ -47,34 +48,34 @@ mat-form-field {
 
 .ingredient-item mat-icon {
   cursor: pointer;
-  margin-left: 10px;
+  margin-left: var(--margin-element);
 }
 
 /* ----------- Absende Button ----------- */
 button[type="submit"] {
   width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: #fff;
+  padding: var(--margin-element);
+  background-color: var(--primary-color);
+  color: var(--light-color);
   border: none;
-  border-radius: 4px;
+  border-radius: var(--border-radius-element);
   font-size: 1.2em;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 button[type="submit"]:hover {
-  background-color: #0056b3;
+  background-color: var(--seondary-color);
 }
 
 
 
 /* ====================================
-        Media Queries
+        Responsive Design
 ==================================== */
 @media (max-width: 600px) {
   form {
-    padding: 10px;
+    padding: var(--margin-element);
   }
 
   h2 {

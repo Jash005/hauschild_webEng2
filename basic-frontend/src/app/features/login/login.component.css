@@ -1,60 +1,68 @@
-/* Grundlegende Stile für das Formular */
+/* =====================================================
+
+  Stylesheet für die Gestaltung der Login Komponente
+  Datei: login.component.css
+  letzte Aenderung: 14.12.2024
+  Autor: Jasmin Hauschild
+
+======================================================== */
+
+/* ----------- Formular - allgemein -----------*/
 form {
   max-width: 400px;
   margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
+  padding: calc(2 * var(--margin-element));
+  background-color: var(--light-med-color);
+  border-radius: var(--border-radius-element);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
-/* Stile für die Formularfelder */
+/* ----------- Formular Felder -----------*/
 mat-form-field {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: calc(2 * var(--margin-element));
 }
 
 mat-form-field .mat-form-field-label {
-  color: #333; /* Dunklere Schriftfarbe für das Label */
+  color: var(--dark-color);
 }
 
 mat-form-field .mat-input-element {
-  color: #333; /* Dunklere Schriftfarbe für das Eingabefeld */
+  color: var(--dark-color);
 }
 
 mat-form-field .mat-form-field-underline {
-  background-color: #333; /* Dunklere Farbe für die Unterstreichung */
+  background-color: var(--dark-color);
 }
 
-/* Stile für den Passwort-Button */
 mat-form-field button[mat-icon-button] {
-  color: #333; /* Dunklere Farbe für das Icon */
+  color: var(--dark-color);
 }
 
-/* Stile für den Submit-Button */
+
+/* ----------- Submit Button -----------*/
 button[type="submit"] {
   width: 100%;
-  padding: 10px;
-  background-color: #007bff; /* Blaue Hintergrundfarbe für den Button */
-  color: #fff;
+  padding: var(--margin-element);
+  background-color: var(--primary-color);
+  color: var(--light-color);
   border: none;
-  border-radius: 4px;
+  border-radius: var(--border-radius-element);
   font-size: 1.2em;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 button[type="submit"]:hover {
-  background-color: #0056b3; /* Dunkleres Blau für den Hover-Effekt */
+  background-color: var(--secondary-color);
 }
 
-/* Stile für den Registrieren-Link */
 a[routerLink="/register"] {
-  color: #007bff;
+  color: var(--primary-color);
   text-decoration: none;
   font-weight: bold;
-  margin-top: 10px;
+  margin-top: var(--margin-element);
   display: inline-block;
 }
 
@@ -62,10 +70,13 @@ a[routerLink="/register"]:hover {
   text-decoration: underline;
 }
 
-/* Responsive Design */
+
+/* ====================================
+        Responsive Design
+==================================== */
 @media (max-width: 600px) {
   form {
-    padding: 10px;
+    padding: var(--margin-element);
   }
 
   button[type="submit"] {

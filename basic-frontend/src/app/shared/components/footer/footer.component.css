@@ -1,6 +1,6 @@
 .footer {
-  background-color: #000000;
+  background-color: var(--secondary-color);
   line-height: 56px;
   text-align: center;
-  color: #999999;
+  color: var(--light-color);
 }
