@@ -102,12 +102,6 @@ export class WelcomeComponent {
       this.router.navigate([], {
         relativeTo: this.route,
         queryParams: queryParams
-      }).then(success => {
-        if (success) {
-          console.log('Navigation erfolgreich');
-        } else {
-          console.error('Navigation fehlgeschlagen');
-        }
       }).catch(error => {
         console.error('Fehler bei der Navigation', error);
       });

@@ -6,6 +6,7 @@
   Autor: Jasmin Hauschild
 
 ======================================================== */
+@import '../../../recipePreviewBox.css';
 
 
 /* ----------- Section Preview ----------- */
@@ -70,37 +71,9 @@
 }
 
 
-/* ----------- Recipe Box ----------- */
-.recipeBox {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex: 0 0 auto;
-  width: var(--card-width-mobile); /* Volle Breite auf mobilen Geräten */
-  height: var(--card-height-mobile); /* Feste Höhe für alle Karten */
-  margin: var(--card-margin);
-  border: var(--border-element);
-  border-radius: var(--border-radius-element);
-  overflow: hidden;
-  position: relative;
-  background-color: #fff;
-  box-shadow: var(--card-box-shadow);
-}
-
-.recipeBox::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: var(--card-width-contrastline); /* Schmaler Kontraststreifen auf mobilen Geräten */
-  height: 100%;
-  background-color: #007bff; /* Farbe des Kontraststreifens */
-}
-
-
 
 /* ----------- Accordion -----------*/
-.example-accordion {
+.accordion {
   display: block;
   max-width: 500px;
   border: none;
@@ -108,16 +81,16 @@
   width: 100%;
 }
 
-.example-accordion-item {
+.accordion-item {
   display: block;
   border: var(--border-element);
 }
 
-.example-accordion-item + .example-accordion-item {
+.accordion-item + .accordion-item {
   border-top: none;
 }
 
-.example-accordion-item-header {
+.accordion-item-header {
   display: flex;
   align-content: center;
   justify-content: space-between;
@@ -129,40 +102,40 @@
   border-bottom: 1px solid #ddd; /* Unterer Rahmen */
 }
 
-.example-accordion-item-description {
+.accordion-item-description {
   font-size: 0.85em;
   color: #999;
 }
 
-.example-accordion-item-header,
-.example-accordion-item-body {
+.accordion-item-header,
+.accordion-item-body {
   padding: 16px;
 }
 
-.example-accordion-item-header:hover {
+.accordion-item-header:hover {
   cursor: pointer;
   background-color: #eee;
 }
 
-.example-accordion-item:first-child {
+.accordion-item:first-child {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 }
 
-.example-accordion-item:last-child {
+.accordion-item:last-child {
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
 }
 
 /* Anpassen des Inhalts des cdk-accordion-item */
-cdk-accordion-item .example-accordion-item-body {
+cdk-accordion-item .accordion-item-body {
   padding: 10px;
   background-color: #f9f9f9;
   border-bottom: 1px solid #ddd; /* Unterer Rahmen */
 }
 
 /* Anpassen des Indikators des cdk-accordion-item */
-cdk-accordion-item .example-accordion-item-header .example-accordion-item-description {
+cdk-accordion-item .accordion-item-header .accordion-item-description {
   font-size: 0.9em;
   color: #a9a9a9; /* Hellere Farbe */
   margin-left: 10px;
@@ -222,60 +195,6 @@ mat-expansion-panel-header .mat-expansion-indicator {
 
 
 
-/* ----------- Card ----------- */
-mat-card-header {
-  padding: 16px;
-  background-color: #007bff; /* Farbe des Headers */
-  color: #fff;
-}
-
-mat-card-title {
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
-mat-card-subtitle {
-  font-size: 0.9em;
-  color: #e0e0e0;
-}
-
-.card-content {
-  display: flex;
-  align-items: center; /* Vertikale Zentrierung */
-  justify-content: flex-start; /* Links ausgerichtet */
-  padding: 16px;
-  flex: 1 1 auto; /* Flex-Grow für den Inhalt */
-}
-
-.card-content p {
-  margin: 0; /* Entfernt den Standardrand des Absatzes */
-}
-
-mat-card-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px;
-  background-color: #f5f5f5; /* Hintergrundfarbe des Footers */
-}
-
-mat-chip {
-  background-color: #007bff; /* Farbe des Chips */
-  color: #fff;
-  margin-right: 8px;
-}
-
-
-/* ----------- Icon ----------- */
-.favoriteIcon {
-  display: flex;
-  align-items: center;
-  color: #007bff; /* Farbe des Icons */
-}
-
-.favoriteIcon mat-icon {
-  margin-right: 4px;
-}
 
 
 /* ----------- Scrollbar ----------- */
@@ -317,25 +236,14 @@ h2 {
         Responsive Design
 ==================================== */
 @media (min-width: 600px) {
-  /* ----------- Section Preview ----------- */
-  .recipePreview section, .recipeCategory section, .userPreview section {
-    width: 75%;
-  }
-  .recipePreview section {
-    flex-direction: row;
-    overflow-x: scroll;
-  }
-
-  /* ----------- Recipe Box ----------- */
-  .recipeBox {
-    width: var(--card-width-desktop); /* Feste Breite auf größeren Bildschirmen */
-    height: var(--card-height-desktop); /* Feste Höhe für alle Karten */
-    margin-right: 20px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Deutlicherer Schatteneffekt */
-  }
-  .recipeBox::before {
-    width: calc(2 * var(--card-width-contrastline)); /* Breiterer Kontraststreifen auf größeren Bildschirmen */
-  }
+    /* ----------- Section Preview ----------- */
+    .recipePreview section, .recipeCategory section, .userPreview section {
+      width: 75%;
+    }
+    .recipePreview section {
+      flex-direction: row;
+      overflow-x: scroll;
+    }
   #allRecipes .recipePreview, #allRecipes section {
     flex-wrap: wrap;
     flex-direction: column;
@@ -343,6 +251,10 @@ h2 {
     overflow-y: hidden;
     max-height: calc(3 * var(--card-height-desktop));
   }
+    /* ----------- Recipe Box ----------- */
+    article.recipePreview .recipeBox {
+      margin-right: 20px;
+    }
 
   .horizontal-scroll {
     display: flex;
@@ -351,20 +263,12 @@ h2 {
   }
 
 
-  mat-card-title {
-    font-size: 1.5em;
-  }
-
-  mat-card-subtitle {
-    font-size: 1em;
-  }
-
   /* ----------- Accordion (cdk) -----------*/
-  .example-accordion {
+  .accordion {
     width: 100%;
     max-width: none;
   }
-  .example-accordion-item-body {
+  .accordion-item-body {
     display: flex;
     flex-flow: wrap;
     justify-content: space-evenly;

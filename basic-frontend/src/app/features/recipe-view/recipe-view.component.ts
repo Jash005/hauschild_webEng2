@@ -75,7 +75,7 @@ export class RecipeViewComponent {
       }
       this.router.navigate(['/']).then(response => console.log(response));
     }
-    //this.removeQueryParams(['selectedRecipe', 'author', 'selectedUser']).then(response => console.log(response));
+    this.removeQueryParams(['selectedRecipe', 'author', 'selectedUser']).then(response => console.log(response));
   }
 
 

@@ -1,0 +1,111 @@
+/* ----------- Card ----------- */
+article.recipePreview mat-card-header {
+  padding: 16px;
+  background-color: #007bff; /* Farbe des Headers */
+  color: #fff;
+}
+
+article.recipePreview mat-card-title {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+article.recipePreview mat-card-subtitle {
+  font-size: 0.9em;
+  color: #e0e0e0;
+}
+
+article.recipePreview  .card-content {
+  display: flex;
+  align-items: center; /* Vertikale Zentrierung */
+  justify-content: flex-start; /* Links ausgerichtet */
+  padding: 16px;
+  flex: 1 1 auto; /* Flex-Grow für den Inhalt */
+}
+
+article.recipePreview  .card-content p {
+  margin: 0; /* Entfernt den Standardrand des Absatzes */
+}
+
+article.recipePreview  mat-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: #f5f5f5; /* Hintergrundfarbe des Footers */
+}
+
+article.recipePreview  mat-chip {
+
+  margin-right: 8px;
+}
+
+/* ----------- Icon ----------- */
+article.recipePreview  .favoriteIcon {
+  display: flex;
+  align-items: center;
+  color: #007bff; /* Farbe des Icons */
+}
+
+article.recipePreview  .favoriteIcon mat-icon {
+  margin-right: 4px;
+}
+
+
+article.recipePreview  .recipeBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 0 0 auto;
+  width: var(--card-width-mobile); /* Volle Breite auf mobilen Geräten */
+  height: var(--card-height-mobile); /* Feste Höhe für alle Karten */
+  margin: var(--card-margin) auto;
+  border: var(--border-element);
+  border-radius: var(--border-radius-element);
+  overflow: hidden;
+  position: relative;
+  background-color: #fff;
+  box-shadow: var(--card-box-shadow);
+}
+article.recipePreview  .recipeBox::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: var(--card-width-contrastline); /* Schmaler Kontraststreifen auf mobilen Geräten */
+  height: 100%;
+  background-color: #007bff; /* Farbe des Kontraststreifens */
+}
+
+article.recipePreview  .recipeBox:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+
+/* ====================================
+        Responsive Design
+==================================== */
+@media (min-width: 600px) {
+
+
+  /* ----------- Recipe Box ----------- */
+  article.recipePreview .recipeBox {
+    width: var(--card-width-desktop); /* Feste Breite auf größeren Bildschirmen */
+    height: var(--card-height-desktop); /* Feste Höhe für alle Karten */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Deutlicherer Schatteneffekt */
+  }
+  article.recipePreview .recipeBox::before {
+    width: calc(2 * var(--card-width-contrastline)); /* Breiterer Kontraststreifen auf größeren Bildschirmen */
+  }
+
+
+
+  mat-card-title {
+    font-size: 1.5em;
+  }
+
+  mat-card-subtitle {
+    font-size: 1em;
+  }
+}

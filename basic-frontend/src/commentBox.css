@@ -1,0 +1,74 @@
+/* ----------- Kommentare -----------*/
+section#comments {
+  margin: auto;
+}
+section#comments .comment {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 0 0 auto;
+  margin: calc(2 * var(--card-margin)) 0;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  width: var(--card-width-mobile); /* Volle Breite auf mobilen Geräten */
+  height: var(--card-height-mobile); /* Feste Höhe für alle Karten */
+  border: var(--border-element);
+  border-radius: var(--border-radius-element);
+  overflow: hidden;
+  position: relative;
+  background-color: #fff;
+  box-shadow: var(--card-box-shadow);
+}
+
+section#comments .comment::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: var(--card-width-contrastline); /* Schmaler Kontraststreifen auf mobilen Geräten */
+  height: 100%;
+  background-color: #007bff; /* Farbe des Kontraststreifens */
+}
+section#comments .comment p:first-child {
+  padding: var(--margin-element) var(--margin-element) 0 var(--margin-element);
+}
+section#comments .comment p:last-child {
+  margin-bottom: 0;
+  padding: calc(0.5 * var(--margin-element));
+  background-color: #007bff;
+  color: #fff;
+  text-align: left;
+}
+
+/* ====================================
+        Responsive Design
+==================================== */
+@media (min-width: 600px) {
+  /* ----------- Zutaten -----------*/
+  ul {
+    width: 20%;
+  }
+
+  /* ----------- Kommentare -----------*/
+  section#comments {
+    max-width: 75%;
+  }
+  section#comments .comment::before {
+    width: calc(2 * (var(--card-width-contrastline)));
+  }
+
+  section#comments .comment p:first-child {
+  margin: var(--margin-element);
+}
+
+section#comments .comment::before {
+  width: calc(2 * var(--card-width-contrastline)); /* Schmaler Kontraststreifen auf mobilen Geräten */
+
+}
+section#comments .comment p:last-child {
+  text-align: right;
+  padding-right: var(--margin-element);
+}
+
+
+}
+

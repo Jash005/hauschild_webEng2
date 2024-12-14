@@ -6,6 +6,8 @@
   Autor: Jasmin Hauschild
 
 ======================================================== */
+@import '../../../commentBox.css';
+
 
 section {
   text-align: center;
@@ -42,46 +44,7 @@ ul {
   margin: auto;
 }
 
-/* ----------- Kommentare -----------*/
-section#comments {
-  margin: auto;
-}
-.comment {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex: 0 0 auto;
-  margin: calc(2 * var(--card-margin)) 0;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  width: var(--card-width-mobile); /* Volle Breite auf mobilen Geräten */
-  height: var(--card-height-mobile); /* Feste Höhe für alle Karten */
-  border: var(--border-element);
-  border-radius: var(--border-radius-element);
-  overflow: hidden;
-  position: relative;
-  background-color: #fff;
-  box-shadow: var(--card-box-shadow);
-}
 
-.comment::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: var(--card-width-contrastline); /* Schmaler Kontraststreifen auf mobilen Geräten */
-  height: 100%;
-  background-color: #007bff; /* Farbe des Kontraststreifens */
-}
-.comment p:first-child {
-  padding-top: var(--margin-element) var(--margin-element) 0 var(--margin-element);
-}
-.comment p:last-child {
-  margin-bottom: 0;
-  padding: calc(0.5 * var(--margin-element));
-  background-color: #007bff;
-  color: #fff;
-  text-align: left;
-}
 
 
 /* ----------- Kommentar erstellen -----------*/
@@ -121,29 +84,6 @@ textarea::placeholder {
   ul {
     width: 20%;
   }
-
-  /* ----------- Kommentare -----------*/
-  section#comments {
-    max-width: 75%;
-  }
-  .comment::before {
-    width: calc(2 * (var(--card-width-contrastline)));
-  }
-
-.comment p:first-child {
-  margin: var(--margin-element);
-}
-
-.comment::before {
-  width: calc(2 * var(--card-width-contrastline)); /* Schmaler Kontraststreifen auf mobilen Geräten */
-
-}
-.comment p:last-child {
-  text-align: right;
-  padding-right: var(--margin-element);
-}
-
-
 
 
 }

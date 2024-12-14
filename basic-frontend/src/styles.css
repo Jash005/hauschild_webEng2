@@ -59,8 +59,11 @@ h2 {
 h3 {
   font-variant: petite-caps;
   font-weight: 500;
+  margin-top: calc(3 * var(--margin-element));
 }
 
 p {
   white-space: pre-line;
 }
+
+
