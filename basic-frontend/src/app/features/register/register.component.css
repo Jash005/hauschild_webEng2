@@ -1,0 +1,74 @@
+/* Grundlegende Stile für das Formular */
+form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Stile für die Formularfelder */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+mat-form-field .mat-form-field-label {
+  color: #333; /* Dunklere Schriftfarbe für das Label */
+}
+
+mat-form-field .mat-input-element {
+  color: #333; /* Dunklere Schriftfarbe für das Eingabefeld */
+}
+
+mat-form-field .mat-form-field-underline {
+  background-color: #333; /* Dunklere Farbe für die Unterstreichung */
+}
+
+/* Stile für den Passwort-Button */
+mat-form-field button[mat-icon-button] {
+  color: #333; /* Dunklere Farbe für das Icon */
+}
+
+/* Stile für den Submit-Button */
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff; /* Blaue Hintergrundfarbe für den Button */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3; /* Dunkleres Blau für den Hover-Effekt */
+}
+
+/* Stile für den Registrieren-Link */
+a[routerLink="/register"] {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 10px;
+  display: inline-block;
+}
+
+a[routerLink="/register"]:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  form {
+    padding: 10px;
+  }
+
+  button[type="submit"] {
+    font-size: 1em;
+  }
+}

@@ -254,7 +254,6 @@ h2 {
     /* ----------- Recipe Box ----------- */
     article.recipePreview .recipeBox {
       margin-right: 20px;
-      margin: var(--margin-element) auto;
     }
 
   .horizontal-scroll {
@@ -273,6 +272,9 @@ h2 {
     display: flex;
     flex-flow: wrap;
     justify-content: space-evenly;
+  }
+  article.recipePreview .accordion .recipeBox {
+    margin: var(--margin-element) auto;
   }
 
 }
