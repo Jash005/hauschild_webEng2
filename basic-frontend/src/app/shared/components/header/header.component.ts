@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltip } from '@angular/material/tooltip';
 import { Router, ActivatedRoute } from '@angular/router';
-import {MatFabAnchor} from '@angular/material/button';
+import { MatFabAnchor } from '@angular/material/button';
 
 @Component({
   selector: 'app-header',

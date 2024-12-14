@@ -8,9 +8,10 @@
 ======================================================== */
 
 .header {
+  display: flex;
   background-color: #000000;
   padding: 0 24px;
-  min-height: 56px;
+  min-height: 65px;
   height: 13vh;
 }
 
@@ -21,6 +22,7 @@
 }
 .header-nav.left span, .header-nav.right span {
   margin: 0 var(--margin-element);
+  white-space: nowrap;
 }
 
 .left {
@@ -37,8 +39,15 @@
 /* ====================================
         Responsive Design
 ==================================== */
+@media (max-width: 380px) {
+  .header {
+    min-height: 55px;
+  }
+
+}
 @media (min-width: 600px) {
   .header {
+    display: block;
     max-height: 5vh;
   }
 }
