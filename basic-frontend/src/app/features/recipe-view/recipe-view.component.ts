@@ -62,6 +62,7 @@ export class RecipeViewComponent {
   isEditing: boolean = false;
   recipe2send: any = {};
 
+
   constructor(private route: ActivatedRoute, private ApiService: ApiService, private router: Router) {
     this.recipeId = this.route.snapshot.queryParamMap.get('selectedRecipe') || 'none';
     this.recipeAuthorId = this.route.snapshot.queryParamMap.get('author') || 'none';

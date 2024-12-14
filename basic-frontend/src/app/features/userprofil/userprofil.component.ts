@@ -51,7 +51,7 @@ export class UserprofilComponent implements OnInit {
         this.getUserById();
         this.getRecipesFromUser(this.userId);
         this.getCommentsByUserId(this.userId);
-        // this.removeQueryParams(['selectedRecipe', 'author', 'selectedUser']);
+        this.removeQueryParams(['selectedRecipe', 'author', 'selectedUser']);
       }
   }
 

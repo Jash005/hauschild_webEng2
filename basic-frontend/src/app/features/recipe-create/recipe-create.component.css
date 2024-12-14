@@ -1,0 +1,87 @@
+/* =====================================================
+
+  Stylesheet für die Gestaltung der RecipeCreate Komponente
+  Datei: recipe-create.component.css
+  letzte Aenderung: 14.12.2024
+  Autor: Jasmin Hauschild
+
+======================================================== */
+
+/* Grundlegende Stile für das Formular */
+form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ----------- Heading ----------- */
+h2 {
+  font-size: 2em; /* Größerer Schriftgrad */
+  font-weight: bold; /* Fettere Schrift */
+  color: #333; /* Dunklere Farbe */
+  text-align: center; /* Zentrierter Text */
+  margin: 20px 0; /* Abstand oben und unten */
+  padding: 10px; /* Innenabstand */
+  border-bottom: 2px solid #ddd; /* Unterer Rahmen */
+}
+
+/* ----------- Formlar Elemente ----------- */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* ----------- Zutaten ----------- */
+.ingredient-item {
+  display: flex;
+  align-items: center;
+}
+
+.ingredient-item mat-form-field {
+  flex: 1;
+  margin-bottom: 3px;
+}
+
+.ingredient-item mat-icon {
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+/* ----------- Absende Button ----------- */
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+
+
+/* ====================================
+        Media Queries
+==================================== */
+@media (max-width: 600px) {
+  form {
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 1.5em;
+  }
+
+  button[type="submit"] {
+    font-size: 1em;
+  }
+}

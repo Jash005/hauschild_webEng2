@@ -1,10 +1,6 @@
-<p>recipe-edit works!</p>
-<h1>HOHOHO</h1>
+<h2>Rezept bearbeiten</h2>
 
-
-<h2>Bearbeite bearbeiten</h2>
-
-<form [formGroup]="recipeForm" (ngSubmit)="submitForm()">
+<form [formGroup]="recipeForm" id="recipeCreateForm" (ngSubmit)="submitForm()">
 
   <mat-label>Titel</mat-label>
     <mat-form-field appearance="fill">
@@ -45,7 +41,7 @@
     <mat-label>Anleitung</mat-label>
     <mat-form-field appearance="fill">
       <mat-label>Anleitung</mat-label>
-      <textarea matInput id="recipeInstruction" type="text" formControlName="recipeInstruction"> </textarea>
+      <textarea matInput id="recipeInstruction" type="text" formControlName="recipeInstruction" rows="7"> </textarea>
     </mat-form-field>
     <br />
 

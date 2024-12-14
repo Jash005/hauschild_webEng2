@@ -254,6 +254,7 @@ h2 {
     /* ----------- Recipe Box ----------- */
     article.recipePreview .recipeBox {
       margin-right: 20px;
+      margin: var(--margin-element) auto;
     }
 
   .horizontal-scroll {

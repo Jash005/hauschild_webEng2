@@ -28,6 +28,10 @@ span:last-child {
   cursor: pointer;
 }
 
+#editRecipe {
+  margin-left: 5%;
+}
+
 /* ----------- Rezeptansicht -----------*/
 h3 {
   font-variant: petite-caps;
@@ -43,8 +47,6 @@ ul {
   width: 50%;
   margin: auto;
 }
-
-
 
 
 /* ----------- Kommentar erstellen -----------*/
@@ -72,7 +74,16 @@ textarea::placeholder {
   color: #999;
 }
 
-
+/* ----------- Fußzeile -----------*/
+.footline {
+  text-align: center;
+  margin-top: 2em;
+}
+.footline button {
+  width: auto;
+  padding: var(--margin-element);
+  font-weight: 900;
+}
 
 
 
