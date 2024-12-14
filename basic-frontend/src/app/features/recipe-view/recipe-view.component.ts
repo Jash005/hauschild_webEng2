@@ -135,6 +135,8 @@ async addComment(): Promise<void> {
   try {
     await this.ApiService.addCommentToRecipe(this.recipeId, this.newCommentContent, this.currentUser, authorId);
     this._snackBar.open('Kommentar hinzugefügt', 'x', { duration: 2000 });
+    this.showCommentField = false;
+    this.newCommentContent = "";
   } catch (error) {
     console.error('Fehler beim hinzufügen des Kommentars', error);
       this._snackBar.open('Fehler beim hinzufügen des Kommentars', 'x', { duration: 2000 });
@@ -143,8 +145,6 @@ async addComment(): Promise<void> {
         (snackBarElement as HTMLElement).style.backgroundColor = '#f00';
       }
   }
-  this.showCommentField = false;
-  this.newCommentContent = "";
 }
 
 /* ----------- API-Aufruf zum Löschen eines Rezepts ----------- */

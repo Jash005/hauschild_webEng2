@@ -106,7 +106,7 @@
       <textarea [(ngModel)]="newCommentContent" placeholder="Schreibe einen Kommentar"></textarea>
       <br />
       <span id="closeButton" (click)="showCommentField = !showCommentField">X</span>
-      <a mat-flat-button (click)="addComment()">Absenden</a>
+      <a mat-flat-button (click)="addComment()" (click)="showCommentField = !showCommentField">Absenden</a>
     }
   </div> <!-- ENDE: Button und Funktion von Kommentieren -->
 
