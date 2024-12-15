@@ -1,0 +1,28 @@
+/* =====================================================
+
+  Stylesheet für die Gestaltung der 404-Fehlerseite
+  Datei: page-not-found.component.css
+  letzte Aenderung: 15.12.2024
+  Autor: Jasmin Hauschild
+
+======================================================== */
+/* ----------- Container -----------*/
+.not-found-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: calc(2 * var(--margin-element));
+}
+
+.text-content p {
+  margin-bottom: 20px;
+}
+
+/* ----------- Buttons -----------*/
+.buttons {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  gap: calc(2 * var(--margin-element));
+}

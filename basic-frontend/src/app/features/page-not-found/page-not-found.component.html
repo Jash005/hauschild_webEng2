@@ -1,5 +1,11 @@
-<h1>Ups</h1>
-<p>
-  Diese Seite scheint nicht zu existieren.
-  <a routerLink="/">Zurück zur Startseite</a>
-</p>
+<article class="not-found-container">
+  <section class="text-content">
+    <h1>404 – Rezept nicht gefunden</h1>
+    <p>Wir haben das Rezept wohl verlegt. Aber keine Sorge, klicke auf den Button "Überrasche mich!" und probier das!
+    </p>
+  </section>
+  <section class="buttons">
+    <button mat-flat-button routerLink="/">Zurück zur Startseite</button>
+    <button mat-flat-button (click)="getRandomRecipe()"> <mat-icon>celebration</mat-icon> Überrasche mich!</button>
+  </section>
+</article>

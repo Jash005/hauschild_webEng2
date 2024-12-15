@@ -46,7 +46,7 @@ export class UserprofilComponent implements OnInit {
 
     if (this.userId === 'none') {
       this._snackBar.open('Diesen Benutzer gibt es nicht mehr', 'x', { duration: 2000 });
-      this.router.navigate(['/']).then(response => console.log(response));
+      this.router.navigate(['/404']).then(response => console.log(response));
     } else {
       this.getUserById();
       this.getRecipesFromUser(this.userId);

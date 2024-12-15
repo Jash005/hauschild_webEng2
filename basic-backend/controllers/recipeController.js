@@ -10,7 +10,6 @@ import {
   getTopRecipesWithLimit,
   findRecipeByUserId,
   findCommentByUserId,
-  deleteAllRecipe,
 } from "../models/databases.js";
 
 const router = express.Router();
@@ -53,6 +52,20 @@ router.post("/", basicAuth, async (req, res) => {
   });
 });
 
+// bekomme zufällige Rezept ID
+router.get("/random", async (req, res) => {
+  await getAllRecipes((err, resData) => {
+    if (err) {
+      return res.status(500).send("Rezepte konnten nicht gefunden werden");
+    }
+    const randomIndex = Math.floor(Math.random() * resData.length);
+    const randomRecipe = resData[randomIndex];
+    res
+      .status(200)
+      .json({ id: randomRecipe._id, authorId: randomRecipe.authorId });
+  });
+});
+
 // Rezept aktualisieren
 router.put("/:id", async (req, res) => {
   const recipeId = req.params.id;
@@ -75,6 +88,7 @@ router.get("/", async (req, res) => {
     res.status(200).send(resData);
   });
 });
+
 // Rezept abrufen nach Bewertung (Top 5)
 router.get("/top", async (req, res) => {
   await getTopRecipesWithLimit(5, (err, resData) => {

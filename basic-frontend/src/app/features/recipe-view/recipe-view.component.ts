@@ -74,7 +74,7 @@ export class RecipeViewComponent {
       if (snackBarElement) {
         (snackBarElement as HTMLElement).style.backgroundColor = '#f00';
       }
-      this.router.navigate(['/']).then(response => console.log(response));
+      this.router.navigate(['/404']).then(response => console.log(response));
     }
     this.removeQueryParams(['selectedRecipe', 'author', 'selectedUser']).then(response => console.log(response));
   }

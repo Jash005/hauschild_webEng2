@@ -5,8 +5,7 @@ import {
   isUsernameExist,
   showUserProfile,
   getAllUsers,
-  deleteUser,
-  deleteAllUser,
+  deleteUser
 } from "../models/databases.js";
 
 const router = express.Router();

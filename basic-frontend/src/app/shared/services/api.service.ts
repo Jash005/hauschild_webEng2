@@ -106,6 +106,10 @@ export class ApiService {
     return this.getApiData('', `${this.BASE_URL}/recipe/${id}`, 'GET');
   }
 
+  async getRandomRecipeId(): Promise<any> {
+    return this.getApiData('', `${this.BASE_URL}/recipe/random`, 'GET');
+  }
+
   async updateRecipeRating(id: string, rating: number): Promise<any> {
     return this.getApiData('', `${this.BASE_URL}/recipe/${id}`, 'PUT', {
       rating: rating,

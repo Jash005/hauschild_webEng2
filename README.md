@@ -17,6 +17,14 @@ Kurs: TINF23D
 
 ---
 
+## API Dokumentation 
+
+im YAML Format
+mit SwaggerEditor angeschaut
+
+---
+
 ## nicht offensichtliche Features
 
-Ein Benutzer kann sein erstelltes Rezept ändern indem er angemeldet ist und sich auf der Seite des Rezepts befindet
+* Ein Benutzer kann sein erstelltes Rezept ändern indem er angemeldet ist und sich auf der Seite des Rezepts befindet
+* 404-Seite hat ein spezielles Feature, sollte man mal ungewollt auf diese Seite kommen. Das Feature umfasst eine Navigation zu einem Zufällig ausgewählten Rezept (Vorrausetzung: es existieren Rezepte in der DB)
