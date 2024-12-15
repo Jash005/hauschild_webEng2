@@ -7,9 +7,8 @@
 
 ======================================================== */
 /* ----------- Importierte Styles -----------*/
-@import '../../../recipePreviewBox.css';
-@import '../../../commentBox.css';
-
+@import "../../../recipePreviewBox.css";
+@import "../../../commentBox.css";
 
 /* ----------- Kopfzeile -----------*/
 .headline .subHeadline,
@@ -18,14 +17,12 @@ section {
   text-align: center;
 }
 
-
 /* ----------- Überschriften -----------*/
 h3 {
   font-variant: petite-caps;
   font-weight: 500;
   margin-top: calc(3 * var(--margin-element));
 }
-
 
 /* ----------- Kommentare -----------*/
 .comment h4 {
@@ -35,6 +32,7 @@ h3 {
   width: 50%;
   margin: auto;
 }
+
 .comment p mat-icon {
   float: left;
 }
@@ -44,6 +42,7 @@ h3 {
   text-align: center;
   margin-top: 2em;
 }
+
 .footline button {
   width: auto;
   padding: var(--margin-element);

@@ -1,17 +1,22 @@
-# Web-Eng Lecture Boilerplate
-Autor: Jasmin Hauschild
+# Ranglisten Website
 
-## FE builden
-1. `npm i`
-2. `npm run build`
+---
 
-## BE ausführen & FE serven
-**WICHTIG**: Wählt entweder das JS (basic-backend) oder das TS (basic-backend-ts) Backend, und löscht das andere!
-1. `npm i`
-2. `npm run start`
+## Autor
 
-## Abgabe
-Alle node_modules, .git, o.Ä. Ordner vor der Abgabe löschen
+Jasmin Hauschild
 
-## Hinweise
-Keine
+## Projekt
+
+Web Engineering 2 - 3.Semester
+Kurs: TINF23D
+
+## Datum
+
+15.12.2024
+
+---
+
+## nicht offensichtliche Features
+
+Ein Benutzer kann sein erstelltes Rezept ändern indem er angemeldet ist und sich auf der Seite des Rezepts befindet

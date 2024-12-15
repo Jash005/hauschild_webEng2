@@ -2,32 +2,34 @@
   <h2>{{ username }}</h2>
   <section class="subHeadline">
     @if (createdAt) {
-      <p>Mitglied seit {{createdAt | date: 'mediumDate'}}</p>
+    <p>Mitglied seit {{createdAt | date: 'mediumDate'}}</p>
     }
   </section>
 </article> <!-- ENDE .headline -->
 
 <article class="recipePreview">
-<h3>Meine Rezepte</h3>
+  <h3>Meine Rezepte</h3>
   <section>
     @if (recipesFromUser.length > 0) {
-      @for (recipe of recipesFromUser; track $index) {
-        <mat-card appearance="outlined" class="recipeBox" [routerLink]="['/recipe-view']" [queryParams]="{ selectedRecipe: recipe._id, author: recipe.authorId }" queryParamsHandling="merge">
-          <mat-card-header>
-            <mat-card-title>{{recipe.recipeTitle}}</mat-card-title>
-            <mat-card-subtitle>von {{recipe.author || "Kein Autor"}} - {{recipe.updatedAt | date: 'mediumDate'}}</mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content class="card-content">
-            {{recipe.recipeDescription || "Keine Beschreibung"}}
-          </mat-card-content>
-          <mat-card-footer class="card-footer">
-            <mat-chip>{{recipe.recipeCategory || "Unkategorisiert"}}</mat-chip>
-            <span class="favoriteIcon"> <mat-icon>favorite</mat-icon> {{recipe.rating || 0}}</span>
-          </mat-card-footer>
-        </mat-card>
-      }
+    @for (recipe of recipesFromUser; track $index) {
+    <mat-card appearance="outlined" class="recipeBox" [routerLink]="['/recipe-view']"
+      [queryParams]="{ selectedRecipe: recipe._id, author: recipe.authorId }" queryParamsHandling="merge">
+      <mat-card-header>
+        <mat-card-title>{{recipe.recipeTitle}}</mat-card-title>
+        <mat-card-subtitle>von {{recipe.author || "Kein Autor"}} - {{recipe.updatedAt | date:
+          'mediumDate'}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="card-content">
+        {{recipe.recipeDescription || "Keine Beschreibung"}}
+      </mat-card-content>
+      <mat-card-footer class="card-footer">
+        <mat-chip>{{recipe.recipeCategory || "Unkategorisiert"}}</mat-chip>
+        <span class="favoriteIcon"> <mat-icon>favorite</mat-icon> {{recipe.rating || 0}}</span>
+      </mat-card-footer>
+    </mat-card>
+    }
     } @else {
-      <p>Dieser User noch keine Rezepte erstellt.</p>
+    <p>Dieser User noch keine Rezepte erstellt.</p>
 
     }
   </section>
@@ -36,23 +38,23 @@
 <section id="comments">
   <h3>Meine Kommentare</h3>
   @if (filteredComments.length > 0) {
-    @for (comment of filteredComments; track $index) {
-      <div class="comment">
-        <p>{{ comment.content }}</p>
-        <h4>in {{comment?.recipeTitle || ''}}</h4>
+  @for (comment of filteredComments; track $index) {
+  <div class="comment">
+    <p>{{ comment.content }}</p>
+    <h4>in {{comment?.recipeTitle || ''}}</h4>
 
-        <p><mat-icon>comment</mat-icon> von {{ comment.author }} am {{ comment.createdAt | date: 'mediumDate' }}</p>
-      </div>
-    }
+    <p><mat-icon>comment</mat-icon> von {{ comment.author }} am {{ comment.createdAt | date: 'mediumDate' }}</p>
+  </div>
+  }
   } @else {
-    <p>Dieser User noch keine Kommentare erstellt.</p>
+  <p>Dieser User noch keine Kommentare erstellt.</p>
   }
 </section> <!-- ENDE #comments -->
 
 <article class="footline">
   @if (userId === userIdFromLoggedInUser) {
-    <button mat-fab aria-label="Profil komplett löschen" (click)="deleteUser()">
-      <mat-icon>delete</mat-icon> Profil löschen
-    </button>
+  <button mat-fab aria-label="Profil komplett löschen" (click)="deleteUser()">
+    <mat-icon>delete</mat-icon> Profil löschen
+  </button>
   }
 </article> <!-- ENDE .footline -->

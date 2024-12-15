@@ -42,7 +42,7 @@ import { RecipeEditComponent } from '../recipe-edit/recipe-edit.component';
   styleUrl: './recipe-view.component.css'
 })
 export class RecipeViewComponent {
-/* ----------- Initialisierung -----------*/
+  /* ----------- Initialisierung -----------*/
   private _snackBar = inject(MatSnackBar);
   currentUser: string = localStorage.getItem('username') || "Gast";
   isLiked: boolean = false;
@@ -51,7 +51,7 @@ export class RecipeViewComponent {
   category: string = "";
   description: string = "";
   ingredients: string[] = [];
-  instruction:string = "";
+  instruction: string = "";
   author: string = "";
   recipeAuthorId: string = "";
   createdAt: Date = new Date();
@@ -66,7 +66,7 @@ export class RecipeViewComponent {
   constructor(private route: ActivatedRoute, private ApiService: ApiService, private router: Router) {
     this.recipeId = this.route.snapshot.queryParamMap.get('selectedRecipe') || 'none';
     this.recipeAuthorId = this.route.snapshot.queryParamMap.get('author') || 'none';
-    if(this.recipeId !== 'none') {
+    if (this.recipeId !== 'none') {
       this.getRecipeData();
     } else {
       this._snackBar.open('Rezept wurde nicht gefunden', 'x', { duration: 2000 });
@@ -80,7 +80,7 @@ export class RecipeViewComponent {
   }
 
 
-/* ----------- Ranking eines Rezepts ----------- */
+  /* ----------- Ranking eines Rezepts ----------- */
   async addLike(): Promise<void> {
     this.rating += 1;
     this.isLiked = true;
@@ -101,13 +101,13 @@ export class RecipeViewComponent {
   }
 
 
-/* ----------- Rezept bearbeiten Modus umschalten ----------- */
+  /* ----------- Rezept bearbeiten Modus umschalten ----------- */
   editRecipe(): void {
     this.isEditing = !this.isEditing;
   }
 
 
-/* ----------- API-Aufruf Rezeptdaten holen ----------- */
+  /* ----------- API-Aufruf Rezeptdaten holen ----------- */
   getRecipeData(): void {
     this.ApiService.getRecipeById(this.recipeId).then((recipe: any) => {
       this.title = recipe.recipeTitle;
@@ -124,52 +124,52 @@ export class RecipeViewComponent {
 
 
 
-/* ----------- API-Aufruf um Kommentar hinzuzufügen -----------*/
-async addComment(): Promise<void> {
-  let authorId = localStorage.getItem('userId') || "";
-  this.comments.push({
-    content: this.newCommentContent,
-    author: this.currentUser,
-    authorId: authorId,
-    createdAt: new Date().toISOString()
-  });
-  try {
-    await this.ApiService.addCommentToRecipe(this.recipeId, this.newCommentContent, this.currentUser, authorId);
-    this._snackBar.open('Kommentar hinzugefügt', 'x', { duration: 2000 });
-    this.showCommentField = false;
-    this.newCommentContent = "";
-  } catch (error) {
-    console.error('Fehler beim hinzufügen des Kommentars', error);
+  /* ----------- API-Aufruf um Kommentar hinzuzufügen -----------*/
+  async addComment(): Promise<void> {
+    let authorId = localStorage.getItem('userId') || "";
+    this.comments.push({
+      content: this.newCommentContent,
+      author: this.currentUser,
+      authorId: authorId,
+      createdAt: new Date().toISOString()
+    });
+    try {
+      await this.ApiService.addCommentToRecipe(this.recipeId, this.newCommentContent, this.currentUser, authorId);
+      this._snackBar.open('Kommentar hinzugefügt', 'x', { duration: 2000 });
+      this.showCommentField = false;
+      this.newCommentContent = "";
+    } catch (error) {
+      console.error('Fehler beim hinzufügen des Kommentars', error);
       this._snackBar.open('Fehler beim hinzufügen des Kommentars', 'x', { duration: 2000 });
       const snackBarElement = document.querySelector(".mat-mdc-snackbar-surface");
       if (snackBarElement) {
         (snackBarElement as HTMLElement).style.backgroundColor = '#f00';
       }
+    }
   }
-}
 
-/* ----------- API-Aufruf zum Löschen eines Rezepts ----------- */
+  /* ----------- API-Aufruf zum Löschen eines Rezepts ----------- */
   async deleteRecipe(): Promise<void> {
     const confirmation = confirm('Sind Sie sicher, dass Sie das Rezept löschen möchten?');
 
-    if(confirmation) {
+    if (confirmation) {
       try {
         await this.ApiService.deleteRecipe(this.recipeId);
         this._snackBar.open('Rezept wurde gelöscht', 'x', { duration: 2000 });
         await this.router.navigate(['/']);
       } catch (error) {
-          console.error('Fehler beim löschen des Rezepts', error);
-          this._snackBar.open('Fehler beim löschen des Rezepts', 'x', { duration: 2000 });
+        console.error('Fehler beim löschen des Rezepts', error);
+        this._snackBar.open('Fehler beim löschen des Rezepts', 'x', { duration: 2000 });
 
-          const snackBarElement = document.querySelector(".mat-mdc-snackbar-surface");
-          if (snackBarElement) {
-            (snackBarElement as HTMLElement).style.backgroundColor = '#f00';
-          }
+        const snackBarElement = document.querySelector(".mat-mdc-snackbar-surface");
+        if (snackBarElement) {
+          (snackBarElement as HTMLElement).style.backgroundColor = '#f00';
+        }
       }
     }
   }
 
-/* ----------- Query Parameter ----------- */
+  /* ----------- Query Parameter ----------- */
   async removeQueryParams(paramsToRemove: string[]): Promise<void> {
     const queryParams = { ...this.route.snapshot.queryParams };
     paramsToRemove.forEach(param => delete queryParams[param]);

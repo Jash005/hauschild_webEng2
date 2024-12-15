@@ -1,43 +1,43 @@
-import {Routes} from '@angular/router';
-import {WelcomeComponent} from './features/welcome/welcome.component';
-import {PageNotFoundComponent} from './features/page-not-found/page-not-found.component';
-import {RegisterComponent} from './features/register/register.component';
-import {LoginComponent} from './features/login/login.component';
-import {UserprofilComponent} from './features/userprofil/userprofil.component';
-import {RecipeCreateComponent} from './features/recipe-create/recipe-create.component';
-import {RecipeViewComponent} from './features/recipe-view/recipe-view.component';
+import { Routes } from '@angular/router';
+import { WelcomeComponent } from './features/welcome/welcome.component';
+import { PageNotFoundComponent } from './features/page-not-found/page-not-found.component';
+import { RegisterComponent } from './features/register/register.component';
+import { LoginComponent } from './features/login/login.component';
+import { UserprofilComponent } from './features/userprofil/userprofil.component';
+import { RecipeCreateComponent } from './features/recipe-create/recipe-create.component';
+import { RecipeViewComponent } from './features/recipe-view/recipe-view.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: WelcomeComponent
+    component: WelcomeComponent,
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'userprofil',
-    component: UserprofilComponent
+    component: UserprofilComponent,
   },
   {
     path: 'recipe-create',
-    component: RecipeCreateComponent
+    component: RecipeCreateComponent,
   },
   {
     path: 'recipe-view',
-    component: RecipeViewComponent
+    component: RecipeViewComponent,
   },
   {
     path: '404',
-    component: PageNotFoundComponent
+    component: PageNotFoundComponent,
   },
   {
     path: '**',
-    redirectTo: '404'
-  }
+    redirectTo: '404',
+  },
 ];

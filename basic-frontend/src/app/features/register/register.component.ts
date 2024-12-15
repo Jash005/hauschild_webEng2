@@ -22,7 +22,7 @@ import { ApiService } from "../../shared/services/api.service";
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-/* ----------- Initialisierung -----------*/
+  /* ----------- Initialisierung -----------*/
   private _snackBar = inject(MatSnackBar);
   registerForm: FormGroup;
 
@@ -36,7 +36,7 @@ export class RegisterComponent {
   }
 
 
-/* ----------- API-Aufruf zum Registrieren eines Benutzers -----------*/
+  /* ----------- API-Aufruf zum Registrieren eines Benutzers -----------*/
   async submitForm(): Promise<void> {
     if (this.registerForm.valid) {
       try {

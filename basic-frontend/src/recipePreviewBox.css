@@ -7,7 +7,7 @@
 
 ======================================================== */
 /* ----------- Card ----------- */
-article.recipePreview  .recipeBox {
+article.recipePreview .recipeBox {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -23,8 +23,8 @@ article.recipePreview  .recipeBox {
   box-shadow: var(--card-box-shadow);
 }
 
-article.recipePreview  .recipeBox::before {
-  content: '';
+article.recipePreview .recipeBox::before {
+  content: "";
   position: absolute;
   top: 0;
   right: 0;
@@ -33,7 +33,7 @@ article.recipePreview  .recipeBox::before {
   background-color: var(--primary-color);
 }
 
-article.recipePreview  .recipeBox:hover {
+article.recipePreview .recipeBox:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
@@ -55,7 +55,7 @@ article.recipePreview mat-card-subtitle {
   color: var(--light-color);
 }
 
-article.recipePreview  .card-content {
+article.recipePreview .card-content {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -63,11 +63,11 @@ article.recipePreview  .card-content {
   flex: 1 1 auto;
 }
 
-article.recipePreview  .card-content p {
+article.recipePreview .card-content p {
   margin: 0;
 }
 
-article.recipePreview  mat-card-footer {
+article.recipePreview mat-card-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -75,32 +75,33 @@ article.recipePreview  mat-card-footer {
   background-color: var(--light-color);
 }
 
-article.recipePreview  mat-chip {
+article.recipePreview mat-chip {
   margin-right: 8px;
 }
 
 /* ----------- Icons auf einer Card ----------- */
-article.recipePreview  .favoriteIcon {
+article.recipePreview .favoriteIcon {
   display: flex;
   align-items: center;
   color: var(--primary-color);
 }
 
-article.recipePreview  .favoriteIcon mat-icon {
+article.recipePreview .favoriteIcon mat-icon {
   margin-right: 4px;
 }
-
 
 /* ====================================
         Responsive Design
 ==================================== */
 @media (min-width: 600px) {
-/* ----------- Recipe Box ----------- */
+
+  /* ----------- Recipe Box ----------- */
   article.recipePreview .recipeBox {
     width: var(--card-width-desktop);
     height: var(--card-height-desktop);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   }
+
   article.recipePreview .recipeBox::before {
     width: calc(2 * var(--card-width-contrastline));
   }

@@ -6,25 +6,28 @@
   Autor: Jasmin Hauschild
 
 ======================================================== */
-@import '../../../recipePreviewBox.css';
-
+@import "../../../recipePreviewBox.css";
 
 /* ----------- Section Preview ----------- */
-.recipePreview section, .recipeCategory section, .userPreview section {
+.recipePreview section,
+.recipeCategory section,
+.userPreview section {
   width: 90%;
   margin: auto;
   padding: calc(2 * var(--margin-element));
   background-color: var(--light-med-color);
   border-radius: var(--border-radius-element);
 }
-.recipePreview section, .recipeCategory section {
+
+.recipePreview section,
+.recipeCategory section {
   display: flex;
   align-items: center;
 }
+
 .recipePreview section {
   flex-direction: column;
 }
-
 
 /* ----------- Hover-Effekt für Karten ----------- */
 .userBox:hover,
@@ -33,12 +36,10 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-
 /* ----------- User Box ----------- */
 .userPreview {
   margin: calc(2 * var(--margin-element)) 0;
 }
-
 
 .userPreview section {
   display: flex;
@@ -70,7 +71,6 @@
   color: var(--secondary-color);
 }
 
-
 /* ----------- Accordion -----------*/
 .accordion {
   display: block;
@@ -100,6 +100,7 @@
   cursor: pointer;
   border-bottom: 1px solid var(--light-color);
 }
+
 .accordion .accordion-item-header:hover {
   background-color: var(--light-med-color);
 }
@@ -145,6 +146,7 @@ mat-accordion {
   border: none;
   border-radius: 0;
 }
+
 mat-accordion mat-expansion-panel:last-of-type {
   margin: 0;
   border: none;
@@ -170,7 +172,6 @@ mat-expansion-panel-header {
   border-radius: 0;
 }
 
-
 /* ----------- Scrollbar ----------- */
 /* Allgemein für moderne Browser */
 body {
@@ -182,18 +183,20 @@ body {
 ::-webkit-scrollbar {
   width: 12px;
 }
+
 ::-webkit-scrollbar-track {
   background: #dfdfdf;
   border-radius: var(--border-radius-element);
 }
+
 ::-webkit-scrollbar-thumb {
   border-radius: var(--border-radius-element);
   background: #888;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background-color: var(--contrast-color);
 }
-
 
 /* ----------- Heading ----------- */
 h2 {
@@ -210,32 +213,36 @@ h2 {
         Responsive Design
 ==================================== */
 @media (min-width: 600px) {
-    /* ----------- Section Preview ----------- */
-    .recipePreview section, .recipeCategory section, .userPreview section {
-      width: 75%;
-    }
-    .recipePreview:not(.recipeCategory) section  {
-      flex-direction: row;
-      overflow-x: scroll;
-    }
+  /* ----------- Section Preview ----------- */
+  .recipePreview section,
+  .recipeCategory section,
+  .userPreview section {
+    width: 75%;
+  }
+
+  .recipePreview:not(.recipeCategory) section {
+    flex-direction: row;
+    overflow-x: scroll;
+  }
 
   /* ----------- Recipe Box ----------- */
-    article.recipePreview .recipeBox {
-      margin-right: 20px;
-    }
+  article.recipePreview .recipeBox {
+    margin-right: 20px;
+  }
 
   /* ----------- Accordion (cdk) -----------*/
   .accordion {
     width: 100%;
     max-width: none;
   }
+
   .accordion-item-body {
     display: flex;
     flex-flow: wrap;
     justify-content: space-evenly;
   }
+
   article.recipePreview .accordion .recipeBox {
     margin: var(--margin-element) auto;
   }
-
 }

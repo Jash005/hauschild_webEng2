@@ -2,36 +2,33 @@
   <div id="ranking">
     <span>
       @if (currentUser === "Gast" || currentUser === "") {
-        <a mat-fab extended disabled
-        disabledInteractive
+      <a mat-fab extended disabled disabledInteractive
         matTooltip="Du musst angemeldet sein um eine Bewertung abzugeben">
-          <mat-icon>favorite</mat-icon> {{ rating }}
-        </a>
+        <mat-icon>favorite</mat-icon> {{ rating }}
+      </a>
       } @else if(currentUser === author) {
-        <a mat-fab extended disabled
-        disabledInteractive
-        matTooltip="Du kannst dein eigenes Rezept nicht bewerten">
-          <mat-icon>favorite</mat-icon> {{ rating }}
-        </a>
+      <a mat-fab extended disabled disabledInteractive matTooltip="Du kannst dein eigenes Rezept nicht bewerten">
+        <mat-icon>favorite</mat-icon> {{ rating }}
+      </a>
 
-        <button mat-fab aria-label="Rezept bearbeiten" id="editRecipe" (click)="editRecipe()">
-          <mat-icon>edit</mat-icon>
-        </button>
+      <button mat-fab aria-label="Rezept bearbeiten" id="editRecipe" (click)="editRecipe()">
+        <mat-icon>edit</mat-icon>
+      </button>
       } @else if (isLiked) {
-        <a mat-fab extended (click)="removeLike()">
-          <mat-icon>favorite</mat-icon> {{ rating }}
-          </a>
+      <a mat-fab extended (click)="removeLike()">
+        <mat-icon>favorite</mat-icon> {{ rating }}
+      </a>
       } @else {
-        <a mat-fab extended (click)="addLike()">
-          <mat-icon>favorite</mat-icon> {{ rating }}
-          </a>
+      <a mat-fab extended (click)="addLike()">
+        <mat-icon>favorite</mat-icon> {{ rating }}
+      </a>
       }
     </span>
   </div> <!-- ENDE: #ranking -->
 
 
   @if (isEditing) {
-    <app-recipe-edit [recipe2send]="recipe2send"></app-recipe-edit>
+  <app-recipe-edit [recipe2send]="recipe2send"></app-recipe-edit>
   }
 
 
@@ -43,7 +40,8 @@
   </div> <!-- ENDE: #recipeDescription -->
 
   am <span>{{ createdAt | date : 'mediumDate'}}</span>
-  von <span [routerLink]="['/userprofil']" [queryParams]="{ selectedUser: recipeAuthorId }"  queryParamsHandling="merge">{{ author }}</span>
+  von <span [routerLink]="['/userprofil']" [queryParams]="{ selectedUser: recipeAuthorId }"
+    queryParamsHandling="merge">{{ author }}</span>
 </section> <!-- ENDE: #headline -->
 
 
@@ -52,11 +50,12 @@
   <h3>Zutaten</h3>
   <ul>
     @if(ingredients.length === 0) {
-      <p>Es gibt keine Zutaten</p>
+    <p>Es gibt keine Zutaten</p>
     } @else {
-      @for (ingredient of ingredients; track $index) {
-        <li> <mat-checkbox matTooltip="Das Checken dient nur deiner Übersicht und wird nicht gespeichert">{{ ingredient }}</mat-checkbox> </li>
-      }
+    @for (ingredient of ingredients; track $index) {
+    <li> <mat-checkbox matTooltip="Das Checken dient nur deiner Übersicht und wird nicht gespeichert">{{ ingredient
+        }}</mat-checkbox> </li>
+    }
     }
   </ul>
 </section> <!-- ENDE: #ingredient -->
@@ -71,41 +70,39 @@
   <h3>Kommentare</h3>
   <article>
     @if (comments.length > 0) {
-      @for (comment of comments; track $index) {
-        <div class="comment">
-          <p>{{ comment.content }}</p>
-          <p>von {{ comment.author }} am {{ comment.createdAt | date: 'mediumDate' }}</p>
-        </div>
-      }
+    @for (comment of comments; track $index) {
+    <div class="comment">
+      <p>{{ comment.content }}</p>
+      <p>von {{ comment.author }} am {{ comment.createdAt | date: 'mediumDate' }}</p>
+    </div>
+    }
     } @else {
-      <p>Es gibt noch keine Kommentare</p>
+    <p>Es gibt noch keine Kommentare</p>
     }
   </article> <!-- ENDE: Kommentare -->
 
   <div>
     @if (currentUser === "Gast" || currentUser === "") {
-      <a mat-flat-button disabled
-      disabledInteractive
+    <a mat-flat-button disabled disabledInteractive
       matTooltip="Du musst angemeldet sein um einen Kommentar zu schreiben">
-        Kommentieren
-      </a>
+      Kommentieren
+    </a>
     } @else if(!showCommentField) {
-      <a mat-flat-button (click)="showCommentField = !showCommentField">Kommentieren</a>
+    <a mat-flat-button (click)="showCommentField = !showCommentField">Kommentieren</a>
     } @else {
-      <br />
-      <textarea [(ngModel)]="newCommentContent" placeholder="Schreibe einen Kommentar"></textarea>
-      <br />
-      <span id="closeButton" (click)="showCommentField = !showCommentField">X</span>
-      <a mat-flat-button (click)="addComment()" (click)="showCommentField = !showCommentField">Absenden</a>
+    <br />
+    <textarea [(ngModel)]="newCommentContent" placeholder="Schreibe einen Kommentar"></textarea>
+    <br />
+    <span id="closeButton" (click)="showCommentField = !showCommentField">X</span>
+    <a mat-flat-button (click)="addComment()" (click)="showCommentField = !showCommentField">Absenden</a>
     }
   </div> <!-- ENDE: Button und Funktion von Kommentieren -->
 </section> <!-- ENDE: #comments -->
 
 <article class="footline">
   @if (currentUser === author) {
-    <button mat-fab aria-label="Rezept komplett löschen" (click)="deleteRecipe()">
-      <mat-icon>delete</mat-icon> Rezept löschen
-    </button>
+  <button mat-fab aria-label="Rezept komplett löschen" (click)="deleteRecipe()">
+    <mat-icon>delete</mat-icon> Rezept löschen
+  </button>
   }
 </article> <!-- ENDE .footline -->
-

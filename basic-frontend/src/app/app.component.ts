@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
-import {HeaderComponent} from './shared/components/header/header.component';
-import {FooterComponent} from './shared/components/footer/footer.component';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
 import { StatusMessageService } from './shared/services/status-message.service';
 
 @Component({

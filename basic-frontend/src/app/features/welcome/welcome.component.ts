@@ -24,7 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
   providers: [ApiService]
 })
 export class WelcomeComponent {
-/* ----------- Initialisierung -----------*/
+  /* ----------- Initialisierung -----------*/
   allUserArray: any[] = [];
   allRecipeArray: any[] = [];
   topRecipeArray: any[] = [];
@@ -71,40 +71,40 @@ export class WelcomeComponent {
 
 
   /* ----------- API-Aufruf alle Userdaten holen -----------*/
-    getUserData(): void {
-      this.ApiService.getAllUser().then((resData: any) => {
-        this.allUserArray = resData;
-      });
-    }
+  getUserData(): void {
+    this.ApiService.getAllUser().then((resData: any) => {
+      this.allUserArray = resData;
+    });
+  }
 
   /* ----------- API-Aufruf alle Rezeptdaten holen -----------*/
-    getRecipeData(): void {
-      this.ApiService.getAllRecipes().then((resData: any) => {
-        this.allRecipeArray = resData;
+  getRecipeData(): void {
+    this.ApiService.getAllRecipes().then((resData: any) => {
+      this.allRecipeArray = resData;
 
-        this.addAuthorIdToRecipe();
-        this.extractCategories()
-      });
-    }
-    getTopRecipeData(): void {
-      this.ApiService.getTopRecipes().then((resData: any) => {
-        this.topRecipeArray = resData;
-        this.addAuthorIdToRecipe();
-      });
-    }
+      this.addAuthorIdToRecipe();
+      this.extractCategories()
+    });
+  }
+  getTopRecipeData(): void {
+    this.ApiService.getTopRecipes().then((resData: any) => {
+      this.topRecipeArray = resData;
+      this.addAuthorIdToRecipe();
+    });
+  }
 
 
   /* ----------- Query-Parameter aufräumen ----------- */
-    removeQueryParams(paramsToRemove: string[]): void {
-      const queryParams = { ...this.route.snapshot.queryParams };
-      paramsToRemove.forEach(param => delete queryParams[param]);
+  removeQueryParams(paramsToRemove: string[]): void {
+    const queryParams = { ...this.route.snapshot.queryParams };
+    paramsToRemove.forEach(param => delete queryParams[param]);
 
-      this.router.navigate([], {
-        relativeTo: this.route,
-        queryParams: queryParams
-      }).catch(error => {
-        console.error('Fehler bei der Navigation', error);
-      });
-    }
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: queryParams
+    }).catch(error => {
+      console.error('Fehler bei der Navigation', error);
+    });
+  }
 
 }

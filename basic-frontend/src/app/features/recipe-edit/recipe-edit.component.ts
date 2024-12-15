@@ -24,8 +24,8 @@ import { MatSelectModule } from '@angular/material/select';
   templateUrl: './recipe-edit.component.html',
   styleUrl: './recipe-edit.component.css'
 })
-export class RecipeEditComponent  {
-/* ----------- Initialisierung -----------*/
+export class RecipeEditComponent {
+  /* ----------- Initialisierung -----------*/
   @Input() recipe2send: any = {};
   private _snackBar = inject(MatSnackBar);
   recipeForm: FormGroup;
@@ -53,7 +53,7 @@ export class RecipeEditComponent  {
 
   }
 
-/* ----------- API-Aufruf zum bearbeiten eines Rezepts -----------*/
+  /* ----------- API-Aufruf zum bearbeiten eines Rezepts -----------*/
   async submitForm(): Promise<void> {
     if (this.recipeForm.valid) {
       try {

@@ -28,7 +28,6 @@ mat-form-field button[mat-icon-button] {
   color: var(--dark-color);
 }
 
-
 /* ----------- Submit Button -----------*/
 button[type="submit"] {
   width: 100%;
@@ -57,7 +56,6 @@ a[routerLink="/register"] {
 a[routerLink="/register"]:hover {
   text-decoration: underline;
 }
-
 
 /* ====================================
         Responsive Design

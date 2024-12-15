@@ -4,10 +4,9 @@
     |
     <span>
       @if (username) {
-        <span routerLink="/recipe-create">Rezept erstellen</span>
+      <span routerLink="/recipe-create">Rezept erstellen</span>
       } @else {
-        <span mat-fab extended disabled
-        disabledInteractive
+      <span mat-fab extended disabled disabledInteractive
         matTooltip="um ein Rezept zu erstellen musst du angemeldet sein">Rezept erstellen</span>
       }
     </span>
@@ -15,11 +14,11 @@
 
   <div class="header-nav right">
     @if (username) {
-      <span (click)="navigateAndReload()">Zum Profil ( {{username}} )</span>
-      |
-      <span (click)="logout()">Logout</span>
+    <span (click)="navigateAndReload()">Zum Profil ( {{username}} )</span>
+    |
+    <span (click)="logout()">Logout</span>
     } @else {
-      <span routerLink="/login">Login</span>
+    <span routerLink="/login">Login</span>
     }
   </div>
 </section>

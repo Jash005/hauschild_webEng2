@@ -23,8 +23,9 @@ import { ApiService } from "../../shared/services/api.service";
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
+
 export class LoginComponent {
-/* ----------- Initalisierung -----------*/
+  /* ----------- Initalisierung -----------*/
   private _snackBar = inject(MatSnackBar);
   loginForm: FormGroup;
   hide = signal(true);
@@ -42,7 +43,7 @@ export class LoginComponent {
   }
 
 
-/* ----------- Auth-Headers -----------*/
+  /* ----------- Auth-Headers -----------*/
   private createAuthHeader(username: string, password: string): string {
     const creds = `${username}:${password}`;
     const encoded = btoa(creds);
@@ -50,7 +51,7 @@ export class LoginComponent {
   }
 
 
-/* ----------- API Aufruf zum Login -----------*/
+  /* ----------- API Aufruf zum Login -----------*/
   async submitForm(): Promise<void> {
     if (this.loginForm.valid) {
       try {

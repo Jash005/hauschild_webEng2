@@ -10,6 +10,7 @@
 section#comments {
   margin: auto;
 }
+
 section#comments .comment {
   display: flex;
   flex-direction: column;
@@ -27,7 +28,7 @@ section#comments .comment {
 }
 
 section#comments .comment::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   right: 0;
@@ -35,9 +36,11 @@ section#comments .comment::before {
   height: 100%;
   background-color: var(--primary-color);
 }
+
 section#comments .comment p:first-child {
   padding: var(--margin-element) var(--margin-element) 0 var(--margin-element);
 }
+
 section#comments .comment p:last-child {
   margin-bottom: 0;
   padding: calc(0.5 * var(--margin-element));
@@ -50,30 +53,31 @@ section#comments .comment p:last-child {
         Responsive Design
 ==================================== */
 @media (min-width: 600px) {
-/* ----------- Zutaten -----------*/
+
+  /* ----------- Zutaten -----------*/
   ul {
     width: 20%;
   }
 
-/* ----------- Kommentare -----------*/
+  /* ----------- Kommentare -----------*/
   section#comments {
     max-width: 75%;
   }
+
   section#comments .comment::before {
     width: calc(2 * (var(--card-width-contrastline)));
   }
 
   section#comments .comment p:first-child {
-  margin: var(--margin-element);
-}
+    margin: var(--margin-element);
+  }
 
-section#comments .comment::before {
-  width: calc(2 * var(--card-width-contrastline));
-}
+  section#comments .comment::before {
+    width: calc(2 * var(--card-width-contrastline));
+  }
 
-section#comments .comment p:last-child {
-  text-align: right;
-  padding-right: var(--margin-element);
+  section#comments .comment p:last-child {
+    text-align: right;
+    padding-right: var(--margin-element);
+  }
 }
-}
-

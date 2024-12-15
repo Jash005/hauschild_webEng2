@@ -27,7 +27,7 @@ import { MatChipsModule } from '@angular/material/chips';
   providers: [ApiService]
 })
 export class UserprofilComponent implements OnInit {
-/* ----------- Initialisierung -----------*/
+  /* ----------- Initialisierung -----------*/
   private _snackBar = inject(MatSnackBar);
   userId: string = "";
   userIdFromLoggedInUser: string = localStorage.getItem('userId') || "";
@@ -39,24 +39,24 @@ export class UserprofilComponent implements OnInit {
   commentsFromAllUser: any[] = [];
   filteredComments: any[] = [];
 
-  constructor(private route: ActivatedRoute, private ApiService: ApiService, private router: Router) {}
+  constructor(private route: ActivatedRoute, private ApiService: ApiService, private router: Router) { }
 
   ngOnInit() {
-      this.userId = this.route.snapshot.queryParamMap.get('selectedUser') || 'none';
+    this.userId = this.route.snapshot.queryParamMap.get('selectedUser') || 'none';
 
-      if (this.userId === 'none') {
-        this._snackBar.open('Diesen Benutzer gibt es nicht mehr', 'x', { duration: 2000 });
-        this.router.navigate(['/']).then(response => console.log(response));
-      } else {
-        this.getUserById();
-        this.getRecipesFromUser(this.userId);
-        this.getCommentsByUserId(this.userId);
-        this.removeQueryParams(['selectedRecipe', 'author', 'selectedUser']);
-      }
+    if (this.userId === 'none') {
+      this._snackBar.open('Diesen Benutzer gibt es nicht mehr', 'x', { duration: 2000 });
+      this.router.navigate(['/']).then(response => console.log(response));
+    } else {
+      this.getUserById();
+      this.getRecipesFromUser(this.userId);
+      this.getCommentsByUserId(this.userId);
+      this.removeQueryParams(['selectedRecipe', 'author', 'selectedUser']);
+    }
   }
 
 
-/* ----------- API-Aufruf Userdaten abrufen ----------- */
+  /* ----------- API-Aufruf Userdaten abrufen ----------- */
   getUserById(): void {
     this.ApiService.getUserById(this.userId).then((userData: any) => {
       this.userData = userData;
@@ -65,14 +65,14 @@ export class UserprofilComponent implements OnInit {
     });
   }
 
-/* ----------- API-Aufruf Rezepte von User holen ----------- */
+  /* ----------- API-Aufruf Rezepte von User holen ----------- */
   getRecipesFromUser(userId: string) {
     this.ApiService.getRecipesByUserId(userId).then((resData: any) => {
       this.recipesFromUser.push(resData);
     });
   }
 
-/* ----------- API-Aufruf Kommentare von User holen ----------- */
+  /* ----------- API-Aufruf Kommentare von User holen ----------- */
   getCommentsByUserId(userId: string) {
     this.ApiService.getCommentsByUserId(userId).then((resData: any) => {
       const preparedComments: any[] = [];
@@ -95,10 +95,10 @@ export class UserprofilComponent implements OnInit {
   }
 
 
-/* ----------- API-Aufruf User löschen ----------- */
-async deleteUser(): Promise<void> {
+  /* ----------- API-Aufruf User löschen ----------- */
+  async deleteUser(): Promise<void> {
     const confirmation = confirm('Sind Sie sicher, dass Sie Ihr Benutzerkonto löschen möchten? - Ihre erstellen Rezepte bleiben erhalten');
-    if(confirmation) {
+    if (confirmation) {
       try {
         await this.ApiService.deleteUser(this.userId);
         this._snackBar.open('Benutzer wurde gelöscht', 'x', { duration: 2000 });
@@ -108,19 +108,19 @@ async deleteUser(): Promise<void> {
         localStorage.setItem('snackbarMessage', 'Benutzer wurde erfolgreich gelöscht');
         window.location.replace('/');
       } catch (error) {
-          console.error('Fehler beim löschen des Benutzers', error);
-          this._snackBar.open('Fehler beim löschen des Benutzers', 'x', { duration: 2000 });
-          const snackBarElement = document.querySelector(".mat-mdc-snackbar-surface");
-          if (snackBarElement) {
-            (snackBarElement as HTMLElement).style.backgroundColor = '#f00';
-          }
+        console.error('Fehler beim löschen des Benutzers', error);
+        this._snackBar.open('Fehler beim löschen des Benutzers', 'x', { duration: 2000 });
+        const snackBarElement = document.querySelector(".mat-mdc-snackbar-surface");
+        if (snackBarElement) {
+          (snackBarElement as HTMLElement).style.backgroundColor = '#f00';
+        }
       }
     }
 
-}
+  }
 
 
-/* ----------- Query-Parameter aufräumen -----------*/
+  /* ----------- Query-Parameter aufräumen -----------*/
   removeQueryParams(paramsToRemove: string[]): void {
     const queryParams = { ...this.route.snapshot.queryParams };
     paramsToRemove.forEach(param => delete queryParams[param]);

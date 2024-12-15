@@ -3,47 +3,47 @@
 <form [formGroup]="recipeForm" id="recipeCreateForm" (ngSubmit)="submitForm()">
 
   <mat-label>Titel</mat-label>
-    <mat-form-field appearance="fill">
-      <mat-label>Titel</mat-label>
-      <input matInput id="recipeTitle" type="text" formControlName="recipeTitle" />
-    </mat-form-field>
-    <br />
+  <mat-form-field appearance="fill">
+    <mat-label>Titel</mat-label>
+    <input matInput id="recipeTitle" type="text" formControlName="recipeTitle" />
+  </mat-form-field>
+  <br />
 
+  <mat-label>Kategorie</mat-label>
+  <mat-form-field appearance="fill">
     <mat-label>Kategorie</mat-label>
-    <mat-form-field appearance="fill">
-        <mat-label>Kategorie</mat-label>
-        <mat-select formControlName="recipeCategory">
-          @for (category of categories; track category) {
-            @if ($index === 1) {
-              <mat-option [value]="category" selected>{{category}}</mat-option>
-            } @else {
-              <mat-option [value]="category">{{category}}</mat-option>
-            }
-          }
-        </mat-select>
-    </mat-form-field>
-    <br />
+    <mat-select formControlName="recipeCategory">
+      @for (category of categories; track category) {
+      @if ($index === 1) {
+      <mat-option [value]="category" selected>{{category}}</mat-option>
+      } @else {
+      <mat-option [value]="category">{{category}}</mat-option>
+      }
+      }
+    </mat-select>
+  </mat-form-field>
+  <br />
 
+  <mat-label>Beschreibung</mat-label>
+  <mat-form-field appearance="fill">
     <mat-label>Beschreibung</mat-label>
-    <mat-form-field appearance="fill">
-      <mat-label>Beschreibung</mat-label>
-      <textarea matInput id="recipeDescription" type="text" formControlName="recipeDescription"> </textarea>
-    </mat-form-field>
-    <br />
+    <textarea matInput id="recipeDescription" type="text" formControlName="recipeDescription"> </textarea>
+  </mat-form-field>
+  <br />
 
-    <mat-label>Zutaten (mit Komma getrennt)</mat-label>
-    <mat-form-field appearance="fill">
-      <mat-label>Zutaten</mat-label>
-      <input matInput id="recipeIngredients" type="text" formControlName="recipeIngredients" />
-    </mat-form-field>
-    <br />
+  <mat-label>Zutaten (mit Komma getrennt)</mat-label>
+  <mat-form-field appearance="fill">
+    <mat-label>Zutaten</mat-label>
+    <input matInput id="recipeIngredients" type="text" formControlName="recipeIngredients" />
+  </mat-form-field>
+  <br />
 
+  <mat-label>Anleitung</mat-label>
+  <mat-form-field appearance="fill">
     <mat-label>Anleitung</mat-label>
-    <mat-form-field appearance="fill">
-      <mat-label>Anleitung</mat-label>
-      <textarea matInput id="recipeInstruction" type="text" formControlName="recipeInstruction" rows="7"> </textarea>
-    </mat-form-field>
-    <br />
+    <textarea matInput id="recipeInstruction" type="text" formControlName="recipeInstruction" rows="7"> </textarea>
+  </mat-form-field>
+  <br />
 
   <button mat-raised-button type="submit" [disabled]="recipeForm.invalid">Änderungen Speichern</button>
 </form>

@@ -7,8 +7,7 @@
 
 ======================================================== */
 /* ----------- Importierte Styles ----------- */
-@import '../../../commentBox.css';
-
+@import "../../../commentBox.css";
 
 /* ----------- Allgemein ----------- */
 section {
@@ -17,13 +16,14 @@ section {
 
 /* ----------- Kopfzeile -----------*/
 #recipeDescription {
-  margin: 0 0 .5em;
+  margin: 0 0 0.5em;
   border-bottom: 2px solid #ddd;
 }
 
 mat-chip {
   margin-bottom: var(--margin-element);
 }
+
 span:last-child {
   color: var(--primary-color);
   text-decoration: underline;
@@ -49,7 +49,6 @@ ul {
   margin: 4px auto;
 }
 
-
 /* ----------- Kommentar erstellen -----------*/
 textarea {
   width: 90%;
@@ -71,6 +70,7 @@ textarea::placeholder {
   font-size: 1.6em;
   margin-right: var(--margin-element);
 }
+
 #comments #closeButton:hover {
   color: #999;
 }
@@ -80,13 +80,12 @@ textarea::placeholder {
   text-align: center;
   margin-top: 2em;
 }
+
 .footline button {
   width: auto;
   padding: var(--margin-element);
   font-weight: 900;
 }
-
-
 
 /* ====================================
         Responsive Design

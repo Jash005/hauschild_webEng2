@@ -27,7 +27,7 @@ import { MatSelectModule } from '@angular/material/select';
   styleUrl: './recipe-create.component.css'
 })
 export class RecipeCreateComponent {
-/* ----------- Initialisierung -----------*/
+  /* ----------- Initialisierung -----------*/
   private _snackBar = inject(MatSnackBar);
   recipeForm: FormGroup;
   categories: string[] = ['Unkategorisiert', 'Fleisch', 'Fisch', 'Geflügel', 'Pasta', 'Asiatisch', 'Dessert', 'Beilage', 'Vegetarisch', 'Vegan', 'Sonstiges'];
@@ -42,7 +42,7 @@ export class RecipeCreateComponent {
     });
   }
 
-/* ----------- komplexes Inputfeld für Zutaten -----------*/
+  /* ----------- komplexes Inputfeld für Zutaten -----------*/
   get recipeIngredients() {
     return this.recipeForm.get('recipeIngredients') as FormArray;
   }
@@ -56,7 +56,7 @@ export class RecipeCreateComponent {
     this.recipeIngredients.removeAt(index);
   }
 
-/* ----------- API-Aufruf Rezept erstellen -----------*/
+  /* ----------- API-Aufruf Rezept erstellen -----------*/
   async submitForm(): Promise<void> {
     if (this.recipeForm.valid) {
       try {
