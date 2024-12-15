@@ -36,6 +36,11 @@
   margin: 5px 10px;
 }
 
+.header span:hover {
+  cursor: pointer;
+  color: var(--contrast-color);
+}
+
 /* ====================================
         Responsive Design
 ==================================== */

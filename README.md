@@ -19,8 +19,7 @@ Kurs: TINF23D
 
 ## API Dokumentation 
 
-im YAML Format
-mit SwaggerEditor angeschaut
+sowohl im YAML als auch im JSON Format - beide haben den gleichen Inhalt
 
 ---
 

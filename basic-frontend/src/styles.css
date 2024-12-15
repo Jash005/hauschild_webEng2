@@ -10,11 +10,11 @@
 :root {
   /* Farben */
   --primary-color: #ff8000;
-  --secondary-color: #64544b;
+  --secondary-color: #a5745a;
   --contrast-color: #77bfe0;
   --dark-color: #333;
   --light-color: #fff;
-  --light-med-color: #e0dacb;
+  --light-med-color: #f3efe5;
 
   /* Elemente */
   --font-size: 16px;
