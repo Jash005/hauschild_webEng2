@@ -3,15 +3,13 @@ import { RouterLink } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltip } from '@angular/material/tooltip';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MatFabAnchor } from '@angular/material/button';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
     RouterLink,
-    MatTooltip,
-    MatFabAnchor
+    MatTooltip
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
@@ -33,7 +31,6 @@ export class HeaderComponent {
     localStorage.setItem('snackbarMessage', 'User erfolgreich ausgeloggt');
     window.location.replace('/');
   }
-
 
 /* ----------- zum Userprofil navigieren ----------- */
   navigateAndReload(): void {

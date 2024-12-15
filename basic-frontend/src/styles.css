@@ -1,7 +1,7 @@
 /* =====================================================
 
   Stylesheet für die Gestaltung aller Komponenten
-  Datei: style.css
+  Datei: styles.css
   letzte Aenderung: 14.12.2024
   Autor: Jasmin Hauschild
 
@@ -9,7 +9,7 @@
 /* ----------- Variablen -----------*/
 :root {
   /* Farben */
-  --primary-color: #ff7b00;
+  --primary-color: #ff8000;
   --secondary-color: #64544b;
   --contrast-color: #77bfe0;
   --dark-color: #333;

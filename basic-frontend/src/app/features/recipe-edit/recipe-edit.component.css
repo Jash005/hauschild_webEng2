@@ -8,10 +8,9 @@
 ======================================================== */
 form#recipeCreateForm {
   background-color: var(--primary-color);
-  padding-bottom: var(--margin-element);
   max-width: 600px;
   margin: 0 auto;
-  padding: calc(2 * var(--margin-element));
+  padding: calc(2 * var(--margin-element)) var(--margin-element);
   border-radius: var(--border-radius-element);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-weight: 500;
@@ -23,23 +22,7 @@ mat-form-field {
   margin-bottom: calc(2 * var(--margin-element));
 }
 
-mat-form-field .mat-form-field-label {
-  color: var(--dark-color);
-}
-
-mat-form-field .mat-input-element {
-  color: var(--dark-color);
-}
-
-mat-form-field .mat-form-field-underline {
-  background-color: var(--dark-color);
-}
-
 /* ----------- Zutaten ----------- */
-.ingredient-item {
-  display: flex;
-  align-items: center;
-}
 
 .ingredient-item mat-form-field {
   flex: 1;
@@ -76,7 +59,7 @@ button[type="submit"]:hover {
 ==================================== */
 @media (max-width: 600px) {
   form {
-    padding: vsr(--margin-element);
+    padding: var(--margin-element);
   }
 
   h2 {

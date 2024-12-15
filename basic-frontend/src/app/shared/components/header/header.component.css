@@ -1,55 +1,63 @@
 /* =====================================================
 
-  Stylesheet für die Gestaltung der Header Komponente
+  Stylesheet für die Gestaltung des Headers
   Datei: header.componente.css
-  letzte Aenderung: 14.12.2024
+  letzte Aenderung: 15.12.24
   Autor: Jasmin Hauschild
 
 ======================================================== */
 
 .header {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
   background-color: var(--secondary-color);
-  padding: 0 24px;
-  min-height: 65px;
-  height: 13vh;
   color: var(--light-color);
 }
 
 .header-nav {
-  display: inline-block;
-  line-height: 56px;
-}
-.header-nav.left span, .header-nav.right span {
-  margin: 0 var(--margin-element);
-  white-space: nowrap;
-}
-
-.left {
-  float: left;
-}
-.right {
-  float: right;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
-span:hover {
-  cursor: pointer;
-  color: var(--contrast-color);
+.header-nav.left {
+  justify-content: flex-start;
+}
+
+.header-nav.right {
+  justify-content: flex-end;
+}
+
+.header-nav span {
+  margin: 5px 10px;
 }
 
 
 /* ====================================
         Responsive Design
 ==================================== */
-@media (max-width: 380px) {
-  .header {
-    min-height: 55px;
-  }
-
-}
 @media (min-width: 600px) {
   .header {
-    display: block;
-    max-height: 5vh;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .header-nav {
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+    margin-bottom: 0;
+  }
+
+  .header-nav.left {
+    justify-content: flex-start;
+  }
+
+  .header-nav.right {
+    justify-content: flex-end;
   }
 }

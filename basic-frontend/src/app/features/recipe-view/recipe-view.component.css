@@ -44,10 +44,9 @@ h3 {
 /* ----------- Zutaten -----------*/
 ul {
   list-style-type: none;
-  margin-top: 4px;
   text-align: left;
   width: 50%;
-  margin: auto;
+  margin: 4px auto;
 }
 
 

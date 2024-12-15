@@ -161,14 +161,6 @@ mat-expansion-panel {
   padding: 0;
 }
 
-mat-expansion-panel .mat-expansion-panel-content {
-  border-top: none;
-  border-radius: 0;
-}
-.mat-expansion-panel-header-title {
-  padding-top: 15px;
-}
-
 mat-expansion-panel-header {
   padding: 0;
   font-size: 1.5em;
@@ -176,13 +168,6 @@ mat-expansion-panel-header {
   color: inherit;
   border-bottom: none;
   border-radius: 0;
-}
-
-mat-expansion-panel-header .mat-expansion-indicator {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: inherit;
-  margin-right: 15px;
 }
 
 
@@ -229,28 +214,15 @@ h2 {
     .recipePreview section, .recipeCategory section, .userPreview section {
       width: 75%;
     }
-    .recipePreview section {
+    .recipePreview:not(.recipeCategory) section  {
       flex-direction: row;
       overflow-x: scroll;
     }
-  #allRecipes .recipePreview, #allRecipes section {
-    flex-wrap: wrap;
-    flex-direction: column;
-    overflow-x: auto;
-    overflow-y: hidden;
-    max-height: calc(3 * var(--card-height-desktop));
-  }
 
-    /* ----------- Recipe Box ----------- */
+  /* ----------- Recipe Box ----------- */
     article.recipePreview .recipeBox {
       margin-right: 20px;
     }
-
-  .horizontal-scroll {
-    display: flex;
-    overflow-x: auto;
-    padding: 10px 0;
-  }
 
   /* ----------- Accordion (cdk) -----------*/
   .accordion {

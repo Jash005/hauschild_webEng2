@@ -24,18 +24,6 @@ mat-form-field {
   margin-bottom: calc(2 * var(--margin-element));
 }
 
-mat-form-field .mat-form-field-label {
-  color: var(--dark-color);
-}
-
-mat-form-field .mat-input-element {
-  color: var(--dark-color);
-}
-
-mat-form-field .mat-form-field-underline {
-  background-color: var(--dark-color);
-}
-
 mat-form-field button[mat-icon-button] {
   color: var(--dark-color);
 }

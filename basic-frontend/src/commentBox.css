@@ -1,3 +1,11 @@
+/* =====================================================
+
+  Stylesheet für die Gestaltung der Kommentar Boxen (zum importieren)
+  Datei: commentBox.css
+  letzte Aenderung: 14.12.2024
+  Autor: Jasmin Hauschild
+
+======================================================== */
 /* ----------- Kommentare -----------*/
 section#comments {
   margin: auto;
@@ -8,9 +16,8 @@ section#comments .comment {
   justify-content: space-between;
   flex: 0 0 auto;
   margin: calc(2 * var(--card-margin)) 0;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  width: var(--card-width-mobile); /* Volle Breite auf mobilen Geräten */
-  height: var(--card-height-mobile); /* Feste Höhe für alle Karten */
+  width: var(--card-width-mobile);
+  height: var(--card-height-mobile);
   border: var(--border-element);
   border-radius: var(--border-radius-element);
   overflow: hidden;
@@ -24,9 +31,9 @@ section#comments .comment::before {
   position: absolute;
   top: 0;
   right: 0;
-  width: var(--card-width-contrastline); /* Schmaler Kontraststreifen auf mobilen Geräten */
+  width: var(--card-width-contrastline);
   height: 100%;
-  background-color: var(--primary-color); /* Farbe des Kontraststreifens */
+  background-color: var(--primary-color);
 }
 section#comments .comment p:first-child {
   padding: var(--margin-element) var(--margin-element) 0 var(--margin-element);
@@ -43,12 +50,12 @@ section#comments .comment p:last-child {
         Responsive Design
 ==================================== */
 @media (min-width: 600px) {
-  /* ----------- Zutaten -----------*/
+/* ----------- Zutaten -----------*/
   ul {
     width: 20%;
   }
 
-  /* ----------- Kommentare -----------*/
+/* ----------- Kommentare -----------*/
   section#comments {
     max-width: 75%;
   }
@@ -61,14 +68,12 @@ section#comments .comment p:last-child {
 }
 
 section#comments .comment::before {
-  width: calc(2 * var(--card-width-contrastline)); /* Schmaler Kontraststreifen auf mobilen Geräten */
-
+  width: calc(2 * var(--card-width-contrastline));
 }
+
 section#comments .comment p:last-child {
   text-align: right;
   padding-right: var(--margin-element);
 }
-
-
 }
 

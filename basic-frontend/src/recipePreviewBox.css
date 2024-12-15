@@ -1,13 +1,53 @@
+/* =====================================================
+
+  Stylesheet für die Gestaltung der Recipe Boxen (zum importieren)
+  Datei: recipePreviewBox.css
+  letzte Aenderung: 14.12.2024
+  Autor: Jasmin Hauschild
+
+======================================================== */
 /* ----------- Card ----------- */
+article.recipePreview  .recipeBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 0 0 auto;
+  width: var(--card-width-mobile);
+  height: var(--card-height-mobile);
+  margin: var(--card-margin) auto;
+  border: var(--border-element);
+  border-radius: var(--border-radius-element);
+  overflow: hidden;
+  position: relative;
+  background-color: var(--light-color);
+  box-shadow: var(--card-box-shadow);
+}
+
+article.recipePreview  .recipeBox::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: var(--card-width-contrastline);
+  height: 100%;
+  background-color: var(--primary-color);
+}
+
+article.recipePreview  .recipeBox:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
 article.recipePreview mat-card-header {
   padding: 16px;
-  background-color: var(--primary-color); /* Farbe des Headers */
+  background-color: var(--primary-color);
   color: var(--light-color);
 }
 
 article.recipePreview mat-card-title {
   font-size: 1.2em;
   font-weight: bold;
+  letter-spacing: 1px;
 }
 
 article.recipePreview mat-card-subtitle {
@@ -17,14 +57,14 @@ article.recipePreview mat-card-subtitle {
 
 article.recipePreview  .card-content {
   display: flex;
-  align-items: center; /* Vertikale Zentrierung */
-  justify-content: flex-start; /* Links ausgerichtet */
+  align-items: center;
+  justify-content: flex-start;
   padding: 16px;
-  flex: 1 1 auto; /* Flex-Grow für den Inhalt */
+  flex: 1 1 auto;
 }
 
 article.recipePreview  .card-content p {
-  margin: 0; /* Entfernt den Standardrand des Absatzes */
+  margin: 0;
 }
 
 article.recipePreview  mat-card-footer {
@@ -32,19 +72,18 @@ article.recipePreview  mat-card-footer {
   justify-content: space-between;
   align-items: center;
   padding: 16px;
-  background-color: var(--light-color); /* Hintergrundfarbe des Footers */
+  background-color: var(--light-color);
 }
 
 article.recipePreview  mat-chip {
-
   margin-right: 8px;
 }
 
-/* ----------- Icon ----------- */
+/* ----------- Icons auf einer Card ----------- */
 article.recipePreview  .favoriteIcon {
   display: flex;
   align-items: center;
-  color: var(--primary-color); /* Farbe des Icons */
+  color: var(--primary-color);
 }
 
 article.recipePreview  .favoriteIcon mat-icon {
@@ -52,54 +91,19 @@ article.recipePreview  .favoriteIcon mat-icon {
 }
 
 
-article.recipePreview  .recipeBox {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex: 0 0 auto;
-  width: var(--card-width-mobile); /* Volle Breite auf mobilen Geräten */
-  height: var(--card-height-mobile); /* Feste Höhe für alle Karten */
-  margin: var(--card-margin) auto;
-  border: var(--border-element);
-  border-radius: var(--border-radius-element);
-  overflow: hidden;
-  position: relative;
-  background-color: var(--light-color);
-  box-shadow: var(--card-box-shadow);
-}
-article.recipePreview  .recipeBox::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: var(--card-width-contrastline); /* Schmaler Kontraststreifen auf mobilen Geräten */
-  height: 100%;
-  background-color: var(--primary-color); /* Farbe des Kontraststreifens */
-}
-
-article.recipePreview  .recipeBox:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-
 /* ====================================
         Responsive Design
 ==================================== */
 @media (min-width: 600px) {
-
-
-  /* ----------- Recipe Box ----------- */
+/* ----------- Recipe Box ----------- */
   article.recipePreview .recipeBox {
-    width: var(--card-width-desktop); /* Feste Breite auf größeren Bildschirmen */
-    height: var(--card-height-desktop); /* Feste Höhe für alle Karten */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Deutlicherer Schatteneffekt */
+    width: var(--card-width-desktop);
+    height: var(--card-height-desktop);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   }
   article.recipePreview .recipeBox::before {
-    width: calc(2 * var(--card-width-contrastline)); /* Breiterer Kontraststreifen auf größeren Bildschirmen */
+    width: calc(2 * var(--card-width-contrastline));
   }
-
-
 
   mat-card-title {
     font-size: 1.5em;
