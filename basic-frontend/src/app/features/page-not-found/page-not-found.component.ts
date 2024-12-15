@@ -47,7 +47,7 @@ export class PageNotFoundComponent {
       if (snackBarElement) {
         (snackBarElement as HTMLElement).style.backgroundColor = '#f00';
       }
-      this.router.navigate(['/']);
+      await this.router.navigate(['/']);
     }
   }
 }

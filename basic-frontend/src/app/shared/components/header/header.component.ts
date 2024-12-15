@@ -1,8 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltip } from '@angular/material/tooltip';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -13,11 +12,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class HeaderComponent {
   /* ----------- Initialisierung -----------*/
-  private _snackBar = inject(MatSnackBar);
   username = localStorage.getItem('username');
   userId = localStorage.getItem('userId');
 
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(private router: Router ) { }
 
   /* ----------- Logout ----------- */
   logout() {

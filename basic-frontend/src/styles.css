@@ -50,7 +50,7 @@ body {
 
 body {
   margin: 0;
-  font-family: var(--font-family);
+  font-family: var(--font-family), sans-serif;
 }
 
 h1,

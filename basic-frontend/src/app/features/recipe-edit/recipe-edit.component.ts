@@ -30,7 +30,7 @@ export class RecipeEditComponent {
   private _snackBar = inject(MatSnackBar);
   recipeForm: FormGroup;
   categories: string[] = ['Unkategorisiert', 'Fleisch', 'Fisch', 'Geflügel', 'Pasta', 'Asiatisch', 'Dessert', 'Beilage', 'Vegetarisch', 'Vegan', 'Sonstiges'];
-  valueIngredientArray: string[] = [];
+
 
   constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {
     this.recipeForm = this.fb.group({
@@ -40,17 +40,6 @@ export class RecipeEditComponent {
       recipeIngredients: [''],
       recipeInstruction: ['', Validators.required]
     });
-  }
-  ngOnInit(): void {
-    const recipeData = this.recipe2send;
-    this.recipeForm.patchValue({
-      recipeTitle: recipeData.recipeTitle,
-      recipeCategory: recipeData.recipeCategory,
-      recipeDescription: recipeData.recipeDescription,
-      recipeIngredients: recipeData.recipeIngredients,
-      recipeInstruction: recipeData.recipeInstruction
-    });
-
   }
 
   /* ----------- API-Aufruf zum bearbeiten eines Rezepts -----------*/

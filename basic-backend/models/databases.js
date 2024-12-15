@@ -1,3 +1,5 @@
+// noinspection JSVoidFunctionReturnValueUsed
+
 import Datastore from "@seald-io/nedb";
 
 export const userDb = new Datastore({
@@ -20,9 +22,6 @@ export function addUser(user, callback) {
 }
 
 // Überprüfen, ob ein Benutzer existiert
-export function isUserExist(username, callback) {
-  return userDb.findOne({ username: username }, callback);
-}
 
 // Überprüfen, ob ein Benutzername existiert
 export async function isUsernameExist(username) {
@@ -96,7 +95,7 @@ export function addRecipe(recipe, callback) {
 }
 
 // Überprüfen des Auth-Headers
-export function checkAuthHeader(username, password) {
+export async function checkAuthHeader(username, password) {
   return userDb.findOne({ username: username, password: password });
 }
 

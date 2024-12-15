@@ -1,3 +1,5 @@
+// noinspection JSVoidFunctionReturnValueUsed
+
 import express from "express";
 import {
   addRecipe,
@@ -15,7 +17,7 @@ import {
 const router = express.Router();
 
 /* ----------- Middleware für Basic Authentication -----------*/
-function basicAuth(req, res, next) {
+async function basicAuth(req, res, next) {
   if (req.headers["authorization"]) {
     // Autorisierungs-Header überprüfen
     const authHeader = req.headers["authorization"];
@@ -28,7 +30,7 @@ function basicAuth(req, res, next) {
     req.password = password;
 
     // suche in UserDB nach username und password
-    if (checkAuthHeader(username, password)) {
+    if (await checkAuthHeader(username, password)) {
       next();
     } else {
       res.status(401);
