@@ -15,6 +15,10 @@ Kurs: TINF23D
 
 15.12.2024
 
+## Dauer
+
+83:21 h (Laut Modulplan ist Selbstudiumszeit hier 102h bzw für Labor: 12h (Präsenz) + 63 h (Selbststudium))
+
 ---
 
 ## API Dokumentation 
