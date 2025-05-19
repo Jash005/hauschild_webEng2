@@ -18,6 +18,9 @@ app.use((req, res) => {
   );
 });
 
-app.listen(process.env.NODE_PORT, () => {
-  console.log(`App listening at http://localhost:${process.env.NODE_PORT}`);
+app.listen(process.env.PORT || 3000, () => {
+  console.log(`App listening at http://localhost:${process.env.PORT || 3000}`);
+  console.log("ENV PORT:", process.env.PORT);
+// app.listen(process.env.NODE_PORT, () => {
+//   console.log(`App listening at http://localhost:${process.env.NODE_PORT}`);
 });
