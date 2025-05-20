@@ -9,14 +9,20 @@ const app = express();
 
 app.use("/api", apiRouter);
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const frontendPath = path.join(__dirname, "../basic-frontend/dist/dein-app-name");
 
-app.use(express.static(process.env.FRONTEND_DIST_PATH));
+app.use(express.static(frontendPath));
 app.use((req, res) => {
-  res.sendFile(
-    path.join(__dirname, process.env.FRONTEND_DIST_PATH, "index.html")
-  );
+  res.sendFile(path.join(frontendPath, "index.html"));
 });
+// const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// app.use(express.static(process.env.FRONTEND_DIST_PATH));
+// app.use((req, res) => {
+//   res.sendFile(
+//     path.join(__dirname, process.env.FRONTEND_DIST_PATH, "index.html")
+//   );
+// });
 
 app.listen(process.env.PORT || 3000, () => {
   console.log(`App listening at http://localhost:${process.env.PORT || 3000}`);
